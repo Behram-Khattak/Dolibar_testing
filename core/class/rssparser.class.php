@@ -536,7 +536,7 @@ class RssParser
 	 *  @param	array		$attrs		Attributes of tags
 	 *  @return	void
 	 */
-	public function feed_start_element($p, $element, $attrs)
+	public function feed_start_element($p, $element, $attrs): void
 	{
 		// phpcs:enable
 		$el = $element = strtolower($element);
@@ -624,7 +624,7 @@ class RssParser
 	 *  @param	string	$text	Tag
 	 *  @return	void
 	 */
-	public function feed_cdata($p, $text)
+	public function feed_cdata($p, $text): void
 	{
 		// phpcs:enable
 		if ($this->_format == 'atom' and $this->incontent) {
@@ -643,7 +643,7 @@ class RssParser
 	 *  @param	string		$el		Tag
 	 *  @return	void
 	 */
-	public function feed_end_element($p, $el)
+	public function feed_end_element($p, $el): void
 	{
 		// phpcs:enable
 		$el = strtolower($el);
@@ -701,7 +701,7 @@ class RssParser
 	 * @param	string	$text		Text
 	 * @return	void
 	 */
-	public function append_content($text)
+	public function append_content($text): void
 	{
 		// phpcs:enable
 		if (!empty($this->initem)) {
@@ -718,7 +718,7 @@ class RssParser
 	 * 	@param	string	$text	Text
 	 * 	@return	void
 	 */
-	public function append($el, $text)
+	public function append($el, $text): void
 	{
 		if (!$el) {
 			return;

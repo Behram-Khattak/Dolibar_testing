@@ -152,7 +152,7 @@ abstract class CommonStickerGenerator extends CommonDocGenerator
 	 * @param    int        $pt    point
 	 * @return   void
 	 */
-	public function Set_Char_Size(&$pdf, $pt)
+	public function Set_Char_Size(&$pdf, $pt): void
 	{
 		// phpcs:enable
 		if ($pt > 3) {

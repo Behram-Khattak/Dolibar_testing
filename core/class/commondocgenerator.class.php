@@ -1062,7 +1062,7 @@ abstract class CommonDocGenerator
 	 * @param	int			$hidebottom		Hide bottom
 	 * @return	void
 	 */
-	public function printRect($pdf, $x, $y, $l, $h, $hidetop = 0, $hidebottom = 0)
+	public function printRect($pdf, $x, $y, $l, $h, $hidetop = 0, $hidebottom = 0): void
 	{
 		if (empty($hidetop) || $hidetop == -1) {
 			$pdf->line($x, $y, $x + $l, $y);
@@ -1106,7 +1106,7 @@ abstract class CommonDocGenerator
 	 *      @param	int				$hideref			Do not show ref
 	 *      @return	void
 	 */
-	public function prepareArrayColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
+	public function prepareArrayColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0): void
 	{
 		$this->defineColumnField($object, $outputlangs, $hidedetails, $hidedesc, $hideref);
 
@@ -1311,7 +1311,7 @@ abstract class CommonDocGenerator
 	 *  @param  int 		$issupplierline if object need supplier product
 	 *  @return void
 	 */
-	public function printColDescContent($pdf, &$curY, $colKey, $object, $i, $outputlangs, $hideref = 0, $hidedesc = 0, $issupplierline = 0)
+	public function printColDescContent($pdf, &$curY, $colKey, $object, $i, $outputlangs, $hideref = 0, $hidedesc = 0, $issupplierline = 0): void
 	{
 		// load desc col params
 		$colDef = $this->cols[$colKey];
@@ -1794,7 +1794,7 @@ abstract class CommonDocGenerator
 	 *   @param		int			   	$hideref		Do not show ref
 	 *   @return	void
 	 */
-	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0)
+	public function defineColumnField($object, $outputlangs, $hidedetails = 0, $hidedesc = 0, $hideref = 0): void
 	{
 		// Default field style for content
 		$this->defaultContentsFieldsStyle = array(

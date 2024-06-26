@@ -116,6 +116,7 @@ class Product extends CommonObject
 	public $label;
 
 	public $container_id;
+	public $quantity;
 
 	/**
 	 * Product description
@@ -613,6 +614,7 @@ class Product extends CommonObject
 		'rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'notnull' => 1, 'index' => 1, 'position' => 1, 'comment' => 'Id'),
 		'ref'           => array('type' => 'varchar(128)', 'label' => 'Ref', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'showoncombobox' => 1, 'index' => 1, 'position' => 10, 'searchall' => 1, 'comment' => 'Reference of object'),
 		'container_id'           => array('type' => 'varchar(255)', 'label' => 'Ref', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'showoncombobox' => 1, 'index' => 1, 'position' => 10, 'searchall' => 1, 'comment' => 'Reference of object'),
+		'quantity'           => array('type' => 'varchar(255)', 'label' => 'Ref', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'showoncombobox' => 1, 'index' => 1, 'position' => 10, 'searchall' => 1, 'comment' => 'Reference of object'),
 		'entity'        => array('type' => 'integer', 'label' => 'Entity', 'enabled' => 1, 'visible' => 0, 'default' => '1', 'notnull' => 1, 'index' => 1, 'position' => 5),
 		'label'         => array('type' => 'varchar(255)', 'label' => 'Label', 'enabled' => 1, 'visible' => 1, 'notnull' => 1, 'showoncombobox' => 2, 'position' => 15, 'csslist' => 'tdoverflowmax250'),
 		'barcode'       => array('type' => 'varchar(255)', 'label' => 'Barcode', 'enabled' => 'isModEnabled("barcode")', 'position' => 20, 'visible' => -1, 'showoncombobox' => 3, 'cssview' => 'tdwordbreak', 'csslist' => 'tdoverflowmax125'),
@@ -818,7 +820,7 @@ class Product extends CommonObject
 			}
 		}
 
-		dol_syslog(get_class($this)."::create container_id=".$this->container_id." ref=".$this->ref." price=".$this->price." price_ttc=".$this->price_ttc." tva_tx=".$this->tva_tx." price_base_type=".$this->price_base_type, LOG_DEBUG);
+		dol_syslog(get_class($this)."::create quantity=".$this->quantity." container_id=".$this->container_id." ref=".$this->ref." price=".$this->price." price_ttc=".$this->price_ttc." tva_tx=".$this->tva_tx." price_base_type=".$this->price_base_type, LOG_DEBUG);
 
 		$now = dol_now();
 
@@ -1289,6 +1291,7 @@ class Product extends CommonObject
 
 			$sql .= ", ref = '".$this->db->escape($this->ref)."'";
 			$sql .= ", container_id = '".$this->db->escape($this->container_id)."'";
+			$sql .= ", quantity = '".$this->db->escape($this->quantity)."'";
 			$sql .= ", ref_ext = ".(!empty($this->ref_ext) ? "'".$this->db->escape($this->ref_ext)."'" : "null");
 			$sql .= ", default_vat_code = ".($this->default_vat_code ? "'".$this->db->escape($this->default_vat_code)."'" : "null");
 			$sql .= ", tva_tx = ".((float) $this->tva_tx);
@@ -2589,7 +2592,7 @@ class Product extends CommonObject
 			return -1;
 		}
 
-		$sql = "SELECT p.rowid, p.ref, p.ref_ext, p.label, p.description, p.url, p.note_public, p.note as note_private, p.customcode, p.fk_country, p.fk_state, p.lifetime, p.qc_frequency, p.price, p.price_ttc,";
+		$sql = "SELECT p.rowid, p.ref, p.ref_ext, p.label, p.description, p.url, p.note_public, p.note as note_private, p.customcode, p.fk_country, p.fk_state, p.lifetime, p.qc_frequency, p.price, p.price_ttc,p.quantity,p.container_id,";
 		$sql .= " p.price_min, p.price_min_ttc, p.price_base_type, p.cost_price, p.default_vat_code, p.tva_tx, p.recuperableonly as tva_npr, p.localtax1_tx, p.localtax2_tx, p.localtax1_type, p.localtax2_type, p.tosell,";
 		$sql .= " p.tobuy, p.fk_product_type, p.duration, p.fk_default_warehouse, p.fk_default_workstation, p.seuil_stock_alerte, p.canvas, p.net_measure, p.net_measure_units, p.weight, p.weight_units,";
 		$sql .= " p.length, p.length_units, p.width, p.width_units, p.height, p.height_units, p.last_main_doc,";
@@ -2681,10 +2684,12 @@ class Product extends CommonObject
 
 			if ($this->db->num_rows($resql) > 0) {
 				$obj = $this->db->fetch_object($resql);
-
+				// print_r($obj->quantity);
+				// die();
 				$this->id = $obj->rowid;
 				$this->ref = $obj->ref;
 				$this->container_id = $obj->container_id;
+				$this->quantity = $obj->quantity;
 				$this->ref_ext = $obj->ref_ext;
 				$this->label = $obj->label;
 				$this->description = $obj->description;
@@ -5022,7 +5027,7 @@ class Product extends CommonObject
 	 * @param  int    $ignore_stock_load 	Ignore stock load
 	 * @return void
 	 */
-	public function fetch_prod_arbo($prod, $compl_path = '', $multiply = 1, $level = 1, $id_parent = 0, $ignore_stock_load = 0)
+	public function fetch_prod_arbo($prod, $compl_path = '', $multiply = 1, $level = 1, $id_parent = 0, $ignore_stock_load = 0): void
 	{
 		// phpcs:enable
 		global $conf, $langs;
@@ -5306,7 +5311,7 @@ class Product extends CommonObject
 	 *
 	 * @return void
 	 */
-	public function get_sousproduits_arbo()
+	public function get_sousproduits_arbo(): void
 	{
 		// phpcs:enable
 		$parent = array();
@@ -6244,7 +6249,7 @@ class Product extends CommonObject
 	 * @param  string $file 	Path to image file
 	 * @return void
 	 */
-	public function delete_photo($file)
+	public function delete_photo($file): void
 	{
 		// phpcs:enable
 		include_once DOL_DOCUMENT_ROOT.'/core/lib/files.lib.php';
@@ -6278,7 +6283,7 @@ class Product extends CommonObject
 	 * @param  string $file Path to file
 	 * @return void
 	 */
-	public function get_image_size($file)
+	public function get_image_size($file): void
 	{
 		// phpcs:enable
 		$file_osencoded = dol_osencode($file);
@@ -6648,7 +6653,7 @@ class Product extends CommonObject
 	 * @param  int $id Id of thirdparty to load
 	 * @return void
 	 */
-	public function info($id)
+	public function info($id): void
 	{
 		$sql = "SELECT p.rowid, p.ref, p.datec as date_creation, p.tms as date_modification,";
 		$sql .= " p.fk_user_author, p.fk_user_modif";

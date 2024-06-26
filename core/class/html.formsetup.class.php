@@ -539,7 +539,7 @@ class FormSetup
 	 * @param 	int 		$rank 	the item rank
 	 * @return 	int|void			new max rank
 	 */
-	public function setItemMaxRank($rank)
+	public function setItemMaxRank($rank): void
 	{
 		$this->maxItemRank = max($this->maxItemRank, $rank);
 	}
@@ -764,7 +764,7 @@ class FormSetupItem
 	 * @param callable $callBack a callable function
 	 * @return void
 	 */
-	public function setSaveCallBack(callable $callBack)
+	public function setSaveCallBack(callable $callBack): void
 	{
 		$this->saveCallBack = $callBack;
 	}
@@ -775,7 +775,7 @@ class FormSetupItem
 	 * @param callable $callBack a callable function
 	 * @return void
 	 */
-	public function setValueFromPostCallBack(callable $callBack)
+	public function setValueFromPostCallBack(callable $callBack): void
 	{
 		$this->setValueFromPostCallBack = $callBack;
 	}

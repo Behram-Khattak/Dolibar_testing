@@ -234,7 +234,7 @@ class FormMail extends Form
 	 *
 	 * @return	void
 	 */
-	public function clear_attached_files()
+	public function clear_attached_files(): void
 	{
 		// phpcs:enable
 		global $conf, $user;
@@ -262,7 +262,7 @@ class FormMail extends Form
 	 * @param 	string   $type   Mime type (can be dol_mimetype($file))
 	 * @return	void
 	 */
-	public function add_attached_files($path, $file = '', $type = '')
+	public function add_attached_files($path, $file = '', $type = ''): void
 	{
 		// phpcs:enable
 		$listofpaths = array();
@@ -303,7 +303,7 @@ class FormMail extends Form
 	 * @param  	int		$keytodelete     Key index in file array (0, 1, 2, ...)
 	 * @return	void
 	 */
-	public function remove_attached_files($keytodelete)
+	public function remove_attached_files($keytodelete): void
 	{
 		// phpcs:enable
 		$listofpaths = array();
@@ -368,7 +368,7 @@ class FormMail extends Form
 	 *	@return	void
 	 *  @deprecated
 	 */
-	public function show_form($addfileaction = 'addfile', $removefileaction = 'removefile')
+	public function show_form($addfileaction = 'addfile', $removefileaction = 'removefile'): void
 	{
 		// phpcs:enable
 		print $this->get_form($addfileaction, $removefileaction);
@@ -1820,7 +1820,7 @@ class FormMail extends Form
 	 * @return	void
 	 * @see getCommonSubstitutionArray()
 	 */
-	public function setSubstitFromObject($object, $outputlangs)
+	public function setSubstitFromObject($object, $outputlangs): void
 	{
 		global $extrafields;
 

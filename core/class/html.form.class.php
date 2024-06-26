@@ -1146,7 +1146,7 @@ class Form
 	 * @param	string				$morecss	More css
 	 * @return  void
 	 */
-	public function select_type_of_lines($selected = '', $htmlname = 'type', $showempty = 0, $hidetext = 0, $forceall = 0, $morecss = "")
+	public function select_type_of_lines($selected = '', $htmlname = 'type', $showempty = 0, $hidetext = 0, $forceall = 0, $morecss = ""): void
 	{
 		// phpcs:enable
 		global $langs;
@@ -1261,7 +1261,7 @@ class Form
 	 * @param int $showempty Add an empty field
 	 * @return    void
 	 */
-	public function select_type_fees($selected = '', $htmlname = 'type', $showempty = 0)
+	public function select_type_fees($selected = '', $htmlname = 'type', $showempty = 0): void
 	{
 		// phpcs:enable
 		global $user, $langs;
@@ -2097,7 +2097,7 @@ class Form
 	 * @deprecated        Use select_dolusers instead
 	 * @see select_dolusers()
 	 */
-	public function select_users($selected = '', $htmlname = 'userid', $show_empty = 0, $exclude = null, $disabled = 0, $include = '', $enableonly = array(), $force_entity = '0')
+	public function select_users($selected = '', $htmlname = 'userid', $show_empty = 0, $exclude = null, $disabled = 0, $include = '', $enableonly = array(), $force_entity = '0'): void
 	{
 		// phpcs:enable
 		print $this->select_dolusers($selected, $htmlname, $show_empty, $exclude, $disabled, $include, $enableonly, $force_entity);
@@ -3570,7 +3570,7 @@ class Form
 	 * @param string 	$placeholder 	Placeholder
 	 * @return    void
 	 */
-	public function select_produits_fournisseurs($socid, $selected = '', $htmlname = 'productid', $filtertype = '', $filtre = '', $ajaxoptions = array(), $hidelabel = 0, $alsoproductwithnosupplierprice = 0, $morecss = '', $placeholder = '')
+	public function select_produits_fournisseurs($socid, $selected = '', $htmlname = 'productid', $filtertype = '', $filtre = '', $ajaxoptions = array(), $hidelabel = 0, $alsoproductwithnosupplierprice = 0, $morecss = '', $placeholder = ''): void
 	{
 		// phpcs:enable
 		global $langs, $conf;
@@ -4275,7 +4275,7 @@ class Form
 	 * @param 	string 		$morecss More CSS
 	 * @return  void
 	 */
-	public function selectAvailabilityDelay($selected = '', $htmlname = 'availid', $filtertype = '', $addempty = 0, $morecss = '')
+	public function selectAvailabilityDelay($selected = '', $htmlname = 'availid', $filtertype = '', $addempty = 0, $morecss = ''): void
 	{
 		global $langs, $user;
 
@@ -4366,7 +4366,7 @@ class Form
 	 * @param 	int 		$notooltip 	Do not show the tooltip for admin
 	 * @return  void
 	 */
-	public function selectInputReason($selected = '', $htmlname = 'demandreasonid', $exclude = '', $addempty = 0, $morecss = '', $notooltip = 0)
+	public function selectInputReason($selected = '', $htmlname = 'demandreasonid', $exclude = '', $addempty = 0, $morecss = '', $notooltip = 0): void
 	{
 		global $langs, $user;
 
@@ -4780,7 +4780,7 @@ class Form
 	 * @param string $morecss Add more CSS on select tag
 	 * @return    void
 	 */
-	public function selectTransportMode($selected = '', $htmlname = 'transportmode', $format = 0, $empty = 1, $noadmininfo = 0, $maxlength = 0, $active = 1, $morecss = '')
+	public function selectTransportMode($selected = '', $htmlname = 'transportmode', $format = 0, $empty = 1, $noadmininfo = 0, $maxlength = 0, $active = 1, $morecss = ''): void
 	{
 		global $langs, $user;
 
@@ -4850,7 +4850,7 @@ class Form
 	 * @param string 	$morecss 		More CSS
 	 * @return void
 	 */
-	public function selectShippingMethod($selected = '', $htmlname = 'shipping_method_id', $filtre = '', $useempty = 0, $moreattrib = '', $noinfoadmin = 0, $morecss = '')
+	public function selectShippingMethod($selected = '', $htmlname = 'shipping_method_id', $filtre = '', $useempty = 0, $moreattrib = '', $noinfoadmin = 0, $morecss = ''): void
 	{
 		global $langs, $user;
 
@@ -4909,7 +4909,7 @@ class Form
 	 * @param int $addempty 1=Add an empty value in list, 2=Add an empty value in list only if there is more than 2 entries.
 	 * @return    void
 	 */
-	public function formSelectShippingMethod($page, $selected = '', $htmlname = 'shipping_method_id', $addempty = 0)
+	public function formSelectShippingMethod($page, $selected = '', $htmlname = 'shipping_method_id', $addempty = 0): void
 	{
 		global $langs;
 
@@ -5203,7 +5203,7 @@ class Form
 	 * @param int 		$addempty 	1=Add an empty value in list, 2=Add an empty value in list only if there is more than 2 entries.
 	 * @return    					void
 	 */
-	public function formSelectAccount($page, $selected = '', $htmlname = 'fk_account', $addempty = 0)
+	public function formSelectAccount($page, $selected = '', $htmlname = 'fk_account', $addempty = 0): void
 	{
 		global $langs;
 		if ($htmlname != "none") {
@@ -5363,7 +5363,7 @@ class Form
 	 * @deprecated
 	 * @see formconfirm()
 	 */
-	public function form_confirm($page, $title, $question, $action, $formquestion = array(), $selectedchoice = "", $useajax = 0, $height = 170, $width = 500)
+	public function form_confirm($page, $title, $question, $action, $formquestion = array(), $selectedchoice = "", $useajax = 0, $height = 170, $width = 500): void
 	{
 		// phpcs:enable
 		dol_syslog(__METHOD__ . ': using form_confirm is deprecated. Use formconfim instead.', LOG_WARNING);
@@ -5924,7 +5924,7 @@ class Form
 	 * @param 	int 		$addempty 	Add an empty entry
 	 * @return  void
 	 */
-	public function form_availability($page, $selected = '', $htmlname = 'availability', $addempty = 0)
+	public function form_availability($page, $selected = '', $htmlname = 'availability', $addempty = 0): void
 	{
 		// phpcs:enable
 		global $langs;
@@ -5956,7 +5956,7 @@ class Form
 	 * @param int $addempty Add empty entry
 	 * @return    void
 	 */
-	public function formInputReason($page, $selected = '', $htmlname = 'demandreason', $addempty = 0)
+	public function formInputReason($page, $selected = '', $htmlname = 'demandreason', $addempty = 0): void
 	{
 		global $langs;
 		if ($htmlname != "none") {
@@ -6043,7 +6043,7 @@ class Form
 	 * @param int[] $include List of users id to include
 	 * @return    void
 	 */
-	public function form_users($page, $selected = '', $htmlname = 'userid', $exclude = array(), $include = array())
+	public function form_users($page, $selected = '', $htmlname = 'userid', $exclude = array(), $include = array()): void
 	{
 		// phpcs:enable
 		global $langs;
@@ -6126,7 +6126,7 @@ class Form
 	 * @param int $addempty 1=Add empty entry
 	 * @return    void
 	 */
-	public function formSelectTransportMode($page, $selected = '', $htmlname = 'transport_mode_id', $active = 1, $addempty = 0)
+	public function formSelectTransportMode($page, $selected = '', $htmlname = 'transport_mode_id', $active = 1, $addempty = 0): void
 	{
 		global $langs;
 		if ($htmlname != "none") {
@@ -6156,7 +6156,7 @@ class Form
 	 * @param string $htmlname Name of select html field
 	 * @return    void
 	 */
-	public function form_multicurrency_code($page, $selected = '', $htmlname = 'multicurrency_code')
+	public function form_multicurrency_code($page, $selected = '', $htmlname = 'multicurrency_code'): void
 	{
 		// phpcs:enable
 		// print_r($this->selectMultiCurrency($selected, $htmlname, 0));
@@ -6185,7 +6185,7 @@ class Form
 	 * @param string $currency Currency code to explain the rate
 	 * @return    void
 	 */
-	public function form_multicurrency_rate($page, $rate = 0.0, $htmlname = 'multicurrency_tx', $currency = '')
+	public function form_multicurrency_rate($page, $rate = 0.0, $htmlname = 'multicurrency_tx', $currency = ''): void
 	{
 		// phpcs:enable
 		global $langs, $mysoc, $conf;
@@ -6231,7 +6231,7 @@ class Form
 	 * @param int $discount_type 0 => customer discount, 1 => supplier discount
 	 * @return    void
 	 */
-	public function form_remise_dispo($page, $selected, $htmlname, $socid, $amount, $filter = '', $maxvalue = 0, $more = '', $hidelist = 0, $discount_type = 0)
+	public function form_remise_dispo($page, $selected, $htmlname, $socid, $amount, $filter = '', $maxvalue = 0, $more = '', $hidelist = 0, $discount_type = 0): void
 	{
 		// phpcs:enable
 		global $conf, $langs;
@@ -6327,7 +6327,7 @@ class Form
 	 * @param string 	$htmlname 	Name of HTML select. If 'none', we just show contact link.
 	 * @return    void
 	 */
-	public function form_contacts($page, $societe, $selected = '', $htmlname = 'contactid')
+	public function form_contacts($page, $societe, $selected = '', $htmlname = 'contactid'): void
 	{
 		// phpcs:enable
 		global $langs;
@@ -6420,7 +6420,7 @@ class Form
 	 * @deprecated
 	 * @return    void
 	 */
-	public function select_currency($selected = '', $htmlname = 'currency_id')
+	public function select_currency($selected = '', $htmlname = 'currency_id'): void
 	{
 		// phpcs:enable
 		print $this->selectCurrency($selected, $htmlname);
@@ -9771,7 +9771,7 @@ class Form
 	 * @param int $useempty Affiche valeur vide dans liste
 	 * @return    void
 	 */
-	public function select_export_model($selected = '', $htmlname = 'exportmodelid', $type = '', $useempty = 0)
+	public function select_export_model($selected = '', $htmlname = 'exportmodelid', $type = '', $useempty = 0): void
 	{
 		// phpcs:enable
 		$sql = "SELECT rowid, label";

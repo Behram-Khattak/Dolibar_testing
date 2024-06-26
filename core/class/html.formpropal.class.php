@@ -62,7 +62,7 @@ class FormPropal
 	 *    @param	string	$morecss		More css
 	 *    @return	void
 	 */
-	public function selectProposalStatus($selected = '', $short = 0, $excludedraft = 0, $showempty = 1, $mode = 'customer', $htmlname = 'propal_statut', $morecss = '')
+	public function selectProposalStatus($selected = '', $short = 0, $excludedraft = 0, $showempty = 1, $mode = 'customer', $htmlname = 'propal_statut', $morecss = ''): void
 	{
 		global $langs;
 

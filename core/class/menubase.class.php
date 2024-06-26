@@ -760,7 +760,7 @@ class Menubase
 	 *  @param  int		$level			Level
 	 *  @return	void
 	 */
-	private function recur($tab, $pere, $level)
+	private function recur($tab, $pere, $level): void
 	{
 		// Loop on tab array
 		$num = count($tab);

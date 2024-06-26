@@ -583,7 +583,7 @@ class AccountingAccount extends CommonObject
 	 * @param int 	$id 	ID of record
 	 * @return void
 	 */
-	public function info($id)
+	public function info($id): void
 	{
 		$sql = 'SELECT a.rowid, a.datec, a.fk_user_author, a.fk_user_modif, a.tms as date_modification';
 		$sql .= ' FROM ' . MAIN_DB_PREFIX . 'accounting_account as a';

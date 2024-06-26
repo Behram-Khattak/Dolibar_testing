@@ -144,7 +144,7 @@ class FormOther
 	 *    @param    int		$fk_user           User we want templates
 	 *    @return	void
 	 */
-	public function select_export_model($selected = '', $htmlname = 'exportmodelid', $type = '', $useempty = 0, $fk_user = null)
+	public function select_export_model($selected = '', $htmlname = 'exportmodelid', $type = '', $useempty = 0, $fk_user = null): void
 	{
 		// phpcs:enable
 		global $conf, $langs, $user;
@@ -206,7 +206,7 @@ class FormOther
 	 *    @param    int		$fk_user           User that has created the template
 	 *    @return	void
 	 */
-	public function select_import_model($selected = '', $htmlname = 'importmodelid', $type = '', $useempty = 0, $fk_user = null)
+	public function select_import_model($selected = '', $htmlname = 'importmodelid', $type = '', $useempty = 0, $fk_user = null): void
 	{
 		// phpcs:enable
 		global $conf, $langs, $user;
@@ -664,7 +664,7 @@ class FormOther
 	 *  @param	string	$morecss				More css
 	 *  @return	void
 	 */
-	public function selectProjectTasks($selectedtask = 0, $projectid = 0, $htmlname = 'task_parent', $modeproject = 0, $modetask = 0, $mode = 0, $useempty = 0, $disablechildoftaskid = 0, $filteronprojstatus = '', $morecss = '')
+	public function selectProjectTasks($selectedtask = 0, $projectid = 0, $htmlname = 'task_parent', $modeproject = 0, $modetask = 0, $mode = 0, $useempty = 0, $disablechildoftaskid = 0, $filteronprojstatus = '', $morecss = ''): void
 	{
 		global $user, $langs;
 
@@ -701,7 +701,7 @@ class FormOther
 	 * @param	int		$disablechildoftaskid	1=Disable task that are child of the provided task id
 	 * @return	void
 	 */
-	private function _pLineSelect(&$inc, $parent, $lines, $level = 0, $selectedtask = 0, $selectedproject = 0, $disablechildoftaskid = 0)
+	private function _pLineSelect(&$inc, $parent, $lines, $level = 0, $selectedtask = 0, $selectedproject = 0, $disablechildoftaskid = 0): void
 	{
 		global $langs, $user, $conf;
 
@@ -836,7 +836,7 @@ class FormOther
 	 *  @deprecated Use instead selectColor
 	 *  @see selectColor()
 	 */
-	public function select_color($set_color = '', $prefix = 'f_color', $form_name = '', $showcolorbox = 1, $arrayofcolors = [])
+	public function select_color($set_color = '', $prefix = 'f_color', $form_name = '', $showcolorbox = 1, $arrayofcolors = []): void
 	{
 		// phpcs:enable
 		print $this->selectColor($set_color, $prefix, $form_name, $showcolorbox, $arrayofcolors);
@@ -1000,7 +1000,7 @@ class FormOther
 	 *	@param	int		$y      	Hauteur de l'image en pixels
 	 *	@return	void
 	 */
-	public function CreateColorIcon($color, $module, $name, $x = 12, $y = 12)
+	public function CreateColorIcon($color, $module, $name, $x = 12, $y = 12): void
 	{
 		// phpcs:enable
 		global $conf;
@@ -1140,7 +1140,7 @@ class FormOther
 	 *  @return	void
 	 *  @deprecated
 	 */
-	public function select_year($selected = '', $htmlname = 'yearid', $useempty = 0, $min_year = 10, $max_year = 5, $offset = 0, $invert = 0, $option = '', $morecss = 'valignmiddle maxwidth75imp', $addjscombo = false)
+	public function select_year($selected = '', $htmlname = 'yearid', $useempty = 0, $min_year = 10, $max_year = 5, $offset = 0, $invert = 0, $option = '', $morecss = 'valignmiddle maxwidth75imp', $addjscombo = false): void
 	{
 		// phpcs:enable
 		print $this->selectyear($selected, $htmlname, $useempty, $min_year, $max_year, $offset, $invert, $option, $morecss, $addjscombo);
@@ -1448,7 +1448,7 @@ class FormOther
 	 *  @param  string  $moreattrib         More attributes on HTML select tag
 	 * 	@return	void
 	 */
-	public function select_dictionary($htmlname, $dictionarytable, $keyfield = 'code', $labelfield = 'label', $selected = '', $useempty = 0, $moreattrib = '')
+	public function select_dictionary($htmlname, $dictionarytable, $keyfield = 'code', $labelfield = 'label', $selected = '', $useempty = 0, $moreattrib = ''): void
 	{
 		// phpcs:enable
 		global $langs, $conf;

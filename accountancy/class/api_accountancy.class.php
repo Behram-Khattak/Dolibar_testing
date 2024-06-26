@@ -87,7 +87,7 @@ class Accountancy extends DolibarrApi
 	 * @throws	RestException	404		Accountancy export format not found
 	 * @throws	RestException	500		Error on accountancy export
 	 */
-	public function exportData($period, $date_min = '', $date_max = '', $format = '', $lettering = 0, $alreadyexport = 0, $notnotifiedasexport = 0)
+	public function exportData($period, $date_min = '', $date_max = '', $format = '', $lettering = 0, $alreadyexport = 0, $notnotifiedasexport = 0): void
 	{
 		global $conf, $langs;
 

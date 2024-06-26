@@ -325,6 +325,7 @@ abstract class CommonObject
 	 * @var string 		The object's reference
 	 */
 	public $container_id;
+	public $quantity;
 
 	/**
 	 * @var string 		An external reference to the object
@@ -955,7 +956,7 @@ abstract class CommonObject
 	 * @param CommonObject $object commonobject
 	 * @return void
 	 */
-	public function setErrorsFromObject($object)
+	public function setErrorsFromObject($object): void
 	{
 		if (!empty($object->error)) {
 			$this->error = $object->error;
@@ -2070,7 +2071,7 @@ abstract class CommonObject
 	 *
 	 *	@return		void
 	 */
-	public function fetch_origin()
+	public function fetch_origin(): void
 	{
 		// phpcs:enable
 		$origin = $this->origin ? $this->origin : $this->origin_type;
@@ -3402,7 +3403,7 @@ abstract class CommonObject
 	 * 	@param	boolean		$fk_parent_line		Table with fk_parent_line field or not
 	 * 	@return	void
 	 */
-	public function line_up($rowid, $fk_parent_line = true)
+	public function line_up($rowid, $fk_parent_line = true): void
 	{
 		// phpcs:enable
 		$this->line_order(false, 'ASC', $fk_parent_line);
@@ -3422,7 +3423,7 @@ abstract class CommonObject
 	 * 	@param	boolean		$fk_parent_line		Table with fk_parent_line field or not
 	 * 	@return	void
 	 */
-	public function line_down($rowid, $fk_parent_line = true)
+	public function line_down($rowid, $fk_parent_line = true): void
 	{
 		// phpcs:enable
 		$this->line_order(false, 'ASC', $fk_parent_line);
@@ -3474,7 +3475,7 @@ abstract class CommonObject
 	 * 	@param	int[]	$rows	Array of rows
 	 * 	@return	void
 	 */
-	public function line_ajaxorder($rows)
+	public function line_ajaxorder($rows): void
 	{
 		// phpcs:enable
 		$num = count($rows);
@@ -3490,7 +3491,7 @@ abstract class CommonObject
 	 * 	@param	int		$rang		Position
 	 * 	@return	void
 	 */
-	public function updateLineUp($rowid, $rang)
+	public function updateLineUp($rowid, $rang): void
 	{
 		if ($rang > 1) {
 			$fieldposition = 'rang';
@@ -3521,7 +3522,7 @@ abstract class CommonObject
 	 * 	@param	int		$max		Max
 	 * 	@return	void
 	 */
-	public function updateLineDown($rowid, $rang, $max)
+	public function updateLineDown($rowid, $rang, $max): void
 	{
 		if ($rang < $max) {
 			$fieldposition = 'rang';
@@ -5123,7 +5124,7 @@ abstract class CommonObject
 	 *  @param	string			$defaulttpldir		Directory where to find the template
 	 *	@return	void
 	 */
-	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/core/tpl')
+	public function formAddObjectLine($dateSelector, $seller, $buyer, $defaulttpldir = '/core/tpl'): void
 	{
 		global $conf, $user, $langs, $object, $hookmanager, $extrafields, $form;
 
@@ -5175,7 +5176,7 @@ abstract class CommonObject
 	 *  @param	string		$defaulttpldir		Directory where to find the template
 	 *	@return	void
 	 */
-	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/core/tpl')
+	public function printObjectLines($action, $seller, $buyer, $selected = 0, $dateSelector = 0, $defaulttpldir = '/core/tpl'): void
 	{
 		global $conf, $hookmanager, $langs, $user, $form, $extrafields, $object;
 		// TODO We should not use global var for this
@@ -5266,7 +5267,7 @@ abstract class CommonObject
 	 *  @param	string				$defaulttpldir		Directory where to find the template (deprecated)
 	 *	@return	void
 	 */
-	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/core/tpl')
+	public function printObjectLine($action, $line, $var, $num, $i, $dateSelector, $seller, $buyer, $selected = 0, $extrafields = null, $defaulttpldir = '/core/tpl'): void
 	{
 		global $conf, $langs, $user, $object, $hookmanager;
 		global $form;
@@ -5392,7 +5393,7 @@ abstract class CommonObject
 	 *  @param  int[]       $selectedLines      Array of lines id for selected lines
 	 *  @return	void
 	 */
-	public function printOriginLinesList($restrictlist = '', $selectedLines = array())
+	public function printOriginLinesList($restrictlist = '', $selectedLines = array()): void
 	{
 		global $langs, $hookmanager, $form, $action;
 
@@ -5447,7 +5448,7 @@ abstract class CommonObject
 	 *  @param  int[]       		$selectedLines      Array of lines id for selected lines
 	 * 	@return	void
 	 */
-	public function printOriginLine($line, $var, $restrictlist = '', $defaulttpldir = '/core/tpl', $selectedLines = array())
+	public function printOriginLine($line, $var, $restrictlist = '', $defaulttpldir = '/core/tpl', $selectedLines = array()): void
 	{
 		global $langs, $conf;
 
@@ -6007,7 +6008,7 @@ abstract class CommonObject
 	 *  @param      string	$file           Path file in UTF8 to original file to create thumbs from.
 	 *	@return		void
 	 */
-	public function addThumbs($file)
+	public function addThumbs($file): void
 	{
 		$file_osencoded = dol_osencode($file);
 
@@ -6039,7 +6040,7 @@ abstract class CommonObject
 	 *  @param      string	$file           Path file in UTF8 to original file to delete thumbs.
 	 *	@return		void
 	 */
-	public function delThumbs($file)
+	public function delThumbs($file): void
 	{
 		$imgThumbName = getImageFileNameForSize($file, '_small'); // Full path of thumb file
 		dol_delete_file($imgThumbName);
@@ -7271,7 +7272,7 @@ abstract class CommonObject
 	 * @param mixed  $value Value to be assigned to the extrafield
 	 * @return void
 	 */
-	public function setExtraField($key, $value)
+	public function setExtraField($key, $value): void
 	{
 		$this->array_options['options_'.$key] = $value;
 	}
@@ -8527,7 +8528,7 @@ abstract class CommonObject
 	 * @param string $fieldKey Key of attribute to clear
 	 * @return void
 	 */
-	public function clearFieldError($fieldKey)
+	public function clearFieldError($fieldKey): void
 	{
 		$this->error = '';
 		unset($this->validateFieldsErrors[$fieldKey]);
@@ -8540,7 +8541,7 @@ abstract class CommonObject
 	 * @param string $msg the field error message
 	 * @return void
 	 */
-	public function setFieldError($fieldKey, $msg = '')
+	public function setFieldError($fieldKey, $msg = ''): void
 	{
 		global $langs;
 		if (empty($msg)) {
@@ -9818,7 +9819,7 @@ abstract class CommonObject
 	 * @param   stdClass    $obj    Contain data of object from database
 	 * @return void
 	 */
-	public function setVarsFromFetchObj(&$obj)
+	public function setVarsFromFetchObj(&$obj): void
 	{
 		global $db;
 
@@ -9876,7 +9877,7 @@ abstract class CommonObject
 	 * Sets all object fields to null. Useful for example in lists, when printing multiple lines and a different object os fetched for each line.
 	 * @return void
 	 */
-	public function emtpyObjectVars()
+	public function emtpyObjectVars(): void
 	{
 		foreach ($this->fields as $field => $arr) {
 			$this->$field = null;
@@ -10816,7 +10817,7 @@ abstract class CommonObject
 	 * @param string[] $parameters array of parameters to trim
 	 * @return void
 	 */
-	public function trimParameters($parameters)
+	public function trimParameters($parameters): void
 	{
 		if (!is_array($parameters)) {
 			return;
