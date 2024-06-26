@@ -753,7 +753,7 @@ class ProductFournisseurPrice extends CommonObject
 	 *	@param  int		$id       Id of object
 	 *	@return	void
 	 */
-	public function info($id)
+	public function info($id): void
 	{
 		$sql = "SELECT rowid, date_creation as datec, tms as datem,";
 		$sql .= " fk_user_creat, fk_user_modif";

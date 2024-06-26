@@ -110,7 +110,7 @@ class ActionsCardService
 	 *    @param	string	$ref		Ref of object
 	 *    @return	void
 	 */
-	public function assign_values(&$action, $id = 0, $ref = '')
+	public function assign_values(&$action, $id = 0, $ref = ''): void
 	{
 		// phpcs:enable
 		global $conf, $langs, $user, $mysoc, $canvas;
@@ -249,7 +249,7 @@ class ActionsCardService
 	 *
 	 *  @return	void
 	 */
-	private function getFieldListCanvas() // @phpstan-ignore-line
+	private function getFieldListCanvas(): void // @phpstan-ignore-line
 	{
 		global $conf, $langs;
 

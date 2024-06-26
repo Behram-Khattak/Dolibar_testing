@@ -238,7 +238,7 @@ class DolGeoIP
 	 *
 	 * @return	void
 	 */
-	public function close()
+	public function close(): void
 	{
 		if (function_exists('geoip_close')) {
 			// With some geoip with PEAR, geoip_close function may not exists

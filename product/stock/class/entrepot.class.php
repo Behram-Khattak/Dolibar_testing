@@ -570,7 +570,7 @@ class Entrepot extends CommonObject
 	 *  @param	int		$id      warehouse id
 	 *  @return	void
 	 */
-	public function info($id)
+	public function info($id): void
 	{
 		$sql = "SELECT e.rowid, e.datec, e.tms as datem, e.fk_user_author";
 		$sql .= " FROM ".$this->db->prefix()."entrepot as e";

@@ -429,7 +429,7 @@ class Fiscalyear extends CommonObject
 	 * @param	int		$id      Id of record
 	 * @return	void
 	 */
-	public function info($id)
+	public function info($id): void
 	{
 		$sql = "SELECT fy.rowid, fy.datec, fy.fk_user_author, fy.fk_user_modif,";
 		$sql .= " fy.tms as datem";

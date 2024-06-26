@@ -277,7 +277,7 @@ class SMTPs
 	 * @param	array		$_options		An array of options for stream_context_create()
 	 * @return	void
 	 */
-	public function setOptions($_options = array())
+	public function setOptions($_options = array()): void
 	{
 		$this->_options = $_options;
 	}
@@ -288,7 +288,7 @@ class SMTPs
 	 * @param	int		$_val		Value
 	 * @return	void
 	 */
-	public function setDeliveryReceipt($_val = 0)
+	public function setDeliveryReceipt($_val = 0): void
 	{
 		$this->_deliveryReceipt = $_val;
 	}
@@ -309,7 +309,7 @@ class SMTPs
 	 * @param	string		$_val		Value
 	 * @return	void
 	 */
-	public function setTrackId($_val = '')
+	public function setTrackId($_val = ''): void
 	{
 		$this->_trackId = $_val;
 	}
@@ -320,7 +320,7 @@ class SMTPs
 	 * @param	string		$_val		Value
 	 * @return	void
 	 */
-	public function setMoreInHeader($_val = '')
+	public function setMoreInHeader($_val = ''): void
 	{
 		$this->_moreinheader = $_val;
 	}
@@ -351,7 +351,7 @@ class SMTPs
 	 * @param	string		$_strErrorsTo		Errors to
 	 * @return	void
 	 */
-	public function setErrorsTo($_strErrorsTo)
+	public function setErrorsTo($_strErrorsTo): void
 	{
 		if ($_strErrorsTo) {
 			$this->_errorsTo = $this->_strip_email($_strErrorsTo);
@@ -383,7 +383,7 @@ class SMTPs
 	 * @param	boolean		$_vDebug		Value for debug
 	 * @return 	void
 	 */
-	public function setDebug($_vDebug = false)
+	public function setDebug($_vDebug = false): void
 	{
 		$this->_debug = $_vDebug;
 	}
@@ -393,7 +393,7 @@ class SMTPs
 	 *
 	 * @return void
 	 */
-	public function buildRCPTlist()
+	public function buildRCPTlist(): void
 	{
 		// Pull TO list
 		$_aryToList = $this->getTo();
@@ -843,7 +843,7 @@ class SMTPs
 	 * @param int $_type  Integer value representing Mail Transport Type
 	 * @return void
 	 */
-	public function setTransportType($_type = 0)
+	public function setTransportType($_type = 0): void
 	{
 		if ((is_numeric($_type)) && (($_type >= 0) && ($_type <= 3))) {
 			$this->_transportType = $_type;
@@ -886,7 +886,7 @@ class SMTPs
 	 * @param 	string 	$_strHost 		Host Name or IP of the Mail Server to use
 	 * @return 	void
 	 */
-	public function setHost($_strHost)
+	public function setHost($_strHost): void
 	{
 		if ($_strHost) {
 			$this->_smtpsHost = $_strHost;
@@ -912,7 +912,7 @@ class SMTPs
 	 * @param 	int|string 	$_intPort 		Port Number of the Mail Server to use
 	 * @return 	void
 	 */
-	public function setPort($_intPort)
+	public function setPort($_intPort): void
 	{
 		if ((is_numeric($_intPort)) &&
 		(($_intPort >= 1) && ($_intPort <= 65536))) {
@@ -937,7 +937,7 @@ class SMTPs
 	 * @param 	string 	$_strID 	User Name for authentication on Mail Server
 	 * @return 	void
 	 */
-	public function setID($_strID)
+	public function setID($_strID): void
 	{
 		$this->_smtpsID = $_strID;
 	}
@@ -958,7 +958,7 @@ class SMTPs
 	 * @param 	string 	$_strPW 	User Password for authentication on Mail Server
 	 * @return 	void
 	 */
-	public function setPW($_strPW)
+	public function setPW($_strPW): void
 	{
 		$this->_smtpsPW = $_strPW;
 	}
@@ -979,7 +979,7 @@ class SMTPs
 	 * @param 	string 	$_strToken 	User token
 	 * @return 	void
 	 */
-	public function setToken($_strToken)
+	public function setToken($_strToken): void
 	{
 		$this->_smtpsToken = $_strToken;
 	}
@@ -1001,7 +1001,7 @@ class SMTPs
 	 * @param string $_strCharSet Character set used for current message
 	 * @return void
 	 */
-	public function setCharSet($_strCharSet)
+	public function setCharSet($_strCharSet): void
 	{
 		if ($_strCharSet) {
 			$this->_smtpsCharSet = $_strCharSet;
@@ -1033,7 +1033,7 @@ class SMTPs
 	 * @param string $_strTransEncode Content-Transfer-Encoding
 	 * @return void
 	 */
-	public function setTransEncode($_strTransEncode)
+	public function setTransEncode($_strTransEncode): void
 	{
 		if (array_search($_strTransEncode, $this->_smtpsTransEncodeTypes)) {
 			$this->_smtpsTransEncode = $_strTransEncode;
@@ -1066,7 +1066,7 @@ class SMTPs
 	 * @return void
 	 *
 	 */
-	public function setTransEncodeType($_strTransEncodeType)
+	public function setTransEncodeType($_strTransEncodeType): void
 	{
 		if (array_search($_strTransEncodeType, $this->_smtpsTransEncodeTypes)) {
 			$this->_smtpsTransEncodeType = $_strTransEncodeType;
@@ -1092,7 +1092,7 @@ class SMTPs
 	 * @param 	string 	$_strFrom 	Address from which mail will be sent
 	 * @return 	void
 	 */
-	public function setFrom($_strFrom)
+	public function setFrom($_strFrom): void
 	{
 		if ($_strFrom) {
 			$this->_msgFrom = $this->_strip_email($_strFrom);
@@ -1124,7 +1124,7 @@ class SMTPs
 	 * @param 	string 	$_strReplyTo 	Address from which mail will be the reply-to
 	 * @return 	void
 	 */
-	public function setReplyTo($_strReplyTo)
+	public function setReplyTo($_strReplyTo): void
 	{
 		if ($_strReplyTo) {
 			$this->_msgReplyTo = $this->_strip_email($_strReplyTo);
@@ -1156,7 +1156,7 @@ class SMTPs
 	 * @param 	string 	$_strInReplyTo 	List of Msg-Id
 	 * @return 	void
 	 */
-	public function setInReplyTo($_strInReplyTo)
+	public function setInReplyTo($_strInReplyTo): void
 	{
 		if ($_strInReplyTo) {
 			$this->_msgInReplyTo = $_strInReplyTo;
@@ -1181,7 +1181,7 @@ class SMTPs
 	 * @param 	string 	$_strReferences 	List of Msg-Id
 	 * @return 	void
 	 */
-	public function setReferences($_strReferences)
+	public function setReferences($_strReferences): void
 	{
 		if ($_strReferences) {
 			$this->_msgReferences = $_strReferences;
@@ -1210,7 +1210,7 @@ class SMTPs
 	 * @return void
 	 *
 	 */
-	private function _buildAddrList($_type, $_addrList)
+	private function _buildAddrList($_type, $_addrList): void
 	{
 		// Pull existing list
 		$aryHost = $this->_msgRecipients;
@@ -1391,7 +1391,7 @@ class SMTPs
 	 * @param 	string 	$_addrTo 	TO Address[es] inwhich to send mail to
 	 * @return 	void
 	 */
-	public function setTO($_addrTo)
+	public function setTO($_addrTo): void
 	{
 		if ($_addrTo) {
 			$this->_buildAddrList('to', $_addrTo);
@@ -1414,7 +1414,7 @@ class SMTPs
 	 * @param 	string	$_strCC		CC Address[es] inwhich to send mail to
 	 * @return 	void
 	 */
-	public function setCC($_strCC)
+	public function setCC($_strCC): void
 	{
 		if ($_strCC) {
 			$this->_buildAddrList('cc', $_strCC);
@@ -1437,7 +1437,7 @@ class SMTPs
 	 * @param 	string		$_strBCC	Recipients BCC Address[es] inwhich to send mail to
 	 * @return 	void
 	 */
-	public function setBCC($_strBCC)
+	public function setBCC($_strBCC): void
 	{
 		if ($_strBCC) {
 			$this->_buildAddrList('bcc', $_strBCC);
@@ -1460,7 +1460,7 @@ class SMTPs
 	 * @param 	string 	$_strSubject	Message Subject
 	 * @return 	void
 	 */
-	public function setSubject($_strSubject = '')
+	public function setSubject($_strSubject = ''): void
 	{
 		if ($_strSubject) {
 			$this->_msgSubject = $_strSubject;
@@ -1566,7 +1566,7 @@ class SMTPs
 	 * @param	string	$strType		Type
 	 * @return 	void
 	 */
-	public function setBodyContent($strContent, $strType = 'plain')
+	public function setBodyContent($strContent, $strType = 'plain'): void
 	{
 		//if ( $strContent )
 		//{
@@ -1768,7 +1768,7 @@ class SMTPs
 	 * @param string $strCid      File Cid of attachment (if defined, to be shown inline)
 	 * @return void
 	 */
-	public function setAttachment($strContent, $strFileName = 'unknown', $strMimeType = 'unknown', $strCid = '')
+	public function setAttachment($strContent, $strFileName = 'unknown', $strMimeType = 'unknown', $strCid = ''): void
 	{
 		if ($strContent) {
 			$strContent = rtrim(chunk_split(base64_encode($strContent), 76, "\r\n")); // 76 max is defined into http://tools.ietf.org/html/rfc2047
@@ -1797,7 +1797,7 @@ class SMTPs
 	 * @param 	string $strImageCid		CID
 	 * @return 	void
 	 */
-	public function setImageInline($strContent, $strImageName = 'unknown', $strMimeType = 'unknown', $strImageCid = 'unknown')
+	public function setImageInline($strContent, $strImageName = 'unknown', $strMimeType = 'unknown', $strImageCid = 'unknown'): void
 	{
 		if ($strContent) {
 			$this->_msgContent['image'][$strImageName]['mimeType'] = $strMimeType;
@@ -1824,7 +1824,7 @@ class SMTPs
 	 * @param 	integer	$_value		Message Sensitivity
 	 * @return 	void
 	 */
-	public function setSensitivity($_value = 0)
+	public function setSensitivity($_value = 0): void
 	{
 		if ((is_numeric($_value)) &&
 		(($_value >= 0) && ($_value <= 3))) {
@@ -1860,7 +1860,7 @@ class SMTPs
 	 * @param 	integer 	$_value 	Message Priority
 	 * @return 	void
 	 */
-	public function setPriority($_value = 3)
+	public function setPriority($_value = 3): void
 	{
 		if ((is_numeric($_value)) &&
 		(($_value >= 0) && ($_value <= 5))) {
@@ -1893,7 +1893,7 @@ class SMTPs
 	 * @param 	boolean 	$_flag		MD5flag
 	 * @return 	void
 	 */
-	public function setMD5flag($_flag = false)
+	public function setMD5flag($_flag = false): void
 	{
 		$this->_smtpMD5 = $_flag;
 	}
@@ -1916,7 +1916,7 @@ class SMTPs
 	 * @param string $strXdata Message X-Header Content
 	 * @return void
 	 */
-	public function setXheader($strXdata)
+	public function setXheader($strXdata): void
 	{
 		if ($strXdata) {
 			$this->_msgXheader[] = $strXdata;
@@ -1938,7 +1938,7 @@ class SMTPs
 	 *
 	 * @return void
 	 */
-	private function _setBoundary()
+	private function _setBoundary(): void
 	{
 		$this->_smtpsBoundary = "multipart_x.".time().".x_boundary";
 		$this->_smtpsRelatedBoundary = 'mul_'.dol_hash(uniqid("dolibarr2"), 3);
@@ -2045,7 +2045,7 @@ class SMTPs
 	 * @param  string $_errMsg  Error Message
 	 * @return void
 	 */
-	private function _setErr($_errNum, $_errMsg)
+	private function _setErr($_errNum, $_errMsg): void
 	{
 		$this->_smtpsErrors[] = array(
 			'num' => $_errNum,

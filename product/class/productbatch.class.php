@@ -363,7 +363,7 @@ class Productbatch extends CommonObject
 	 *
 	 *  @return	void
 	 */
-	private function cleanParam()
+	private function cleanParam(): void
 	{
 		if (isset($this->fk_product_stock)) {
 			$this->fk_product_stock = (int) trim($this->fk_product_stock);

@@ -146,7 +146,7 @@ class FormCompany extends Form
 	 *	@param	int		$empty			Add empty value in list
 	 *	@return	void
 	 */
-	public function form_prospect_level($page, $selected = 0, $htmlname = 'prospect_level_id', $empty = 0)
+	public function form_prospect_level($page, $selected = 0, $htmlname = 'prospect_level_id', $empty = 0): void
 	{
 		// phpcs:enable
 		global $user, $langs;
@@ -198,7 +198,7 @@ class FormCompany extends Form
 	 *	@param	int		$empty			Add empty value in list
 	 *	@return	void
 	 */
-	public function formProspectContactLevel($page, $selected = 0, $htmlname = 'prospect_contact_level_id', $empty = 0)
+	public function formProspectContactLevel($page, $selected = 0, $htmlname = 'prospect_contact_level_id', $empty = 0): void
 	{
 		global $user, $langs;
 
@@ -252,7 +252,7 @@ class FormCompany extends Form
 	 *   @param     string	$htmlname			Id of department
 	 *   @return	void
 	 */
-	public function select_departement($selected = '', $country_codeid = 0, $htmlname = 'state_id')
+	public function select_departement($selected = '', $country_codeid = 0, $htmlname = 'state_id'): void
 	{
 		// phpcs:enable
 		print $this->select_state($selected, $country_codeid, $htmlname);
@@ -420,7 +420,7 @@ class FormCompany extends Form
 	 *   @param		string		$htmlname		Name of HTML select field
 	 *   @return	void
 	 */
-	public function select_region($selected = '', $htmlname = 'region_id')
+	public function select_region($selected = '', $htmlname = 'region_id'): void
 	{
 		// phpcs:enable
 		global $conf, $langs;
@@ -539,7 +539,7 @@ class FormCompany extends Form
 	 *    @deprecated Use print xxx->select_juridicalstatus instead
 	 *    @see select_juridicalstatus()
 	 */
-	public function select_forme_juridique($selected = '', $country_codeid = 0, $filter = '')
+	public function select_forme_juridique($selected = '', $country_codeid = 0, $filter = ''): void
 	{
 		// phpcs:enable
 		print $this->select_juridicalstatus($selected, $country_codeid, $filter);
@@ -1026,7 +1026,7 @@ class FormCompany extends Form
 	 * @param 	string      $htmlname		HTML select name
 	 * @return	void
 	 */
-	public function select_localtax($local, $selected, $htmlname)
+	public function select_localtax($local, $selected, $htmlname): void
 	{
 		// phpcs:enable
 		$tax = get_localtax_by_third($local);
@@ -1170,7 +1170,7 @@ class FormCompany extends Form
 	 *  @param  string  		$mode      		select if we want activate de html part or js
 	 *  @return	void
 	 */
-	public function selectProspectStatus($htmlname, $prospectstatic, $statusprospect, $idprospect, $mode = "html")
+	public function selectProspectStatus($htmlname, $prospectstatic, $statusprospect, $idprospect, $mode = "html"): void
 	{
 		global $user, $langs;
 

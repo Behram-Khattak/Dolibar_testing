@@ -40,7 +40,7 @@ trait CommonSocialNetworks
 	 * @param	int		$colspan			Colspan
 	 * @return 	void
 	 */
-	public function showSocialNetwork($socialnetworks, $colspan = 4)
+	public function showSocialNetwork($socialnetworks, $colspan = 4): void
 	{
 		global $object, $form, $langs;
 

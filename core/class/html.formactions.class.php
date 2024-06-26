@@ -64,7 +64,7 @@ class FormActions
 	 *  @param  string  $morecss        More css on select field
 	 * 	@return	void
 	 */
-	public function form_select_status_action($formname, $selected, $canedit = 1, $htmlname = 'complete', $showempty = 0, $onlyselect = 0, $morecss = 'maxwidth100')
+	public function form_select_status_action($formname, $selected, $canedit = 1, $htmlname = 'complete', $showempty = 0, $onlyselect = 0, $morecss = 'maxwidth100'): void
 	{
 		// phpcs:enable
 		global $langs, $conf;

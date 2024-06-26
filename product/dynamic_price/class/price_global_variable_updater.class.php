@@ -344,7 +344,7 @@ class PriceGlobalVariableUpdater
 	 *
 	 *	@return	void
 	 */
-	public function checkParameters()
+	public function checkParameters(): void
 	{
 		// Clean parameters
 		if (isset($this->description)) {

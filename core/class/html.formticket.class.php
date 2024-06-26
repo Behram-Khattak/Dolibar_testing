@@ -159,7 +159,7 @@ class FormTicket
 	 * @param int $errors Reference of errors variable
 	 * @return void
 	 */
-	public static function checkRequiredFields(array $fields, int &$errors)
+	public static function checkRequiredFields(array $fields, int &$errors): void
 	{
 		global $langs;
 
@@ -182,7 +182,7 @@ class FormTicket
 	 * @param	?Ticket			$object					[=NULL] Ticket object
 	 * @return 	void
 	 */
-	public function showForm($withdolfichehead = 0, $mode = 'edit', $public = 0, Contact $with_contact = null, $action = '', Ticket $object = null)
+	public function showForm($withdolfichehead = 0, $mode = 'edit', $public = 0, Contact $with_contact = null, $action = '', Ticket $object = null): void
 	{
 		global $conf, $langs, $user, $hookmanager;
 
@@ -766,7 +766,7 @@ class FormTicket
 	 *      @param  int				$multiselect	Is multiselect ?
 	 *      @return void
 	 */
-	public function selectTypesTickets($selected = '', $htmlname = 'tickettype', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = '', $multiselect = 0)
+	public function selectTypesTickets($selected = '', $htmlname = 'tickettype', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = '', $multiselect = 0): void
 	{
 		global $langs, $user;
 
@@ -1217,7 +1217,7 @@ class FormTicket
 	 *      @param  string  $morecss     More CSS
 	 *      @return void
 	 */
-	public function selectSeveritiesTickets($selected = '', $htmlname = 'ticketseverity', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = '')
+	public function selectSeveritiesTickets($selected = '', $htmlname = 'ticketseverity', $filtertype = '', $format = 0, $empty = 0, $noadmininfo = 0, $maxlength = 0, $morecss = ''): void
 	{
 		global $conf, $langs, $user;
 
@@ -1312,7 +1312,7 @@ class FormTicket
 	 *
 	 * @return	void
 	 */
-	public function clear_attached_files()
+	public function clear_attached_files(): void
 	{
 		// phpcs:enable
 		global $conf, $user;
@@ -1341,7 +1341,7 @@ class FormTicket
 	 * @param  	string  $width      	Width of form
 	 * @return 	void
 	 */
-	public function showMessageForm($width = '40%')
+	public function showMessageForm($width = '40%'): void
 	{
 		global $conf, $langs, $user, $hookmanager, $form, $mysoc;
 

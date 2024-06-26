@@ -275,6 +275,7 @@ if (empty($reshook)) {
 					'ref',
 					'ref_ext',
 					'container_id', //  add container id to get value from the form
+					'quantity', //  add quantity to get value from the form
 					'label',
 					'description',
 					'url',
@@ -602,6 +603,7 @@ if (empty($reshook)) {
 			$object->customcode              = GETPOST('customcode', 'alphanohtml');
 			$object->country_id = GETPOSTINT('country_id');
 			$object->container_id = GETPOST('container_id'); // append to object to store data on database
+			$object->quantity = GETPOST('quantity'); // append to object to store data on database
 			$object->state_id = GETPOSTINT('state_id');
 			$object->lifetime               = GETPOSTINT('lifetime');
 			$object->qc_frequency           = GETPOSTINT('qc_frequency');
@@ -1406,6 +1408,14 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			}
 			print '</td></tr>';
 
+
+			// we add quantity
+			print '<td class="titlefieldcreate fieldrequired">Quantity</td><td><input id="quantity" name="quantity" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('quantity') ? GETPOST('quantity', 'alphanohtml') : $tmpcode) . '">';
+			// if ($refalreadyexists) {
+			// 	print $langs->trans("RefAlreadyExists");
+			// }
+			print '</td></tr>';
+
 			// Label
 			print '<tr><td class="fieldrequired">' . $langs->trans("Label") . '</td><td><input name="label" class="minwidth300 maxwidth400onsmartphone" maxlength="255" value="' . dol_escape_htmltag(GETPOST('label', $label_security_check)) . '"></td></tr>';
 
@@ -1953,6 +1963,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print '<tr><td class="titlefieldcreate fieldrequired">' . $langs->trans("Ref") . '</td><td colspan="3"><input name="ref" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag($object->ref) . '" readonly="true"></td></tr>';
 				}
 
+				print '<tr><td class="titlefieldcreate fieldrequired">Container Id</td><td colspan="3"><input name="container_id" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('container_id') ? GETPOST('container_id') : $object->container_id) . '"></td></tr>';
+
+				print '<tr><td class="titlefieldcreate fieldrequired">Quantity</td><td colspan="3"><input name="quantity" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('quantity') ? GETPOST('quantity') : $object->quantity) . '"></td></tr>';
+
 				// Label
 				print '<tr><td class="fieldrequired">' . $langs->trans("Label") . '</td><td colspan="3"><input name="label" class="minwidth300 maxwidth400onsmartphone" maxlength="255" value="' . dol_escape_htmltag(GETPOSTISSET('label') ? GETPOST('label') : $object->label) . '"></td></tr>';
 
@@ -2211,12 +2225,12 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					}
 				}
 
-				if (!$object->isService() && isModEnabled('bom')) {
-					print '<tr><td>' . $form->textwithpicto($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))) . '</td><td>';
-					$bomkey = "Bom:bom/class/bom.class.php:0:(t.status:=:1) AND (t.fk_product:=:" . ((int) $object->id) . ')';
-					print $form->selectForForms($bomkey, 'fk_default_bom', (GETPOSTISSET('fk_default_bom') ? GETPOST('fk_default_bom') : $object->fk_default_bom), 1);
-					print '</td></tr>';
-				}
+				// if (!$object->isService() && isModEnabled('bom')) {
+				// 	print '<tr><td>' . $form->textwithpicto($langs->trans("DefaultBOM"), $langs->trans("DefaultBOMDesc", $langs->transnoentitiesnoconv("Finished"))) . '</td><td>';
+				// 	$bomkey = "Bom:bom/class/bom.class.php:0:(t.status:=:1) AND (t.fk_product:=:" . ((int) $object->id) . ')';
+				// 	print $form->selectForForms($bomkey, 'fk_default_bom', (GETPOSTISSET('fk_default_bom') ? GETPOST('fk_default_bom') : $object->fk_default_bom), 1);
+				// 	print '</td></tr>';
+				// }
 
 				if (!$object->isService()) {
 					if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {

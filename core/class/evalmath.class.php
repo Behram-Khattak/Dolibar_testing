@@ -491,7 +491,7 @@ class EvalMathStack
 	 * @param 	string 	$val		Val
 	 * @return 	void
 	 */
-	public function push($val)
+	public function push($val): void
 	{
 		$this->stack[$this->count] = $val;
 		$this->count++;

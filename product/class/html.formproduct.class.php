@@ -497,7 +497,7 @@ class FormProduct
 	 *    @param    int         $addempty    1=Add an empty value in list, 2=Add an empty value in list only if there is more than 2 entries.
 	 *    @return   void
 	 */
-	public function formSelectWarehouses($page, $selected = '', $htmlname = 'warehouse_id', $addempty = 0)
+	public function formSelectWarehouses($page, $selected = '', $htmlname = 'warehouse_id', $addempty = 0): void
 	{
 		global $langs;
 		if ($htmlname != "none") {
@@ -535,7 +535,7 @@ class FormProduct
 	 * 	@return	void
 	 *  @deprecated
 	 */
-	public function select_measuring_units($name = 'measuring_units', $measuring_style = '', $selected = '0', $adddefault = 0, $mode = 0)
+	public function select_measuring_units($name = 'measuring_units', $measuring_style = '', $selected = '0', $adddefault = 0, $mode = 0): void
 	{
 		//phpcs:enable
 		print $this->selectMeasuringUnits($name, $measuring_style, $selected, $adddefault, $mode);
