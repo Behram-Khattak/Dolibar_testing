@@ -254,7 +254,7 @@ interface Database
 	 * @return  bool|mysqli_result|resource		Resultset of answer or false
 	 */
 	public function query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0);
-	public function execute_query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0);
+	// public function execute_query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0);
 
 	/**
 	 * Connection to server
