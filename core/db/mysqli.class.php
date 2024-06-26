@@ -369,56 +369,56 @@ class DoliDBMysqli extends DoliDB
 	}
 
 	// use this new function
-	public function execute_query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0)
-	{
-		global $dolibarr_main_db_readonly;
+	// public function execute_query($query, $usesavepoint = 0, $type = 'auto', $result_mode = 0)
+	// {
+	// 	global $dolibarr_main_db_readonly;
 
-		$query = trim($query);
+	// 	$query = trim($query);
 
-		if (!in_array($query, array('BEGIN', 'COMMIT', 'ROLLBACK'))) {
-			$SYSLOG_SQL_LIMIT = 10000; // limit log to 10kb per line to limit DOS attacks
-			dol_syslog('sql='.substr($query, 0, $SYSLOG_SQL_LIMIT), LOG_DEBUG);
-		}
-		if (empty($query)) {
-			return false; // Return false = error if empty request
-		}
+	// 	if (!in_array($query, array('BEGIN', 'COMMIT', 'ROLLBACK'))) {
+	// 		$SYSLOG_SQL_LIMIT = 10000; // limit log to 10kb per line to limit DOS attacks
+	// 		dol_syslog('sql='.substr($query, 0, $SYSLOG_SQL_LIMIT), LOG_DEBUG);
+	// 	}
+	// 	if (empty($query)) {
+	// 		return false; // Return false = error if empty request
+	// 	}
 
-		if (!empty($dolibarr_main_db_readonly)) {
-			if (preg_match('/^(INSERT|UPDATE|REPLACE|DELETE|CREATE|ALTER|TRUNCATE|DROP)/i', $query)) {
-				$this->lasterror = 'Application in read-only mode';
-				$this->lasterrno = 'APPREADONLY';
-				$this->lastquery = $query;
-				return false;
-			}
-		}
+	// 	if (!empty($dolibarr_main_db_readonly)) {
+	// 		if (preg_match('/^(INSERT|UPDATE|REPLACE|DELETE|CREATE|ALTER|TRUNCATE|DROP)/i', $query)) {
+	// 			$this->lasterror = 'Application in read-only mode';
+	// 			$this->lasterrno = 'APPREADONLY';
+	// 			$this->lastquery = $query;
+	// 			return false;
+	// 		}
+	// 	}
 
-		try {
-			// $ret = $this->db->execute_query($query);
-			$ret = $this->db->query($query,$result_mode);
-		} catch (Exception $e) {
-			dol_syslog(get_class($this)."::query Exception in query instead of returning an error: ".$e->getMessage(), LOG_ERR);
-			$ret = false;
-		}
+	// 	try {
+	// 		// $ret = $this->db->execute_query($query);
+	// 		$ret = $this->db->query($query,$result_mode);
+	// 	} catch (Exception $e) {
+	// 		dol_syslog(get_class($this)."::query Exception in query instead of returning an error: ".$e->getMessage(), LOG_ERR);
+	// 		$ret = false;
+	// 	}
 
-		if (!preg_match("/^COMMIT/i", $query) && !preg_match("/^ROLLBACK/i", $query)) {
-			// Si requete utilisateur, on la sauvegarde ainsi que son resultset
-			if (!$ret) {
-				$this->lastqueryerror = $query;
-				$this->lasterror = $this->error();
-				$this->lasterrno = $this->errno();
+	// 	if (!preg_match("/^COMMIT/i", $query) && !preg_match("/^ROLLBACK/i", $query)) {
+	// 		// Si requete utilisateur, on la sauvegarde ainsi que son resultset
+	// 		if (!$ret) {
+	// 			$this->lastqueryerror = $query;
+	// 			$this->lasterror = $this->error();
+	// 			$this->lasterrno = $this->errno();
 
-				if (getDolGlobalInt('SYSLOG_LEVEL') < LOG_DEBUG) {
-					dol_syslog(get_class($this)."::query SQL Error query: ".$query, LOG_ERR); // Log of request was not yet done previously
-				}
-				dol_syslog(get_class($this)."::query SQL Error message: ".$this->lasterrno." ".$this->lasterror.self::getCallerInfoString(), LOG_ERR);
-				//var_dump(debug_print_backtrace());
-			}
-			$this->lastquery = $query;
-			$this->_results = $ret;
-		}
+	// 			if (getDolGlobalInt('SYSLOG_LEVEL') < LOG_DEBUG) {
+	// 				dol_syslog(get_class($this)."::query SQL Error query: ".$query, LOG_ERR); // Log of request was not yet done previously
+	// 			}
+	// 			dol_syslog(get_class($this)."::query SQL Error message: ".$this->lasterrno." ".$this->lasterror.self::getCallerInfoString(), LOG_ERR);
+	// 			//var_dump(debug_print_backtrace());
+	// 		}
+	// 		$this->lastquery = $query;
+	// 		$this->_results = $ret;
+	// 	}
 
-		return $ret;
-	} 
+	// 	return $ret;
+	// } 
 	/**
 	 * Get caller info
 	 *

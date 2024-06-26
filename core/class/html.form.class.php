@@ -182,9 +182,25 @@ class Form
 		return $ret;
 	}
 
-	 
-	public function editfieldval($text, $htmlname, $value, $object, $perm, $typeofdata = 'string', $editvalue = '', $extObject = null, $custommsg = null, $moreparam = '', $notabletag = 1, $formatfunc = '', $paramid = 'id', $gm = 'auto', $moreoptions = array(), $editaction = '')
-	{
+	// add typo
+	public function editfieldval(
+		string $text,
+		string $htmlname,
+		mixed $value,
+		object $object,
+		int $perm,
+		string $typeofdata = 'string',
+		mixed $editvalue = '',
+		?object $extObject = null,
+		?string $custommsg = null,
+		string $moreparam = '',
+		int $notabletag = 1,
+		string $formatfunc = '',
+		string $paramid = 'id',
+		string $gm = 'auto',
+		array $moreoptions = [],
+		string $editaction = ''
+	): string {
 		global $conf, $langs;
 
 		$ret = '';
@@ -193,15 +209,16 @@ class Form
 		if (empty($typeofdata)) {
 			return 'ErrorBadParameter typeofdata is empty';
 		}
+
 		// Clean parameter $typeofdata
-		if ($typeofdata == 'datetime') {
+		if ($typeofdata === 'datetime') {
 			$typeofdata = 'dayhour';
 		}
-		$reg = array();
+
 		if (preg_match('/^(\w+)\((\d+)\)$/', $typeofdata, $reg)) {
-			if ($reg[1] == 'varchar') {
+			if ($reg[1] === 'varchar') {
 				$typeofdata = 'string';
-			} elseif ($reg[1] == 'int') {
+			} elseif ($reg[1] === 'int') {
 				$typeofdata = 'numeric';
 			} else {
 				return 'ErrorBadParameter ' . $typeofdata;
@@ -209,25 +226,26 @@ class Form
 		}
 
 		// When option to edit inline is activated
-		if (getDolGlobalString('MAIN_USE_JQUERY_JEDITABLE') && !preg_match('/^select;|day|datepicker|dayhour|datehourpicker/', $typeofdata)) { // TODO add jquery timepicker and support select
+		if (getDolGlobalString('MAIN_USE_JQUERY_JEDITABLE') && !preg_match('/^select;|day|datepicker|dayhour|datehourpicker/', $typeofdata)) {
 			$ret .= $this->editInPlace($object, $value, $htmlname, $perm, $typeofdata, $editvalue, $extObject, $custommsg);
 		} else {
-			if ($editaction == '') {
+			if (empty($editaction)) {
 				$editaction = GETPOST('action', 'aZ09');
 			}
-			$editmode = ($editaction == 'edit' . $htmlname);
-			if ($editmode) {	// edit mode
+
+			$editmode = ($editaction === 'edit' . $htmlname);
+			if ($editmode) {
 				$ret .= "\n";
 				$ret .= '<form method="post" action="' . $_SERVER["PHP_SELF"] . ($moreparam ? '?' . $moreparam : '') . '">';
 				$ret .= '<input type="hidden" name="action" value="set' . $htmlname . '">';
 				$ret .= '<input type="hidden" name="token" value="' . newToken() . '">';
 				$ret .= '<input type="hidden" name="' . $paramid . '" value="' . $object->id . '">';
+
 				if (empty($notabletag)) {
 					$ret .= '<table class="nobordernopadding centpercent">';
-				}
-				if (empty($notabletag)) {
 					$ret .= '<tr><td>';
 				}
+
 				if (preg_match('/^(string|safehtmlstring|email|phone|url)/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
 					$ret .= '<input type="text" id="' . $htmlname . '" name="' . $htmlname . '" value="' . ($editvalue ? $editvalue : $value) . '"' . (empty($tmp[1]) ? '' : ' size="' . $tmp[1] . '"') . ' autofocus>';
@@ -238,38 +256,36 @@ class Form
 				} elseif (preg_match('/^(numeric|amount)/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
 					$valuetoshow = price2num($editvalue ? $editvalue : $value);
-					$ret .= '<input type="text" id="' . $htmlname . '" name="' . $htmlname . '" value="' . ($valuetoshow != '' ? price($valuetoshow) : '') . '"' . (empty($tmp[1]) ? '' : ' size="' . $tmp[1] . '"') . ' autofocus>';
+					$ret .= '<input type="text" id="' . $htmlname . '" name="' . $htmlname . '" value="' . ($valuetoshow !== '' ? price($valuetoshow) : '') . '"' . (empty($tmp[1]) ? '' : ' size="' . $tmp[1] . '"') . ' autofocus>';
 				} elseif (preg_match('/^(checkbox)/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
 					$ret .= '<input type="checkbox" id="' . $htmlname . '" name="' . $htmlname . '" value="' . ($value ? $value : 'on') . '"' . ($value ? ' checked' : '') . (empty($tmp[1]) ? '' : $tmp[1]) . '/>';
-				} elseif (preg_match('/^text/', $typeofdata) || preg_match('/^note/', $typeofdata)) {    // if wysiwyg is enabled $typeofdata = 'ckeditor'
+				} elseif (preg_match('/^text/', $typeofdata) || preg_match('/^note/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
-					$cols = (empty($tmp[2]) ? '' : $tmp[2]);
+					$cols = $tmp[2] ?? '';
 					$morealt = '';
 					if (preg_match('/%/', $cols)) {
 						$morealt = ' style="width: ' . $cols . '"';
 						$cols = '';
 					}
 					$valuetoshow = ($editvalue ? $editvalue : $value);
-					$ret .= '<textarea id="' . $htmlname . '" name="' . $htmlname . '" wrap="soft" rows="' . (empty($tmp[1]) ? '20' : $tmp[1]) . '"' . ($cols ? ' cols="' . $cols . '"' : 'class="quatrevingtpercent"') . $morealt . '" autofocus>';
-					// textarea convert automatically entities chars into simple chars.
-					// So we convert & into &amp; so a string like 'a &lt; <b>b</b><br>é<br>&lt;script&gt;alert('X');&lt;script&gt;' stay a correct html and is not converted by textarea component when wysiwyg is off.
+					$ret .= '<textarea id="' . $htmlname . '" name="' . $htmlname . '" wrap="soft" rows="' . ($tmp[1] ?? '20') . '"' . ($cols ? ' cols="' . $cols . '"' : 'class="quatrevingtpercent"') . $morealt . ' autofocus>';
 					$valuetoshow = str_replace('&', '&amp;', $valuetoshow);
-					$ret .= dol_htmlwithnojs(dol_string_neverthesehtmltags($valuetoshow, array('textarea')));
+					$ret .= dol_htmlwithnojs(dol_string_neverthesehtmltags($valuetoshow, ['textarea']));
 					$ret .= '</textarea>';
-				} elseif ($typeofdata == 'day' || $typeofdata == 'datepicker') {
-					$addnowlink = empty($moreoptions['addnowlink']) ? 0 : $moreoptions['addnowlink'];
-					$adddateof = empty($moreoptions['adddateof']) ? '' : $moreoptions['adddateof'];
-					$labeladddateof = empty($moreoptions['labeladddateof']) ? '' : $moreoptions['labeladddateof'];
+				} elseif ($typeofdata === 'day' || $typeofdata === 'datepicker') {
+					$addnowlink = $moreoptions['addnowlink'] ?? 0;
+					$adddateof = $moreoptions['adddateof'] ?? '';
+					$labeladddateof = $moreoptions['labeladddateof'] ?? '';
 					$ret .= $this->selectDate($value, $htmlname, 0, 0, 1, 'form' . $htmlname, 1, $addnowlink, 0, '', '', $adddateof, '', 1, $labeladddateof, '', $gm);
-				} elseif ($typeofdata == 'dayhour' || $typeofdata == 'datehourpicker') {
-					$addnowlink = empty($moreoptions['addnowlink']) ? 0 : $moreoptions['addnowlink'];
-					$adddateof = empty($moreoptions['adddateof']) ? '' : $moreoptions['adddateof'];
-					$labeladddateof = empty($moreoptions['labeladddateof']) ? '' : $moreoptions['labeladddateof'];
+				} elseif ($typeofdata === 'dayhour' || $typeofdata === 'datehourpicker') {
+					$addnowlink = $moreoptions['addnowlink'] ?? 0;
+					$adddateof = $moreoptions['adddateof'] ?? '';
+					$labeladddateof = $moreoptions['labeladddateof'] ?? '';
 					$ret .= $this->selectDate($value, $htmlname, 1, 1, 1, 'form' . $htmlname, 1, $addnowlink, 0, '', '', $adddateof, '', 1, $labeladddateof, '', $gm);
 				} elseif (preg_match('/^select;/', $typeofdata)) {
 					$arraydata = explode(',', preg_replace('/^select;/', '', $typeofdata));
-					$arraylist = array();
+					$arraylist = [];
 					foreach ($arraydata as $val) {
 						$tmp = explode(':', $val);
 						$tmpkey = str_replace('|', ':', $tmp[0]);
@@ -279,36 +295,43 @@ class Form
 				} elseif (preg_match('/^link/', $typeofdata)) {
 					// TODO Not yet implemented. See code for extrafields
 				} elseif (preg_match('/^ckeditor/', $typeofdata)) {
-					$tmp = explode(':', $typeofdata); // Example: ckeditor:dolibarr_zzz:width:height:savemethod:toolbarstartexpanded:rows:cols:uselocalbrowser
+					$tmp = explode(':', $typeofdata);
 					require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
-					$doleditor = new DolEditor($htmlname, ($editvalue ? $editvalue : $value), (empty($tmp[2]) ? '' : $tmp[2]), (empty($tmp[3]) ? '100' : $tmp[3]), (empty($tmp[1]) ? 'dolibarr_notes' : $tmp[1]), 'In', (empty($tmp[5]) ? 0 : $tmp[5]), (isset($tmp[8]) ? ($tmp[8] ? true : false) : true), true, (empty($tmp[6]) ? '20' : $tmp[6]), (empty($tmp[7]) ? '100' : $tmp[7]));
+					$doleditor = new DolEditor(
+						$htmlname,
+						($editvalue ? $editvalue : $value),
+						($tmp[2] ?? ''),
+						($tmp[3] ?? '100'),
+						($tmp[1] ?? 'dolibarr_notes'),
+						'In',
+						($tmp[5] ?? 0),
+						(isset($tmp[8]) ? (bool)$tmp[8] : true),
+						true,
+						($tmp[6] ?? '20'),
+						($tmp[7] ?? '100')
+					);
 					$ret .= $doleditor->Create(1);
-				} elseif ($typeofdata == 'asis') {
+				} elseif ($typeofdata === 'asis') {
 					$ret .= ($editvalue ? $editvalue : $value);
 				}
+
 				if (empty($notabletag)) {
-					$ret .= '</td>';
+					$ret .= '</td><td>';
 				}
 
 				// Button save-cancel
-				if (empty($notabletag)) {
-					$ret .= '<td>';
-				}
-				//else $ret.='<div class="clearboth"></div>';
 				$ret .= '<input type="submit" class="smallpaddingimp button' . (empty($notabletag) ? '' : ' ') . '" name="modify" value="' . $langs->trans("Modify") . '">';
 				if (preg_match('/ckeditor|textarea/', $typeofdata) && empty($notabletag)) {
 					$ret .= '<br>' . "\n";
 				}
 				$ret .= '<input type="submit" class="smallpaddingimp button button-cancel' . (empty($notabletag) ? '' : ' ') . '" name="cancel" value="' . $langs->trans("Cancel") . '">';
-				if (empty($notabletag)) {
-					$ret .= '</td>';
-				}
 
 				if (empty($notabletag)) {
-					$ret .= '</tr></table>' . "\n";
+					$ret .= '</td></tr></table>' . "\n";
 				}
 				$ret .= '</form>' . "\n";
-			} else {		// view mode
+			} else {
+				// view mode
 				if (preg_match('/^email/', $typeofdata)) {
 					$ret .= dol_print_email($value, 0, 0, 0, 0, 1);
 				} elseif (preg_match('/^phone/', $typeofdata)) {
@@ -316,27 +339,27 @@ class Form
 				} elseif (preg_match('/^url/', $typeofdata)) {
 					$ret .= dol_print_url($value, '_blank', 32, 1);
 				} elseif (preg_match('/^(amount|numeric)/', $typeofdata)) {
-					$ret .= ($value != '' ? price($value, 0, $langs, 0, -1, -1, $conf->currency) : '');
+					$ret .= ($value !== '' ? price($value, 0, $langs, 0, -1, -1, $conf->currency) : '');
 				} elseif (preg_match('/^checkbox/', $typeofdata)) {
 					$tmp = explode(':', $typeofdata);
-					$ret .= '<input type="checkbox" disabled id="' . $htmlname . '" name="' . $htmlname . '" value="' . $value . '"' . ($value ? ' checked' : '') . ($tmp[1] ? $tmp[1] : '') . '/>';
+					$ret .= '<input type="checkbox" disabled id="' . $htmlname . '" name="' . $htmlname . '" value="' . $value . '"' . ($value ? ' checked' : '') . ($tmp[1] ?? '') . '/>';
 				} elseif (preg_match('/^text/', $typeofdata) || preg_match('/^note/', $typeofdata)) {
 					$ret .= dol_htmlwithnojs(dol_string_onlythesehtmltags(dol_htmlentitiesbr($value), 1, 1, 1));
-				} elseif (preg_match('/^(safehtmlstring|restricthtml)/', $typeofdata)) {	// 'restricthtml' is not an allowed type for editfieldval. Value is 'safehtmlstring'
+				} elseif (preg_match('/^(safehtmlstring|restricthtml)/', $typeofdata)) {
 					$ret .= dol_htmlwithnojs(dol_string_onlythesehtmltags($value));
-				} elseif ($typeofdata == 'day' || $typeofdata == 'datepicker') {
+				} elseif ($typeofdata === 'day' || $typeofdata === 'datepicker') {
 					$ret .= '<span class="valuedate">' . dol_print_date($value, 'day', $gm) . '</span>';
-				} elseif ($typeofdata == 'dayhour' || $typeofdata == 'datehourpicker') {
+				} elseif ($typeofdata === 'dayhour' || $typeofdata === 'datehourpicker') {
 					$ret .= '<span class="valuedate">' . dol_print_date($value, 'dayhour', $gm) . '</span>';
 				} elseif (preg_match('/^select;/', $typeofdata)) {
 					$arraydata = explode(',', preg_replace('/^select;/', '', $typeofdata));
-					$arraylist = array();
+					$arraylist = [];
 					foreach ($arraydata as $val) {
 						$tmp = explode(':', $val);
 						$arraylist[$tmp[0]] = $tmp[1];
 					}
 					$ret .= $arraylist[$value];
-					if ($htmlname == 'fk_product_type') {
+					if ($htmlname === 'fk_product_type') {
 						if ($value == 0) {
 							$ret = img_picto($langs->trans("Product"), 'product', 'class="paddingleftonly paddingrightonly colorgrey"') . $ret;
 						} else {
@@ -348,16 +371,14 @@ class Form
 					if (getDolGlobalString('MAIN_DISABLE_NOTES_TAB')) {
 						$firstline = preg_replace('/<br>.*/', '', $tmpcontent);
 						$firstline = preg_replace('/[\n\r].*/', '', $firstline);
-						$tmpcontent = $firstline . ((strlen($firstline) != strlen($tmpcontent)) ? '...' : '');
+						$tmpcontent = $firstline . ((strlen($firstline) !== strlen($tmpcontent)) ? '...' : '');
 					}
-					// We don't use dol_escape_htmltag to get the html formatting active, but this need we must also
-					// clean data from some dangerous html
 					$ret .= dol_string_onlythesehtmltags(dol_htmlentitiesbr($tmpcontent));
 				} else {
 					if (empty($moreoptions['valuealreadyhtmlescaped'])) {
 						$ret .= dol_escape_htmltag($value);
 					} else {
-						$ret .= $value;        // $value must be already html escaped.
+						$ret .= $value;
 					}
 				}
 
@@ -367,8 +388,10 @@ class Form
 				}
 			}
 		}
+
 		return $ret;
 	}
+
 
 	/**
 	 * Output edit in place form
@@ -6486,8 +6509,8 @@ class Form
 		}
 
 		// $resql=mysqli_execute_query($this->db,$sql);
-		$resql = $this->db->execute_query($sql);
-		// $resql = $this->db->query($sql);
+		// $resql = $this->db->execute_query($sql);
+		$resql = $this->db->query($sql);
 		if ($resql) {
 			while ($obj = $this->db->fetch_object($resql)) {
 				$TCurrency[$obj->code] = $obj->code;

@@ -1121,8 +1121,8 @@ class Utils
 			$db->db->set_charset('utf8');
 		} else {
 			/** @var DoliDB $db */
-			$db->execute_query('SET NAMES utf8');
-			$db->execute_query('SET CHARACTER SET utf8');
+			// $db->execute_query('SET NAMES utf8');
+			// $db->execute_query('SET CHARACTER SET utf8');
 			$db->query('SET NAMES utf8');
 			$db->query('SET CHARACTER SET utf8');
 		}
