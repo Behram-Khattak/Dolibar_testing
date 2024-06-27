@@ -2095,6 +2095,21 @@ function get_left_menu_products($mainmenu, &$newmenu, $usemenuhider = 1, $leftme
 			}
 		}
 
+		// add container
+		// if (isModEnabled('shipping')) {
+			$langs->load("Container");
+			$newmenu->add("/container/index.php", 'Container', 0);
+			$newmenu->add("/container/card.php?action=create2&amp;leftmenu=sendings",'New Container', 1);
+			$newmenu->add("/container/index.php", $langs->trans("List"), 1);
+			if ($usemenuhider || empty($leftmenu) || $leftmenu == "sendings") {
+				$newmenu->add("/container/list.php &search_status=0", $langs->trans("StatusSendingDraftShort"), 2, $user->hasRight('container', 'lire'));
+				$newmenu->add("/container/list.php &search_status=1", $langs->trans("StatusSendingValidatedShort"), 2, $user->hasRight('container', 'lire'));
+				$newmenu->add("/container/list.php &search_status=2", $langs->trans("StatusSendingProcessedShort"), 2, $user->hasRight('container', 'lire'));
+			}
+			// $newmenu->add("/expedition/stats/index.php?leftmenu=sendings", $langs->trans("Statistics"), 1, $user->hasRight('expedition', 'lire'));
+		// }
+
+
 		// Services
 		if (isModEnabled('service')) {
 			$newmenu->add("/product/index.php?leftmenu=service", $langs->trans("Services"), 0, $user->hasRight('service', 'read'), '', $mainmenu, 'service', 0, '', '', '', img_picto('', 'service', 'class="paddingright pictofixedwidth"'));
