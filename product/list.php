@@ -79,6 +79,7 @@ $fourn_id = GETPOSTINT("fourn_id");
 $search_all = trim((GETPOST('search_all', 'alphanohtml') != '') ? GETPOST('search_all', 'alphanohtml') : GETPOST('sall', 'alphanohtml'));
 $search_id = GETPOST("search_id", 'alpha');
 $search_ref = GETPOST("search_ref", 'alpha');
+$search_container = GETPOST("search_container", 'alpha');
 $search_ref_supplier = GETPOST("search_ref_supplier", 'alpha');
 $search_barcode = GETPOST("search_barcode", 'alpha');
 $search_label = GETPOST("search_label", 'alpha');
@@ -229,6 +230,7 @@ $arraypricelevel = array();
 $arrayfields = array(
 	'p.rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'noteditable' => 1, 'notnull' => 1, 'index' => 1, 'position' => 1, 'comment' => 'Id', 'css' => 'left'),
 	'p.ref' => array('label' => 'ProductRef', 'checked' => 1, 'position' => 10),
+	'p.container_id' => array('label' => 'Product Container', 'checked' => 1, 'position' => 10),
 	//'pfp.ref_fourn'=>array('label'=>$langs->trans("RefSupplier"), 'checked'=>1, 'enabled'=>(isModEnabled('barcode'))),
 	'thumbnail' => array('label' => 'Photo', 'checked' => 0, 'position' => 10),
 	'p.description' => array('label' => 'Description', 'checked' => 0, 'position' => 10),
@@ -355,6 +357,7 @@ if (empty($reshook)) {
 		$search_all = "";
 		$search_id = '';
 		$search_ref = "";
+		$search_container = "";
 		$search_ref_supplier = "";
 		$search_label = "";
 		$search_default_workstation = "";
@@ -444,7 +447,7 @@ if ($search_type != '' && $search_type != '-1') {
 
 // Build and execute select
 // --------------------------------------------------------------------
-$sql = 'SELECT p.rowid, p.ref, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
+$sql = 'SELECT p.rowid, p.ref, p.container_id, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
 $sql .= ' p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,';
 $sql .= ' p.tobatch, ';
 if (isModEnabled('workstation')) {
@@ -546,6 +549,9 @@ if ($search_id) {
 if ($search_ref) {
 	$sql .= natural_search('p.ref', $search_ref);
 }
+if ($search_container) {
+	$sql .= natural_search('p.container_id', $search_container);
+}
 if ($search_label) {
 	$sql .= natural_search('p.label', $search_label);
 }
@@ -640,7 +646,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookmanager->resPrint;
-$sql .= " GROUP BY p.rowid, p.ref, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
+$sql .= " GROUP BY p.rowid, p.ref, p.container_id, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
 $sql .= " p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,";
 $sql .= ' p.datec, p.tms, p.entity, p.tobatch, p.pmp, p.cost_price, p.stock,';
 if (!getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -770,6 +776,9 @@ foreach ($searchCategoryProductList as $searchCategoryProduct) {
 }
 if ($search_ref) {
 	$param .= "&search_ref=".urlencode($search_ref);
+}
+if ($search_container) {
+	$param .= "&search_container=".urlencode($search_container);
 }
 if ($search_ref_supplier) {
 	$param .= "&search_ref_supplier=".urlencode($search_ref_supplier);
@@ -998,6 +1007,11 @@ if (!empty($arrayfields['p.rowid']['checked'])) {
 if (!empty($arrayfields['p.ref']['checked'])) {
 	print '<td class="liste_titre left">';
 	print '<input class="flat" type="text" name="search_ref" size="8" value="'.dol_escape_htmltag($search_ref).'">';
+	print '</td>';
+}
+if (!empty($arrayfields['p.container_id']['checked'])) {
+	print '<td class="liste_titre left">';
+	print '<input class="flat" type="text" name="search_container" size="8" value="'.dol_escape_htmltag($search_container).'">';
 	print '</td>';
 }
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
@@ -1293,6 +1307,11 @@ if (!empty($arrayfields['p.ref']['checked'])) {
 	print_liste_field_titre($arrayfields['p.ref']['label'], $_SERVER["PHP_SELF"], "p.ref", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
+// added container field
+if (!empty($arrayfields['p.container_id']['checked'])) {
+	print_liste_field_titre($arrayfields['p.container_id']['label'], $_SERVER["PHP_SELF"], "p.container_id", "", $param, "", $sortfield, $sortorder);
+	$totalarray['nbfield']++;
+}
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
 	print_liste_field_titre($arrayfields['pfp.ref_fourn']['label'], $_SERVER["PHP_SELF"], "pfp.ref_fourn", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
@@ -1543,6 +1562,8 @@ while ($i < $imaxinloop) {
 	if (empty($reshook)) {
 		$product_static->id = $obj->rowid;
 		$product_static->ref = $obj->ref;
+		// added container id to object
+		$product_static->container_id = $obj->container_id;
 		$product_static->description = $obj->description;
 		$product_static->ref_fourn = empty($obj->ref_supplier) ? '' : $obj->ref_supplier; // deprecated
 		$product_static->ref_supplier = empty($obj->ref_supplier) ? '' : $obj->ref_supplier;
@@ -1653,6 +1674,14 @@ while ($i < $imaxinloop) {
 			print '<td class="tdoverflowmax250">';
 			print $product_static->getNomUrl(1);
 			print "</td>\n";
+			if (!$i) {
+				$totalarray['nbfield']++;
+			}
+		}
+
+		// added container id field value
+		if (!empty($arrayfields['p.container_id']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->container_id).'">'.$product_static->container_id.'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}
