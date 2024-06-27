@@ -219,29 +219,12 @@ $formother = new FormOther($db);
 
 $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 
-llxHeader("", $langs->trans("Categories"), $help_url);
-echo load_fiche_titre('Create Rack');
+llxHeader("", 'Container List', $help_url);
+echo load_fiche_titre('Container List');
 $output = "";
 $output .= "<div class='row'>
 <div class='col-md-8 d-flex align-items-center justify-content-center'>";
-$output .= "
-		<form class='w-100' id='saveRack'   method='POST'>
-		 <input type='hidden' name='token' value='" . newToken() . "'>
-		 <input type='hidden' name='urlfrom' value=''.$urlfrom.''>
-		 <input type='hidden' name='action' value='add'>
-		 <input type='hidden' name='id' value=''.GETPOST('origin', 'alpha').''>
-		 <input type='hidden' name='type' value=''.$type.''>
-		 <input type='hidden' name='backtopage' value=''.$backtopage.''>
-
-		 <label> Enter Rack Name</label>
-		 <input id='name' class='form-control mt-3' name='name'>
-		 <div class='my-3'>
-		<button type='submit' class='button btn'>Create Rack</button>
-		 </div>
-		</form> 
-		</div>
-		</div>
-		";
+$output .= "  ";
 
 echo $output;
 
