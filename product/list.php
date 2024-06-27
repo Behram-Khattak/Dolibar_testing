@@ -80,6 +80,7 @@ $search_all = trim((GETPOST('search_all', 'alphanohtml') != '') ? GETPOST('searc
 $search_id = GETPOST("search_id", 'alpha');
 $search_ref = GETPOST("search_ref", 'alpha');
 $search_container = GETPOST("search_container", 'alpha');
+$search_quantity = GETPOST("search_quantity", 'alpha');
 $search_ref_supplier = GETPOST("search_ref_supplier", 'alpha');
 $search_barcode = GETPOST("search_barcode", 'alpha');
 $search_label = GETPOST("search_label", 'alpha');
@@ -230,7 +231,10 @@ $arraypricelevel = array();
 $arrayfields = array(
 	'p.rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'noteditable' => 1, 'notnull' => 1, 'index' => 1, 'position' => 1, 'comment' => 'Id', 'css' => 'left'),
 	'p.ref' => array('label' => 'ProductRef', 'checked' => 1, 'position' => 10),
+	// Added container id
 	'p.container_id' => array('label' => 'Product Container', 'checked' => 1, 'position' => 10),
+	//add quantity
+	'p.quantity' => array('label' => 'Quantity', 'checked' => 1, 'position' => 10),
 	//'pfp.ref_fourn'=>array('label'=>$langs->trans("RefSupplier"), 'checked'=>1, 'enabled'=>(isModEnabled('barcode'))),
 	'thumbnail' => array('label' => 'Photo', 'checked' => 0, 'position' => 10),
 	'p.description' => array('label' => 'Description', 'checked' => 0, 'position' => 10),
@@ -337,6 +341,9 @@ if (GETPOST('cancel', 'alpha')) {
 if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massaction != 'confirm_presend') {
 	$massaction = '';
 }
+
+
+
 $parameters = array('arrayfields' => &$arrayfields);
 $reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
@@ -357,9 +364,12 @@ if (empty($reshook)) {
 		$search_all = "";
 		$search_id = '';
 		$search_ref = "";
+		// added search container
 		$search_container = "";
 		$search_ref_supplier = "";
 		$search_label = "";
+		//add quantity
+		$search_quantity = "";
 		$search_default_workstation = "";
 		$search_barcode = "";
 		$searchCategoryProductOperator = 0;
@@ -445,11 +455,12 @@ if ($search_type != '' && $search_type != '-1') {
 	}
 }
 
+
 // Build and execute select
 // --------------------------------------------------------------------
 $sql = 'SELECT p.rowid, p.ref, p.container_id, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
 $sql .= ' p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,';
-$sql .= ' p.tobatch, ';
+$sql .= ' p.tobatch, p.quantity, ';  //quantity addded
 if (isModEnabled('workstation')) {
 	$sql .= ' p.fk_default_workstation, ws.status as status_workstation, ws.ref as ref_workstation, ';
 }
@@ -510,6 +521,9 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 // Add table from hooks
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+
+
+
 $sql .= $hookmanager->resPrint;
 
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
@@ -549,8 +563,13 @@ if ($search_id) {
 if ($search_ref) {
 	$sql .= natural_search('p.ref', $search_ref);
 }
+// added container field
 if ($search_container) {
 	$sql .= natural_search('p.container_id', $search_container);
+}
+// added quantity field
+if ($search_quantity) {
+	$sql .= natural_search('p.quantity', $search_quantity);
 }
 if ($search_label) {
 	$sql .= natural_search('p.label', $search_label);
@@ -646,7 +665,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookmanager->resPrint;
-$sql .= " GROUP BY p.rowid, p.ref, p.container_id, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
+$sql .= " GROUP BY p.rowid, p.ref, p.container_id, p.quantity, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
 $sql .= " p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,";
 $sql .= ' p.datec, p.tms, p.entity, p.tobatch, p.pmp, p.cost_price, p.stock,';
 if (!getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -718,6 +737,7 @@ $num = $db->num_rows($resql);
 
 // Direct jump if only one record found
 if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
+	
 	$obj = $db->fetch_object($resql);
 	$id = $obj->rowid;
 	header("Location: ".DOL_URL_ROOT.'/product/card.php?id='.$id);
@@ -779,6 +799,9 @@ if ($search_ref) {
 }
 if ($search_container) {
 	$param .= "&search_container=".urlencode($search_container);
+}
+if ($search_quantity) {
+	$param .= "&search_quantity=".urlencode($search_quantity);
 }
 if ($search_ref_supplier) {
 	$param .= "&search_ref_supplier=".urlencode($search_ref_supplier);
@@ -1009,9 +1032,16 @@ if (!empty($arrayfields['p.ref']['checked'])) {
 	print '<input class="flat" type="text" name="search_ref" size="8" value="'.dol_escape_htmltag($search_ref).'">';
 	print '</td>';
 }
+// container field
 if (!empty($arrayfields['p.container_id']['checked'])) {
 	print '<td class="liste_titre left">';
 	print '<input class="flat" type="text" name="search_container" size="8" value="'.dol_escape_htmltag($search_container).'">';
+	print '</td>';
+}
+// quantity
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print '<td class="liste_titre left">';
+	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_quantity).'">';
 	print '</td>';
 }
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
@@ -1252,6 +1282,21 @@ if (!empty($arrayfields[$alias_product_perentity . '.accountancy_code_buy_export
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_input.tpl.php';
 // Fields from hook
 $parameters = array('arrayfields' => $arrayfields);
+
+
+
+
+
+
+
+
+
+// print_r($arrayfields);
+// die();
+
+
+
+
 $reshook = $hookmanager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookmanager->resPrint;
 // Date creation
@@ -1310,6 +1355,11 @@ if (!empty($arrayfields['p.ref']['checked'])) {
 // added container field
 if (!empty($arrayfields['p.container_id']['checked'])) {
 	print_liste_field_titre($arrayfields['p.container_id']['label'], $_SERVER["PHP_SELF"], "p.container_id", "", $param, "", $sortfield, $sortorder);
+	$totalarray['nbfield']++;
+}
+//add quantity field
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print_liste_field_titre($arrayfields['p.quantity']['label'], $_SERVER["PHP_SELF"], "p.quantity", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
@@ -1529,6 +1579,10 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
+
+
+
+
 $totalarray = array();
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
@@ -1564,6 +1618,8 @@ while ($i < $imaxinloop) {
 		$product_static->ref = $obj->ref;
 		// added container id to object
 		$product_static->container_id = $obj->container_id;
+		//quantity addEd
+		$product_static->quantity = $obj->quantity;
 		$product_static->description = $obj->description;
 		$product_static->ref_fourn = empty($obj->ref_supplier) ? '' : $obj->ref_supplier; // deprecated
 		$product_static->ref_supplier = empty($obj->ref_supplier) ? '' : $obj->ref_supplier;
@@ -1684,6 +1740,14 @@ while ($i < $imaxinloop) {
 			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->container_id).'">'.$product_static->container_id.'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
+			}
+		}
+
+		//quantiy from database
+		if (!empty($arrayfields['p.quantity']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->quantity).'">'.$product_static->quantity.'</td>';
+			if (!$i) {
+			$totalarray['nbfield']++;
 			}
 		}
 

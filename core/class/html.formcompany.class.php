@@ -297,6 +297,11 @@ class FormCompany extends Form
 		$sql .= " ORDER BY c.code, d.code_departement";
 
 		$result = $this->db->query($sql);
+
+
+	
+
+
 		if ($result) {
 			if (!empty($htmlname)) {
 				$out .= '<select id="' . $htmlname . '" class="flat' . ($morecss ? ' ' . $morecss : '') . '" name="' . $htmlname . '">';
@@ -305,12 +310,19 @@ class FormCompany extends Form
 				$out .= '<option value="0">&nbsp;</option>';
 			}
 			$num = $this->db->num_rows($result);
+
+			
+
+
 			$i = 0;
 			dol_syslog(get_class($this) . "::select_departement num=" . $num, LOG_DEBUG);
 			if ($num) {
 				$country = '';
 				while ($i < $num) {
 					$obj = $this->db->fetch_object($result);
+
+					
+
 					if ($obj->code == '0') {		// Le code peut etre une chaine
 						$out .= '<option value="0">&nbsp;</option>';
 					} else {
