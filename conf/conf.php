@@ -5,11 +5,11 @@
 // Take a look at conf.php.example file for an example of conf.php file
 // and explanations for all possibles parameters.
 //
-$dolibarr_main_url_root='http://localhost/Dolibar_test/Dolibar_testing';
-$dolibarr_main_document_root="C:/xampp/htdocs/Dolibar_test/Dolibar_testing";
+$dolibarr_main_url_root='http://localhost/Dolibar_testing';
+$dolibarr_main_document_root="C:/xampp/htdocs/Dolibar_testing";
 $dolibarr_main_url_root_alt='/custom';
-$dolibarr_main_document_root_alt="C:/xampp/htdocs/Dolibar_test/Dolibar_testing/custom";
-$dolibarr_main_data_root="C:/xampp/htdocs/Dolibar_test/Dolibar_testing/documents";
+$dolibarr_main_document_root_alt="C:/xampp/htdocs/Dolibar_testing/custom";
+$dolibarr_main_data_root="C:/xampp/htdocs/Dolibar_testing/documents";
 $dolibarr_main_db_host='localhost';
 $dolibarr_main_db_port='0';
 $dolibarr_main_db_name='dolibarr';
@@ -28,7 +28,7 @@ $dolibarr_main_prod='0';
 $dolibarr_main_force_https='0';
 $dolibarr_main_restrict_os_commands='mariadb-dump, mariadb, mysqldump, mysql, pg_dump, pg_restore, clamdscan, clamdscan.exe';
 $dolibarr_nocsrfcheck='0';
-$dolibarr_main_instance_unique_id='58432f537262fa4bc0bb87f47b61e536';
+$dolibarr_main_instance_unique_id='520ccb11170bf4003d7713ca6febd5aa';
 $dolibarr_mailing_limit_sendbyweb='0';
 $dolibarr_mailing_limit_sendbycli='0';
 

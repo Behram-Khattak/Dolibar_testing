@@ -232,6 +232,11 @@ $arrayfields = array(
 	//'pfp.ref_fourn'=>array('label'=>$langs->trans("RefSupplier"), 'checked'=>1, 'enabled'=>(isModEnabled('barcode'))),
 	'thumbnail' => array('label' => 'Photo', 'checked' => 0, 'position' => 10),
 	'p.description' => array('label' => 'Description', 'checked' => 0, 'position' => 10),
+
+	//add quantity
+	'p.quantity' => array('label' => 'Quantity', 'checked' => 1, 'position' => 10),
+
+	
 	'p.label' => array('label' => "Label", 'checked' => 1, 'position' => 10),
 	'p.fk_product_type' => array('label' => "Type", 'checked' => 0, 'enabled' => (isModEnabled("product") && isModEnabled("service")), 'position' => 11),
 	'p.barcode' => array('label' => "Gencod", 'checked' => 1, 'enabled' => (isModEnabled('barcode')), 'position' => 12),
@@ -335,6 +340,9 @@ if (GETPOST('cancel', 'alpha')) {
 if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massaction != 'confirm_presend') {
 	$massaction = '';
 }
+
+
+
 $parameters = array('arrayfields' => &$arrayfields);
 $reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action); // Note that $action and $object may have been modified by some hooks
 if ($reshook < 0) {
@@ -357,6 +365,11 @@ if (empty($reshook)) {
 		$search_ref = "";
 		$search_ref_supplier = "";
 		$search_label = "";
+
+		//add quantity
+		$search_quantity = "";
+
+
 		$search_default_workstation = "";
 		$search_barcode = "";
 		$searchCategoryProductOperator = 0;
@@ -442,11 +455,12 @@ if ($search_type != '' && $search_type != '-1') {
 	}
 }
 
+
 // Build and execute select
 // --------------------------------------------------------------------
 $sql = 'SELECT p.rowid, p.ref, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
 $sql .= ' p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,';
-$sql .= ' p.tobatch, ';
+$sql .= ' p.tobatch, p.quantity, ';  //quantity addded
 if (isModEnabled('workstation')) {
 	$sql .= ' p.fk_default_workstation, ws.status as status_workstation, ws.ref as ref_workstation, ';
 }
@@ -507,6 +521,9 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 // Add table from hooks
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListFrom', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
+
+
+
 $sql .= $hookmanager->resPrint;
 
 $sql .= ' WHERE p.entity IN ('.getEntity('product').')';
@@ -549,6 +566,13 @@ if ($search_ref) {
 if ($search_label) {
 	$sql .= natural_search('p.label', $search_label);
 }
+
+//addd
+if ($search_quantity) {
+	$sql .= natural_search('p.quantity', $search_quantity);
+}
+
+
 if ($search_default_workstation) {
 	$sql .= natural_search('ws.ref', $search_default_workstation);
 }
@@ -640,7 +664,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookmanager->resPrint;
-$sql .= " GROUP BY p.rowid, p.ref, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
+$sql .= " GROUP BY p.rowid, p.ref, p.quantity, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
 $sql .= " p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,";
 $sql .= ' p.datec, p.tms, p.entity, p.tobatch, p.pmp, p.cost_price, p.stock,';
 if (!getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -712,6 +736,7 @@ $num = $db->num_rows($resql);
 
 // Direct jump if only one record found
 if ($num == 1 && getDolGlobalString('MAIN_SEARCH_DIRECT_OPEN_IF_ONLY_ONE') && $search_all) {
+	
 	$obj = $db->fetch_object($resql);
 	$id = $obj->rowid;
 	header("Location: ".DOL_URL_ROOT.'/product/card.php?id='.$id);
@@ -1010,11 +1035,32 @@ if (!empty($arrayfields['thumbnail']['checked'])) {
 	print '<td class="liste_titre center">';
 	print '</td>';
 }
+
+
 if (!empty($arrayfields['p.label']['checked'])) {
 	print '<td class="liste_titre left">';
 	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_label).'">';
 	print '</td>';
 }
+
+
+
+
+
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print '<td class="liste_titre left">';
+	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_quantity).'">';
+	print '</td>';
+}
+
+
+
+
+
+
+
+
+
 // Type
 if (!empty($arrayfields['p.fk_product_type']['checked'])) {
 	print '<td class="liste_titre center">';
@@ -1238,6 +1284,21 @@ if (!empty($arrayfields[$alias_product_perentity . '.accountancy_code_buy_export
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_input.tpl.php';
 // Fields from hook
 $parameters = array('arrayfields' => $arrayfields);
+
+
+
+
+
+
+
+
+
+// print_r($arrayfields);
+// die();
+
+
+
+
 $reshook = $hookmanager->executeHooks('printFieldListOption', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 print $hookmanager->resPrint;
 // Date creation
@@ -1305,10 +1366,23 @@ if (!empty($arrayfields['p.label']['checked'])) {
 	print_liste_field_titre($arrayfields['p.label']['label'], $_SERVER["PHP_SELF"], "p.label", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
+
+
+//add
+
+
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print_liste_field_titre($arrayfields['p.quantity']['label'], $_SERVER["PHP_SELF"], "p.quantity", "", $param, "", $sortfield, $sortorder);
+	$totalarray['nbfield']++;
+}
+
+
 if (!empty($arrayfields['p.fk_product_type']['checked'])) {
 	print_liste_field_titre($arrayfields['p.fk_product_type']['label'], $_SERVER["PHP_SELF"], "p.fk_product_type", "", $param, "", $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
 }
+
+
 if (!empty($arrayfields['p.description']['checked'])) {
 	print_liste_field_titre($arrayfields['p.description']['label'], $_SERVER["PHP_SELF"], "p.description", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
@@ -1510,6 +1584,10 @@ print '</tr>'."\n";
 // --------------------------------------------------------------------
 $i = 0;
 $savnbfield = $totalarray['nbfield'];
+
+
+
+
 $totalarray = array();
 $totalarray['nbfield'] = 0;
 $imaxinloop = ($limit ? min($num, $limit) : $num);
@@ -1547,6 +1625,11 @@ while ($i < $imaxinloop) {
 		$product_static->ref_fourn = empty($obj->ref_supplier) ? '' : $obj->ref_supplier; // deprecated
 		$product_static->ref_supplier = empty($obj->ref_supplier) ? '' : $obj->ref_supplier;
 		$product_static->label = $obj->label;
+
+		//quantity addEd
+		$product_static->quantity = $obj->quantity;
+
+
 		$product_static->barcode = $obj->barcode;
 		$product_static->finished = $obj->finished;
 		$product_static->type = $obj->fk_product_type;
@@ -1687,6 +1770,15 @@ while ($i < $imaxinloop) {
 		// Label
 		if (!empty($arrayfields['p.label']['checked'])) {
 			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->label).'">'.$product_static->label.'</td>';
+			if (!$i) {
+				$totalarray['nbfield']++;
+			}
+		}
+
+
+		//quantiy from database
+		if (!empty($arrayfields['p.quantity']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->quantity).'">'.$product_static->quantity.'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}
