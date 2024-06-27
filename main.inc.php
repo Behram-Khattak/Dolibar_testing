@@ -3945,3 +3945,31 @@ if (!function_exists("llxFooter")) {
 		print "</html>\n";
 	}
 }
+
+function showSuccessAlert($type,$message){
+	$output="";
+
+	$output .="
+	<div class='alert alert-{$type}' role='alert'>
+		{$message}
+	</div>
+	";
+
+	echo $output;
+}
+
+function createSlug($string) {
+    // Convert the string to lowercase
+    $string = strtolower($string);
+
+    // Remove special characters
+    $string = preg_replace('/[^a-z0-9\s-]/', '', $string);
+
+    // Replace spaces and multiple hyphens with a single hyphen
+    $string = preg_replace('/[\s-]+/', '-', $string);
+
+    // Trim hyphens from the beginning and end
+    $string = trim($string, '-');
+
+    return $string;
+}  
