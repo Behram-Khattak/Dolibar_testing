@@ -288,18 +288,24 @@ class FormCompany extends Form
 		$sql .= " " . $this->db->prefix() . "c_departements as d, " . $this->db->prefix() . "c_regions as r," . $this->db->prefix() . "c_country as c";
 		$sql .= " WHERE d.fk_region=r.code_region and r.fk_pays=c.rowid";
 		$sql .= " AND d.active = 1 AND r.active = 1 AND c.active = 1";
+		
 		if ($country_codeid && is_numeric($country_codeid)) {
 			$sql .= " AND c.rowid = '" . $this->db->escape($country_codeid) . "'";
+
+			
+
 		}
 		if ($country_codeid && !is_numeric($country_codeid)) {
 			$sql .= " AND c.code = '" . $this->db->escape($country_codeid) . "'";
+
+		
 		}
 		$sql .= " ORDER BY c.code, d.code_departement";
 
 		$result = $this->db->query($sql);
 
 
-	
+		
 
 
 		if ($result) {

@@ -604,6 +604,7 @@ if (empty($reshook)) {
 			$object->country_id = GETPOSTINT('country_id');
 			$object->container_id = GETPOST('container_id'); // append to object to store data on database
 			$object->quantity = GETPOST('quantity'); // append to object to store data on database
+
 			$object->state_id = GETPOSTINT('state_id');
 			$object->lifetime               = GETPOSTINT('lifetime');
 			$object->qc_frequency           = GETPOSTINT('qc_frequency');
@@ -614,18 +615,23 @@ if (empty($reshook)) {
 			$object->seuil_stock_alerte 	 = GETPOST('seuil_stock_alerte') ? GETPOST('seuil_stock_alerte') : 0;
 			$object->desiredstock          = GETPOST('desiredstock') ? GETPOST('desiredstock') : 0;
 			$object->canvas             	 = GETPOST('canvas');
-			$object->net_measure           = GETPOST('net_measure');
-			$object->net_measure_units     = GETPOST('net_measure_units'); // This is not the fk_unit but the power of unit
-			$object->weight             	 = GETPOST('weight');
-			$object->weight_units       	 = GETPOST('weight_units'); // This is not the fk_unit but the power of unit
-			$object->length             	 = GETPOST('size');
-			$object->length_units       	 = GETPOST('size_units'); // This is not the fk_unit but the power of unit
-			$object->width = GETPOST('sizewidth');
-			$object->height             	 = GETPOST('sizeheight');
-			$object->surface            	 = GETPOST('surface');
-			$object->surface_units      	 = GETPOST('surface_units'); // This is not the fk_unit but the power of unit
-			$object->volume             	 = GETPOST('volume');
-			$object->volume_units       	 = GETPOST('volume_units'); // This is not the fk_unit but the power of unit
+
+           
+			// $object->net_measure           = GETPOST('net_measure');
+			// $object->net_measure_units     = GETPOST('net_measure_units'); // This is not the fk_unit but the power of unit
+			// $object->weight             	 = GETPOST('weight');
+			// $object->weight_units       	 = GETPOST('weight_units'); // This is not the fk_unit but the power of unit
+			// $object->length             	 = GETPOST('size');
+			// $object->length_units       	 = GETPOST('size_units'); // This is not the fk_unit but the power of unit
+			// $object->width = GETPOST('sizewidth');
+			// $object->height             	 = GETPOST('sizeheight');
+			// $object->surface            	 = GETPOST('surface');
+			// $object->surface_units      	 = GETPOST('surface_units'); // This is not the fk_unit but the power of unit
+			// $object->volume             	 = GETPOST('volume');
+			// $object->volume_units       	 = GETPOST('volume_units'); // This is not the fk_unit but the power of unit
+
+
+
 			$finished = GETPOSTINT('finished');
 			if ($finished >= 0) {
 				$object->finished = $finished;
@@ -792,19 +798,22 @@ if (empty($reshook)) {
 				$object->duration_unit          = GETPOST('duration_unit', 'alpha');
 
 				$object->canvas                 = GETPOST('canvas');
-				$object->net_measure            = GETPOST('net_measure');
-				$object->net_measure_units      = GETPOST('net_measure_units'); // This is not the fk_unit but the power of unit
-				$object->weight                 = GETPOST('weight');
-				$object->weight_units           = GETPOST('weight_units'); // This is not the fk_unit but the power of unit
-				$object->length                 = GETPOST('size');
-				$object->length_units           = GETPOST('size_units'); // This is not the fk_unit but the power of unit
-				$object->width = GETPOST('sizewidth');
-				$object->height = GETPOST('sizeheight');
 
-				$object->surface                = GETPOST('surface');
-				$object->surface_units          = GETPOST('surface_units'); // This is not the fk_unit but the power of unit
-				$object->volume                 = GETPOST('volume');
-				$object->volume_units           = GETPOST('volume_units'); // This is not the fk_unit but the power of unit
+
+				// $object->net_measure            = GETPOST('net_measure');
+				// $object->net_measure_units      = GETPOST('net_measure_units'); // This is not the fk_unit but the power of unit
+				// $object->weight                 = GETPOST('weight');
+				// $object->weight_units           = GETPOST('weight_units'); // This is not the fk_unit but the power of unit
+				// $object->length                 = GETPOST('size');
+				// $object->length_units           = GETPOST('size_units'); // This is not the fk_unit but the power of unit
+				// $object->width = GETPOST('sizewidth');
+				// $object->height = GETPOST('sizeheight');
+
+				// $object->surface                = GETPOST('surface');
+				// $object->surface_units          = GETPOST('surface_units'); // This is not the fk_unit but the power of unit
+				// $object->volume                 = GETPOST('volume');
+				// $object->volume_units           = GETPOST('volume_units'); // This is not the fk_unit but the power of unit
+
 
 				$finished = GETPOSTINT('finished');
 				if ($finished >= 0) {
@@ -1488,11 +1497,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				}
 
 				// SellBy / EatBy mandatory list
-				if (!empty($sellOrEatByMandatoryList)) {
-					print '<tr><td>' . $langs->trans('BatchSellOrEatByMandatoryList', $langs->trans('SellByDate'), $langs->trans('EatByDate')) . '</td><td>';
-					print $form->selectarray('sell_or_eat_by_mandatory', $sellOrEatByMandatoryList, GETPOSTINT('sell_or_eat_by_mandatory'));
-					print '</td></tr>';
-				}
+				// if (!empty($sellOrEatByMandatoryList)) {
+				// 	print '<tr><td>' . $langs->trans('BatchSellOrEatByMandatoryList', $langs->trans('SellByDate'), $langs->trans('EatByDate')) . '</td><td>';
+				// 	print $form->selectarray('sell_or_eat_by_mandatory', $sellOrEatByMandatoryList, GETPOSTINT('sell_or_eat_by_mandatory'));
+				// 	print '</td></tr>';
+				// }
 			}
 
 			$showbarcode = isModEnabled('barcode');
@@ -1606,49 +1615,49 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				}
 			}
 
-			if ($type != 1) {
-				if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {
-					// Brut Weight
-					print '<tr><td>' . $langs->trans("Weight") . '</td><td>';
-					print img_picto('', 'fa-balance-scale', 'class="pictofixedwidth"');
-					print '<input name="weight" size="4" value="' . GETPOST('weight') . '">';
-					print $formproduct->selectMeasuringUnits("weight_units", "weight", GETPOSTISSET('weight_units') ? GETPOST('weight_units', 'alpha') : (!getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT') ? 0 : getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT')), 0, 2);
-					print '</td></tr>';
-				}
+			// if ($type != 1) {
+			// 	if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {
+			// 		// Brut Weight
+			// 		print '<tr><td>' . $langs->trans("Weight") . '</td><td>';
+			// 		print img_picto('', 'fa-balance-scale', 'class="pictofixedwidth"');
+			// 		print '<input name="weight" size="4" value="' . GETPOST('weight') . '">';
+			// 		print $formproduct->selectMeasuringUnits("weight_units", "weight", GETPOSTISSET('weight_units') ? GETPOST('weight_units', 'alpha') : (!getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT') ? 0 : getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT')), 0, 2);
+			// 		print '</td></tr>';
+			// 	}
 
-				// Brut Length
-				if (!getDolGlobalString('PRODUCT_DISABLE_SIZE')) {
-					print '<tr><td>' . $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . '</td><td>';
-					print img_picto('', 'fa-ruler', 'class="pictofixedwidth"');
-					print '<input name="size" class="width50" value="' . GETPOST('size') . '"> x ';
-					print '<input name="sizewidth" class="width50" value="' . GETPOST('sizewidth') . '"> x ';
-					print '<input name="sizeheight" class="width50" value="' . GETPOST('sizeheight') . '">';
-					print $formproduct->selectMeasuringUnits("size_units", "size", GETPOSTISSET('size_units') ? GETPOST('size_units', 'alpha') : '0', 0, 2);
-					print '</td></tr>';
-				}
-				if (!getDolGlobalString('PRODUCT_DISABLE_SURFACE')) {
-					// Brut Surface
-					print '<tr><td>' . $langs->trans("Surface") . '</td><td>';
-					print '<input name="surface" size="4" value="' . GETPOST('surface') . '">';
-					print $formproduct->selectMeasuringUnits("surface_units", "surface", GETPOSTISSET('surface_units') ? GETPOST('surface_units', 'alpha') : '0', 0, 2);
-					print '</td></tr>';
-				}
-				if (!getDolGlobalString('PRODUCT_DISABLE_VOLUME')) {
-					// Brut Volume
-					print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
-					print '<input name="volume" size="4" value="' . GETPOST('volume') . '">';
-					print $formproduct->selectMeasuringUnits("volume_units", "volume", GETPOSTISSET('volume_units') ? GETPOST('volume_units', 'alpha') : '0', 0, 2);
-					print '</td></tr>';
-				}
+			// 	// Brut Length
+			// 	if (!getDolGlobalString('PRODUCT_DISABLE_SIZE')) {
+			// 		print '<tr><td>' . $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . '</td><td>';
+			// 		print img_picto('', 'fa-ruler', 'class="pictofixedwidth"');
+			// 		print '<input name="size" class="width50" value="' . GETPOST('size') . '"> x ';
+			// 		print '<input name="sizewidth" class="width50" value="' . GETPOST('sizewidth') . '"> x ';
+			// 		print '<input name="sizeheight" class="width50" value="' . GETPOST('sizeheight') . '">';
+			// 		print $formproduct->selectMeasuringUnits("size_units", "size", GETPOSTISSET('size_units') ? GETPOST('size_units', 'alpha') : '0', 0, 2);
+			// 		print '</td></tr>';
+			// 	}
+			// 	if (!getDolGlobalString('PRODUCT_DISABLE_SURFACE')) {
+			// 		// Brut Surface
+			// 		print '<tr><td>' . $langs->trans("Surface") . '</td><td>';
+			// 		print '<input name="surface" size="4" value="' . GETPOST('surface') . '">';
+			// 		print $formproduct->selectMeasuringUnits("surface_units", "surface", GETPOSTISSET('surface_units') ? GETPOST('surface_units', 'alpha') : '0', 0, 2);
+			// 		print '</td></tr>';
+			// 	}
+			// 	if (!getDolGlobalString('PRODUCT_DISABLE_VOLUME')) {
+			// 		// Brut Volume
+			// 		print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
+			// 		print '<input name="volume" size="4" value="' . GETPOST('volume') . '">';
+			// 		print $formproduct->selectMeasuringUnits("volume_units", "volume", GETPOSTISSET('volume_units') ? GETPOST('volume_units', 'alpha') : '0', 0, 2);
+			// 		print '</td></tr>';
+			// 	}
 
-				if (getDolGlobalString('PRODUCT_ADD_NET_MEASURE')) {
-					// Net Measure
-					print '<tr><td>' . $langs->trans("NetMeasure") . '</td><td>';
-					print '<input name="net_measure" size="4" value="' . GETPOST('net_measure') . '">';
-					print $formproduct->selectMeasuringUnits("net_measure_units", '', GETPOSTISSET('net_measure_units') ? GETPOST('net_measure_units', 'alpha') : (!getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT') ? 0 : getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT')), 0, 0);
-					print '</td></tr>';
-				}
-			}
+			// 	if (getDolGlobalString('PRODUCT_ADD_NET_MEASURE')) {
+			// 		// Net Measure
+			// 		print '<tr><td>' . $langs->trans("NetMeasure") . '</td><td>';
+			// 		print '<input name="net_measure" size="4" value="' . GETPOST('net_measure') . '">';
+			// 		print $formproduct->selectMeasuringUnits("net_measure_units", '', GETPOSTISSET('net_measure_units') ? GETPOST('net_measure_units', 'alpha') : (!getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT') ? 0 : getDolGlobalString('MAIN_WEIGHT_DEFAULT_UNIT')), 0, 0);
+			// 		print '</td></tr>';
+			// 	}
+			// }
 
 			// Units
 			if (getDolGlobalString('PRODUCT_USE_UNITS')) {
@@ -1660,7 +1669,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			// Custom code
 			if (!getDolGlobalString('PRODUCT_DISABLE_CUSTOM_INFO') && empty($type)) {
-				print '<tr><td class="wordbreak">' . $langs->trans("CustomCode") . '</td><td><input name="customcode" class="maxwidth100onsmartphone" value="' . GETPOST('customcode') . '"></td></tr>';
+				// print '<tr><td class="wordbreak">' . $langs->trans("CustomCode") . '</td><td><input name="customcode" class="maxwidth100onsmartphone" value="' . GETPOST('customcode') . '"></td></tr>';
 
 				// Origin country
 				print '<tr><td>' . $langs->trans("CountryOrigin") . '</td>';
@@ -1673,6 +1682,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '</td></tr>';
 
 				// State
+				
+
 				if (!getDolGlobalString('PRODUCT_DISABLE_STATE')) {
 					print '<tr>';
 					if (getDolGlobalString('MAIN_SHOW_REGION_IN_STATE_SELECT') && (getDolGlobalInt('MAIN_SHOW_REGION_IN_STATE_SELECT') == 1 || getDolGlobalInt('MAIN_SHOW_REGION_IN_STATE_SELECT') == 2)) {
@@ -1684,6 +1695,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print img_picto('', 'state', 'class="pictofixedwidth"');
 					print $formcompany->select_state($object->state_id, $object->country_code);
 					print '</tr>';
+
 				}
 			}
 

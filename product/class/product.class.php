@@ -115,9 +115,10 @@ class Product extends CommonObject
 	 */
 	public $label;
 
+
 	public $container_id;
 	public $quantity;
-
+    
 	/**
 	 * Product description
 	 *
@@ -638,6 +639,8 @@ class Product extends CommonObject
 		'mandatory_period' => array('type' => 'integer', 'label' => 'mandatoryperiod', 'enabled' => 1, 'visible' => 1,  'notnull' => 1, 'default' => '0', 'index' => 1,  'position' => 1000),
 	);
 
+
+	
 	/**
 	 * Regular product
 	 */
