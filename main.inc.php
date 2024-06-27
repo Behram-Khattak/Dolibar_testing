@@ -1610,6 +1610,9 @@ if (!function_exists("llxHeader")) {
 		// If theme MD and classic layer, we open the menulayer by default.
 		if ($conf->theme == 'md' && !in_array($conf->browser->layout, array('phone', 'tablet')) && !getDolGlobalString('MAIN_OPTIMIZEFORTEXTBROWSER')) {
 			global $mainmenu;
+
+			print_r( $mainmenu);
+			die();
 			if ($mainmenu != 'website') {
 				$tmpcsstouse = $morecssonbody; // We do not use sidebar-collpase by default to have menuhider open by default.
 			}
