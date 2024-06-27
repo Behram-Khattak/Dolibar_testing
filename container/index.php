@@ -41,12 +41,12 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 // Security check
 $socid = GETPOSTINT('socid');
 if (!$user->hasRight('categorie', 'lire')) {
-	accessforbidden();
+    accessforbidden();
 }
 
 $action = GETPOST('action', 'alpha');
-$cancel		= GETPOST('cancel', 'alpha');
-$origin		= GETPOST('origin', 'alpha');
+$cancel        = GETPOST('cancel', 'alpha');
+$origin        = GETPOST('origin', 'alpha');
 $catorigin  = GETPOSTINT('catorigin');
 $type = GETPOST('type', 'aZ09');
 $urlfrom = GETPOST('urlfrom', 'alpha');
@@ -222,35 +222,70 @@ $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 llxHeader("", 'Container List', $help_url);
 echo load_fiche_titre('Container List');
 $output = "";
-$output .= "<div class='row'>
-<div class='col-md-8 d-flex align-items-center justify-content-center'>";
-$output .= "  ";
+$output .= "<div class='row d-flex align-items-center justify-content-center'>
+<div class='col-md-8'>";
+$output .= " 
+<div class='card'>
+<div class='card-body'>
+<table class='table table-bordered'>
+  <thead>
+    <tr>
+      <th scope='col'>#ID</th>
+      <th scope='col'>Container ID</th>
+      <th scope='col'>Container Type</th>
+      <th scope='col'>Container Name</th>
+      <th scope='col'>Container Arival Date</th>
+      <th scope='col'>Edit</th>
+      <th scope='col'>Delete</th>
+    </tr>
+  </thead>
+  <tbody id='getContainer'>
+   
+  </tbody>
+</table> 
+</div>
+</div>";
 
 echo $output;
 
 
 $script_output = "
 <script>
-$(document).on('submit','#saveRack',async function(e){
-	e.preventDefault();
-	let name=$('#name').val();
-	if(name.length <= 0){
-		alert('Please fill the name field')
-		return 0;
-	}
-	let formData=new FormData(this);
-	let url ='" . $dolibarr_main_url_root . "/rack/ajax/create-rack.php'
-	let response=await fetch(url,{
-	    method:'POST',
-        body:formData,
-	});
-	let data=await response.json();
-	if(data.success){
-	alert(data.message);
-	$('#saveRack').trigger('reset');
-	}else{
-			alert(data.message);
-	}
+$(document).ready(function(){
+    let get_container_url ='" . $dolibarr_main_url_root . "/container/ajax/get-container.php'
+    let get_container_delete ='" . $dolibarr_main_url_root . "/container/ajax/delete-container.php'
+    const getContainer=()=>{
+        $.ajax({
+            'type':'GET',
+            url:get_container_url,
+            dataType:'json',
+            success:(data)=>{
+            console.log(data)
+                if(data.success){
+                    $('#getContainer').html(data.data)
+                }else{
+                    alert(data.message);
+                }
+            }
+        })
+    }
+    getContainer();
+
+    $(document).on('click','#deleteContainer',function(){
+        $.ajax({
+            type:'POST',
+            url:get_container_delete,
+            dataType:'json',
+            data:{id:$(this).data('id')},
+            success:(data)=>{
+            if(data.success){
+            alert(data.message);
+            }else{
+            alert(data.message);
+        }
+            }
+        })
+    })
 });
 </script>
 ";
