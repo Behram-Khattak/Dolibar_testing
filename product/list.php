@@ -79,6 +79,8 @@ $fourn_id = GETPOSTINT("fourn_id");
 $search_all = trim((GETPOST('search_all', 'alphanohtml') != '') ? GETPOST('search_all', 'alphanohtml') : GETPOST('sall', 'alphanohtml'));
 $search_id = GETPOST("search_id", 'alpha');
 $search_ref = GETPOST("search_ref", 'alpha');
+$search_container = GETPOST("search_container", 'alpha');
+$search_quantity = GETPOST("search_quantity", 'alpha');
 $search_ref_supplier = GETPOST("search_ref_supplier", 'alpha');
 $search_barcode = GETPOST("search_barcode", 'alpha');
 $search_label = GETPOST("search_label", 'alpha');
@@ -229,14 +231,13 @@ $arraypricelevel = array();
 $arrayfields = array(
 	'p.rowid' => array('type' => 'integer', 'label' => 'TechnicalID', 'enabled' => 1, 'visible' => -2, 'noteditable' => 1, 'notnull' => 1, 'index' => 1, 'position' => 1, 'comment' => 'Id', 'css' => 'left'),
 	'p.ref' => array('label' => 'ProductRef', 'checked' => 1, 'position' => 10),
+	// Added container id
+	'p.container_id' => array('label' => 'Product Container', 'checked' => 1, 'position' => 10),
+	//add quantity
+	'p.quantity' => array('label' => 'Quantity', 'checked' => 1, 'position' => 10),
 	//'pfp.ref_fourn'=>array('label'=>$langs->trans("RefSupplier"), 'checked'=>1, 'enabled'=>(isModEnabled('barcode'))),
 	'thumbnail' => array('label' => 'Photo', 'checked' => 0, 'position' => 10),
 	'p.description' => array('label' => 'Description', 'checked' => 0, 'position' => 10),
-
-	//add quantity
-	'p.quantity' => array('label' => 'Quantity', 'checked' => 1, 'position' => 10),
-
-	
 	'p.label' => array('label' => "Label", 'checked' => 1, 'position' => 10),
 	'p.fk_product_type' => array('label' => "Type", 'checked' => 0, 'enabled' => (isModEnabled("product") && isModEnabled("service")), 'position' => 11),
 	'p.barcode' => array('label' => "Gencod", 'checked' => 1, 'enabled' => (isModEnabled('barcode')), 'position' => 12),
@@ -363,13 +364,12 @@ if (empty($reshook)) {
 		$search_all = "";
 		$search_id = '';
 		$search_ref = "";
+		// added search container
+		$search_container = "";
 		$search_ref_supplier = "";
 		$search_label = "";
-
 		//add quantity
 		$search_quantity = "";
-
-
 		$search_default_workstation = "";
 		$search_barcode = "";
 		$searchCategoryProductOperator = 0;
@@ -458,7 +458,7 @@ if ($search_type != '' && $search_type != '-1') {
 
 // Build and execute select
 // --------------------------------------------------------------------
-$sql = 'SELECT p.rowid, p.ref, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
+$sql = 'SELECT p.rowid, p.ref, p.container_id, p.description, p.label, p.fk_product_type, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type, p.entity,';
 $sql .= ' p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,';
 $sql .= ' p.tobatch, p.quantity, ';  //quantity addded
 if (isModEnabled('workstation')) {
@@ -563,16 +563,17 @@ if ($search_id) {
 if ($search_ref) {
 	$sql .= natural_search('p.ref', $search_ref);
 }
-if ($search_label) {
-	$sql .= natural_search('p.label', $search_label);
+// added container field
+if ($search_container) {
+	$sql .= natural_search('p.container_id', $search_container);
 }
-
-//addd
+// added quantity field
 if ($search_quantity) {
 	$sql .= natural_search('p.quantity', $search_quantity);
 }
-
-
+if ($search_label) {
+	$sql .= natural_search('p.label', $search_label);
+}
 if ($search_default_workstation) {
 	$sql .= natural_search('ws.ref', $search_default_workstation);
 }
@@ -664,7 +665,7 @@ include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_sql.tpl.php';
 $parameters = array();
 $reshook = $hookmanager->executeHooks('printFieldListWhere', $parameters, $object, $action); // Note that $action and $object may have been modified by hook
 $sql .= $hookmanager->resPrint;
-$sql .= " GROUP BY p.rowid, p.ref, p.quantity, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
+$sql .= " GROUP BY p.rowid, p.ref, p.container_id, p.quantity, p.description, p.label, p.barcode, p.price, p.tva_tx, p.price_ttc, p.price_base_type,";
 $sql .= " p.fk_product_type, p.duration, p.finished, p.tosell, p.tobuy, p.seuil_stock_alerte, p.desiredstock,";
 $sql .= ' p.datec, p.tms, p.entity, p.tobatch, p.pmp, p.cost_price, p.stock,';
 if (!getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED')) {
@@ -795,6 +796,12 @@ foreach ($searchCategoryProductList as $searchCategoryProduct) {
 }
 if ($search_ref) {
 	$param .= "&search_ref=".urlencode($search_ref);
+}
+if ($search_container) {
+	$param .= "&search_container=".urlencode($search_container);
+}
+if ($search_quantity) {
+	$param .= "&search_quantity=".urlencode($search_quantity);
 }
 if ($search_ref_supplier) {
 	$param .= "&search_ref_supplier=".urlencode($search_ref_supplier);
@@ -1025,6 +1032,18 @@ if (!empty($arrayfields['p.ref']['checked'])) {
 	print '<input class="flat" type="text" name="search_ref" size="8" value="'.dol_escape_htmltag($search_ref).'">';
 	print '</td>';
 }
+// container field
+if (!empty($arrayfields['p.container_id']['checked'])) {
+	print '<td class="liste_titre left">';
+	print '<input class="flat" type="text" name="search_container" size="8" value="'.dol_escape_htmltag($search_container).'">';
+	print '</td>';
+}
+// quantity
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print '<td class="liste_titre left">';
+	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_quantity).'">';
+	print '</td>';
+}
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
 	print '<td class="liste_titre left">';
 	print '<input class="flat" type="text" name="search_ref_supplier" size="8" value="'.dol_escape_htmltag($search_ref_supplier).'">';
@@ -1035,32 +1054,11 @@ if (!empty($arrayfields['thumbnail']['checked'])) {
 	print '<td class="liste_titre center">';
 	print '</td>';
 }
-
-
 if (!empty($arrayfields['p.label']['checked'])) {
 	print '<td class="liste_titre left">';
 	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_label).'">';
 	print '</td>';
 }
-
-
-
-
-
-if (!empty($arrayfields['p.quantity']['checked'])) {
-	print '<td class="liste_titre left">';
-	print '<input class="flat width100" type="text" name="search_label" value="'.dol_escape_htmltag($search_quantity).'">';
-	print '</td>';
-}
-
-
-
-
-
-
-
-
-
 // Type
 if (!empty($arrayfields['p.fk_product_type']['checked'])) {
 	print '<td class="liste_titre center">';
@@ -1354,6 +1352,16 @@ if (!empty($arrayfields['p.ref']['checked'])) {
 	print_liste_field_titre($arrayfields['p.ref']['label'], $_SERVER["PHP_SELF"], "p.ref", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
+// added container field
+if (!empty($arrayfields['p.container_id']['checked'])) {
+	print_liste_field_titre($arrayfields['p.container_id']['label'], $_SERVER["PHP_SELF"], "p.container_id", "", $param, "", $sortfield, $sortorder);
+	$totalarray['nbfield']++;
+}
+//add quantity field
+if (!empty($arrayfields['p.quantity']['checked'])) {
+	print_liste_field_titre($arrayfields['p.quantity']['label'], $_SERVER["PHP_SELF"], "p.quantity", "", $param, "", $sortfield, $sortorder);
+	$totalarray['nbfield']++;
+}
 if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
 	print_liste_field_titre($arrayfields['pfp.ref_fourn']['label'], $_SERVER["PHP_SELF"], "pfp.ref_fourn", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
@@ -1366,23 +1374,10 @@ if (!empty($arrayfields['p.label']['checked'])) {
 	print_liste_field_titre($arrayfields['p.label']['label'], $_SERVER["PHP_SELF"], "p.label", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
-
-
-//add
-
-
-if (!empty($arrayfields['p.quantity']['checked'])) {
-	print_liste_field_titre($arrayfields['p.quantity']['label'], $_SERVER["PHP_SELF"], "p.quantity", "", $param, "", $sortfield, $sortorder);
-	$totalarray['nbfield']++;
-}
-
-
 if (!empty($arrayfields['p.fk_product_type']['checked'])) {
 	print_liste_field_titre($arrayfields['p.fk_product_type']['label'], $_SERVER["PHP_SELF"], "p.fk_product_type", "", $param, "", $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
 }
-
-
 if (!empty($arrayfields['p.description']['checked'])) {
 	print_liste_field_titre($arrayfields['p.description']['label'], $_SERVER["PHP_SELF"], "p.description", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
@@ -1621,15 +1616,14 @@ while ($i < $imaxinloop) {
 	if (empty($reshook)) {
 		$product_static->id = $obj->rowid;
 		$product_static->ref = $obj->ref;
+		// added container id to object
+		$product_static->container_id = $obj->container_id;
+		//quantity addEd
+		$product_static->quantity = $obj->quantity;
 		$product_static->description = $obj->description;
 		$product_static->ref_fourn = empty($obj->ref_supplier) ? '' : $obj->ref_supplier; // deprecated
 		$product_static->ref_supplier = empty($obj->ref_supplier) ? '' : $obj->ref_supplier;
 		$product_static->label = $obj->label;
-
-		//quantity addEd
-		$product_static->quantity = $obj->quantity;
-
-
 		$product_static->barcode = $obj->barcode;
 		$product_static->finished = $obj->finished;
 		$product_static->type = $obj->fk_product_type;
@@ -1741,6 +1735,22 @@ while ($i < $imaxinloop) {
 			}
 		}
 
+		// added container id field value
+		if (!empty($arrayfields['p.container_id']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->container_id).'">'.$product_static->container_id.'</td>';
+			if (!$i) {
+				$totalarray['nbfield']++;
+			}
+		}
+
+		//quantiy from database
+		if (!empty($arrayfields['p.quantity']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->quantity).'">'.$product_static->quantity.'</td>';
+			if (!$i) {
+			$totalarray['nbfield']++;
+			}
+		}
+
 		// Ref supplier
 		if (!empty($arrayfields['pfp.ref_fourn']['checked'])) {
 			print '<td class="tdoverflowmax200">';
@@ -1770,15 +1780,6 @@ while ($i < $imaxinloop) {
 		// Label
 		if (!empty($arrayfields['p.label']['checked'])) {
 			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->label).'">'.$product_static->label.'</td>';
-			if (!$i) {
-				$totalarray['nbfield']++;
-			}
-		}
-
-
-		//quantiy from database
-		if (!empty($arrayfields['p.quantity']['checked'])) {
-			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->quantity).'">'.$product_static->quantity.'</td>';
 			if (!$i) {
 				$totalarray['nbfield']++;
 			}
