@@ -52,7 +52,14 @@
  *
  * TODO Merge all function load_cache_* and loadCache* (except load_cache_vatrates) into one generic function loadCacheTable
  */
-class Form
+
+//  require '/vendor/autoload.php';
+require_once DOL_DOCUMENT_ROOT . '/vendor/autoload.php';
+
+ use chillerlan\QRCode\QRCode;
+ use chillerlan\QRCode\QROptions;
+ use chillerlan\QRCode\Data\QRMatrix;
+ class Form
 {
 	/**
 	 * @var DoliDB Database handler.
@@ -10028,26 +10035,51 @@ class Form
 		global $conf;
 
 		//Check if barcode is filled in the card
-		if (empty($object->barcode)) {
-			return '';
-		}
+		// if (empty($object->barcode)) {
+		// 	return '';
+		// }
 
-		// Complete object if not complete
-		if (empty($object->barcode_type_code) || empty($object->barcode_type_coder)) {
-			// @phan-suppress-next-line PhanPluginUnknownObjectMethodCall
-			$result = $object->fetch_barcode();
-			//Check if fetch_barcode() failed
-			if ($result < 1) {
-				return '<!-- ErrorFetchBarcode -->';
-			}
-		}
-
+		// // Complete object if not complete
+		// if (empty($object->barcode_type_code) || empty($object->barcode_type_coder)) {
+		// 	// @phan-suppress-next-line PhanPluginUnknownObjectMethodCall
+		// 	$result = $object->fetch_barcode();
+		// 	//Check if fetch_barcode() failed
+		// 	if ($result < 1) {
+		// 		return '<!-- ErrorFetchBarcode -->';
+		// 	}
+		// }
+		$out="";
 		// Barcode image  @phan-suppress-next-line PhanUndeclaredProperty
-		$url = DOL_URL_ROOT . '/viewimage.php?modulepart=barcode&generator=' . urlencode($object->barcode_type_coder) . '&code=' . urlencode($object->barcode) . '&encoding=' . urlencode($object->barcode_type_code);
-		$out = '<!-- url barcode = ' . $url . ' -->';
-		$out .= '<img src="' . $url . '"' . ($morecss ? ' class="' . $morecss . '"' : '') . '>';
+		// $url = DOL_URL_ROOT . '/viewimage.php?modulepart=barcode&generator=' . urlencode($object->barcode_type_coder) . '&code=' . urlencode($object->barcode) . '&encoding=' . urlencode($object->barcode_type_code);
+		// $out = '<!-- url barcode = ' . $url . ' -->';
+		// $out .= '<img src="' . $url . '"' . ($morecss ? ' class="' . $morecss . '"' : '') . '>';
 
-		return $out;
+		// return $out;
+		 
+			// echo $generator->getBarcode("Product Name ", $generator::TYPE_CODE_128);
+			$options = new QROptions([
+				'version'    => QRCode::VERSION_AUTO, // Automatically determine the smallest version needed
+				// 'eccLevel'   => QRMatrix::ECC_L,      // Low error correction level
+				'scale'      => 5,                    // Adjust the scale as needed
+				'outputType' => QRCode::OUTPUT_IMAGE_PNG,
+				'imageBase64' => true,
+			]);
+			
+			$data = "
+				Name : {$object->label} \n
+				Price : {$object->price} \n
+				Container ID : {$object->container_id} \n
+				Product Ref : {$object->ref} \n
+				Product Quantity : {$object->quantity} \n
+			";
+			
+			try {
+				$qrcode = (new QRCode($options))->render($data);
+				$out.= "<img src='{$qrcode}' alt='QR Code' width='100' height='100'>";
+			} catch (\chillerlan\QRCode\Data\QRCodeDataException $e) {
+				// $out. "Error: " . $e->getMessage();
+			}
+			return $out;
 	}
 
 	/**

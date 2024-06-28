@@ -56,7 +56,7 @@ require_once DOL_DOCUMENT_ROOT . '/core/modules/product/modules_product.class.ph
 require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT . '/product/class/html.formproduct.class.php';
 require_once DOL_DOCUMENT_ROOT . '/product/class/product.class.php';
-
+require '../vendor/autoload.php';
 
 if (isModEnabled('propal')) {
 	require_once DOL_DOCUMENT_ROOT . '/comm/propal/class/propal.class.php';
@@ -326,6 +326,7 @@ if (empty($reshook)) {
 					//$productOrigin->update($productOrigin->id, $user, 0, 'merge');
 				}
 
+
 				// Update
 				$result = $object->update($object->id, $user, 0, 'merge');
 				if ($result <= 0) {
@@ -446,7 +447,7 @@ if (empty($reshook)) {
 		$result = $object->check_barcode(GETPOST('barcode'), GETPOST('barcode_type_code'));
 
 		if ($result >= 0) {
-			$result = $object->setValueFrom('barcode', GETPOST('barcode'), '', null, 'text', '', $user, 'PRODUCT_MODIFY');
+			$result = $object->setValueFrom('barcode', 'hilalahmadkhan', '', null, 'text', '', $user, 'PRODUCT_MODIFY');
 			header("Location: " . $_SERVER['PHP_SELF'] . "?id=" . $object->id);
 			exit;
 		} else {
@@ -1526,6 +1527,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '</td></tr>';
 			}
 
+			
 			// Description (used in invoice, propal...)
 			print '<tr><td class="tdtop">' . $langs->trans("Description") . '</td><td>';
 			$doleditor = new DolEditor('desc', GETPOST('desc', 'restricthtml'), '', 160, 'dolibarr_details', '', false, true, getDolGlobalString('FCKEDITOR_ENABLE_DETAILS'), ROWS_4, '90%');
