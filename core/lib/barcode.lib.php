@@ -219,8 +219,7 @@ function barcode_gen_ean_bars($ean)
 			$line .= $guards[1];
 		}
 	}
-	$line .= $guards[2];
-
+	$line .= $guards[2]; 
 	return $line;
 }
 
