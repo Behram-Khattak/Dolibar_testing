@@ -604,6 +604,7 @@ if (empty($reshook)) {
 			$object->customcode              = GETPOST('customcode', 'alphanohtml');
 			$object->country_id = GETPOSTINT('country_id');
 			$object->container_id = GETPOST('container_id'); // append to object to store data on database
+			$object->category_field = GETPOST('category_field'); // append to object to store data on database
 			$object->quantity = GETPOST('quantity'); // append to object to store data on database
 			$object->state_id = GETPOSTINT('state_id');
 			$object->lifetime               = GETPOSTINT('lifetime');
@@ -1251,6 +1252,10 @@ if (empty($reshook)) {
 /*
  * View
  */
+//  var_dump(GETPOST('category_field'));
+// // foreach(GETPOST('category_field') as $key => $value){
+
+// // }
 
 $form = new Form($db);
 $formfile = new FormFile($db);
@@ -1743,7 +1748,8 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '
 				<script>
 				    $(document).on("change",".selectToShowInput",function(){
-					console.log($(this).val());
+					// console.log($(this).val());
+					$("#showInput").html("");
 						$.ajax({
 							type:"GET",
 							url: "' . $url . '",
