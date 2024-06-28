@@ -10033,7 +10033,7 @@ require_once DOL_DOCUMENT_ROOT . '/vendor/autoload.php';
 	public function showbarcode(&$object, $width = 100, $morecss = '')
 	{
 		global $conf;
-
+		// print_r($object);
 		//Check if barcode is filled in the card
 		// if (empty($object->barcode)) {
 		// 	return '';
