@@ -1351,7 +1351,6 @@ if (!getDolGlobalString('MAIN_DISABLE_SELECT2_FOCUS_PROTECTION') && !defined('DI
  * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
  */
 $(document).on('select2:open', (e) => {
-	console.log("Execute the focus (click on combo or use space when on component");
 	const target = $(e.target);
 	if (target && target.length) {
 		let id = target[0].id || target[0].name;
@@ -1359,6 +1358,8 @@ $(document).on('select2:open', (e) => {
 		document.querySelector('input[aria-controls*='+id+']').focus();
 	}
 });
+
+
 	<?php
 }
 ?>

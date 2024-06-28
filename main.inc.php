@@ -42,6 +42,8 @@
 //@ini_set('memory_limit', '128M');	// This may be useless if memory is hard limited by your PHP
 
 // For optional tuning. Enabled if environment variable MAIN_SHOW_TUNING_INFO is defined.
+// print '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">';
+
 $micro_start_time = 0;
 if (!empty($_SERVER['MAIN_SHOW_TUNING_INFO'])) {
 	list($usec, $sec) = explode(" ", microtime());

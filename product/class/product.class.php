@@ -1018,43 +1018,43 @@ class Product extends CommonObject
 	 */
 	public function verify()
 	{
-		global $langs;
+		// global $langs;
 
-		$this->errors = array();
+		// $this->errors = array();
 
-		$result = 0;
-		$this->ref = trim($this->ref);
+		// $result = 0;
+		// $this->ref = trim($this->ref);
 
-		if (!$this->ref) {
-			$this->errors[] = 'ErrorBadRef';
-			$result = -2;
-		}
+		// if (!$this->ref) {
+		// 	$this->errors[] = 'ErrorBadRef';
+		// 	$result = -2;
+		// }
 
-		$arrayofnonnegativevalue = array('weight' => 'Weight', 'width' => 'Width', 'height' => 'Height', 'length' => 'Length', 'surface' => 'Surface', 'volume' => 'Volume');
-		foreach ($arrayofnonnegativevalue as $key => $value) {
-			if (property_exists($this, $key) && !empty($this->$key) && ($this->$key < 0)) {
-				$langs->loadLangs(array("main", "other"));
-				$this->error = $langs->trans("FieldCannotBeNegative", $langs->transnoentitiesnoconv($value));
-				$this->errors[] = $this->error;
-				$result = -4;
-			}
-		}
+		// $arrayofnonnegativevalue = array('weight' => 'Weight', 'width' => 'Width', 'height' => 'Height', 'length' => 'Length', 'surface' => 'Surface', 'volume' => 'Volume');
+		// foreach ($arrayofnonnegativevalue as $key => $value) {
+		// 	if (property_exists($this, $key) && !empty($this->$key) && ($this->$key < 0)) {
+		// 		$langs->loadLangs(array("main", "other"));
+		// 		$this->error = $langs->trans("FieldCannotBeNegative", $langs->transnoentitiesnoconv($value));
+		// 		$this->errors[] = $this->error;
+		// 		$result = -4;
+		// 	}
+		// }
 
-		$rescode = $this->check_barcode($this->barcode, $this->barcode_type_code);
-		if ($rescode) {
-			if ($rescode == -1) {
-				$this->errors[] = 'ErrorBadBarCodeSyntax';
-			} elseif ($rescode == -2) {
-				$this->errors[] = 'ErrorBarCodeRequired';
-			} elseif ($rescode == -3) {
-				// Note: Common usage is to have barcode unique. For variants, we should have a different barcode.
-				$this->errors[] = 'ErrorBarCodeAlreadyUsed';
-			}
+		// // $rescode = $this->check_barcode($this->barcode, $this->barcode_type_code);
+		// // if ($rescode) {
+		// // 	if ($rescode == -1) {
+		// // 		$this->errors[] = 'ErrorBadBarCodeSyntax';
+		// // 	} elseif ($rescode == -2) {
+		// // 		$this->errors[] = 'ErrorBarCodeRequired';
+		// // 	} elseif ($rescode == -3) {
+		// // 		// Note: Common usage is to have barcode unique. For variants, we should have a different barcode.
+		// // 		$this->errors[] = 'ErrorBarCodeAlreadyUsed';
+		// // 	}
 
-			$result = -3;
-		}
+		// // 	$result = -3;
+		// // }
 
-		return $result;
+		// return $result;
 	}
 
 	// phpcs:disable PEAR.NamingConventions.ValidFunctionName.ScopeNotCamelCaps
@@ -1071,27 +1071,27 @@ class Product extends CommonObject
 	public function check_barcode($valuetotest, $typefortest)
 	{
 		// phpcs:enable
-		global $conf;
-		if (isModEnabled('barcode') && getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
-			$module = strtolower(getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM'));
+		// global $conf;
+		// if (isModEnabled('barcode') && getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM')) {
+		// 	$module = strtolower(getDolGlobalString('BARCODE_PRODUCT_ADDON_NUM'));
 
-			$dirsociete = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
-			foreach ($dirsociete as $dirroot) {
-				$res = dol_include_once($dirroot.$module.'.php');
-				if ($res) {
-					break;
-				}
-			}
+		// 	$dirsociete = array_merge(array('/core/modules/barcode/'), $conf->modules_parts['barcode']);
+		// 	foreach ($dirsociete as $dirroot) {
+		// 		$res = dol_include_once($dirroot.$module.'.php');
+		// 		if ($res) {
+		// 			break;
+		// 		}
+		// 	}
 
-			$mod = new $module();
-			'@phan-var-force ModeleNumRefBarCode $mod';
+		// 	$mod = new $module();
+		// 	'@phan-var-force ModeleNumRefBarCode $mod';
 
-			dol_syslog(get_class($this)."::check_barcode value=".$valuetotest." type=".$typefortest." module=".$module);
-			$result = $mod->verif($this->db, $valuetotest, $this, 0, $typefortest);
-			return $result;
-		} else {
-			return 0;
-		}
+		// 	dol_syslog(get_class($this)."::check_barcode value=".$valuetotest." type=".$typefortest." module=".$module);
+		// 	$result = $mod->verif($this->db, $valuetotest, $this, 0, $typefortest);
+		// 	return $result;
+		// } else {
+		// 	return 0;
+		// }
 	}
 
 	/**

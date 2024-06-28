@@ -52,6 +52,7 @@ $urlfrom = GETPOST('urlfrom', 'alpha');
 $backtopage = GETPOST('backtopage', 'alpha');
 
 $label = (string) GETPOST('label', 'alphanohtml');
+$field_name = (array) GETPOST('field_name', 'alphanohtml'); 
 $description = (string) GETPOST('description', 'restricthtml');
 $color = preg_replace('/[^0-9a-f#]/i', '', (string) GETPOST('color', 'alphanohtml'));
 $position = GETPOSTINT('position');
@@ -100,7 +101,7 @@ $error = 0;
 /*
  *	Actions
  */
-$parameters = array('socid' => $socid, 'origin' => $origin, 'catorigin' => $catorigin, 'type' => $type, 'urlfrom' => $urlfrom, 'backtopage' => $backtopage, 'label' => $label, 'description' => $description, 'color' => $color, 'position' => $position, 'visible' => $visible, 'parent' => $parent);
+$parameters = array('socid' => $socid,'field_name'=>$field_name, 'origin' => $origin, 'catorigin' => $catorigin, 'type' => $type, 'urlfrom' => $urlfrom, 'backtopage' => $backtopage, 'label' => $label, 'description' => $description, 'color' => $color, 'position' => $position, 'visible' => $visible, 'parent' => $parent);
 // Note that $action and $object may be modified by some hooks
 $reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
@@ -141,6 +142,7 @@ if (empty($reshook)) {
 				exit;
 			}
 		}
+		$object->field_name			= $field_name;
 		$object->label			= $label;
 		$object->color			= $color;
 		$object->position		= $position;
@@ -216,7 +218,7 @@ if (empty($reshook)) {
 
 $form = new Form($db);
 $formother = new FormOther($db);
-
+// var_dump($field_name);
 $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 
 llxHeader("", $langs->trans("Categories"), $help_url);
@@ -285,6 +287,50 @@ if ($user->hasRight('categorie', 'creer')) {
 		print '</table>';
 
 		print dol_get_fiche_end();
+		print '
+
+		<div class="row my-3" id="add_more_field">
+				<div class="col-md-3">
+					<label>Field Name</label>
+				</div>
+				<div class="col-md-6">
+					<input type="text" class="form-control" name="field_name[]" placeholder="Field Name">
+				</div>
+				<div class="col-md-3">
+					<button class="btn btn-success" id="add_more_button">Add More</button>
+				</div>
+			</div>
+		<div id="fields_container"></div>';
+
+	print "
+	
+	<script>
+		$(document).ready(function() {
+			$('#add_more_button').click(function(e) {
+				e.preventDefault();
+				var newField = `
+					<div class='row my-3'>
+						<div class='col-md-3'>
+							<label>Field Name</label>
+						</div>
+						<div class='col-md-6'>
+							<input type='text' class='form-control' name='field_name[]' placeholder='Field Name'>
+						</div>
+						<div class='col-md-3'>
+							<button class='btn btn-danger remove_button'>Remove</button>
+						</div>
+					</div>
+				`;
+				$('#fields_container').append(newField);
+			});
+
+			$(document).on('click', '.remove_button', function(e) {
+				e.preventDefault();
+				$(this).closest('.row').remove();
+			});
+		});
+	</script>
+	";
 
 		print '<div class="center">';
 		print '<input type="submit" class="button b" value="'.$langs->trans("CreateThisCat").'" name="creation" />';

@@ -1,5 +1,5 @@
 # ProductBATCH language file - Source file is en_US - ProductBATCH
-ManageLotSerial=Use lot/serial number
+ManageLotSerial=Rack Id
 ProductStatusOnBatch=Yes (lot required)
 ProductStatusOnSerial=Yes (unique serial number required)
 ProductStatusNotOnBatch=No (lot/serial not used)

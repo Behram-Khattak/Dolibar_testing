@@ -29,7 +29,7 @@
  */
 
 // Load Dolibarr environment
-print '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">';
+// print '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">';
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
@@ -219,11 +219,16 @@ $formother = new FormOther($db);
 
 $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 
-llxHeader("", 'Container List', $help_url);
-echo load_fiche_titre('Container List');
 $output = "";
+llxHeader("", 'Container List', $help_url);
+$output .="
+<div class=' w-100 d-flex align-items-center justify-content-between'>
+".load_fiche_titre('Container List')."
+<a href='/htdocs/container/card.php' class='btn btn-primary'>Create New</a>
+</div>
+";
 $output .= "<div class='row d-flex align-items-center justify-content-center'>
-<div class='col-md-8'>";
+<div class='col-md-12'>";
 $output .= " 
 <div class='card'>
 <div class='card-body'>
@@ -260,7 +265,6 @@ $(document).ready(function(){
             url:get_container_url,
             dataType:'json',
             success:(data)=>{
-            console.log(data)
                 if(data.success){
                     $('#getContainer').html(data.data)
                 }else{
@@ -273,7 +277,7 @@ $(document).ready(function(){
 
     $(document).on('click','#deleteContainer',function(){
         $.ajax({
-            type:'POST',
+            type:'GET',
             url:get_container_delete,
             dataType:'json',
             data:{id:$(this).data('id')},

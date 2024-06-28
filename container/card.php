@@ -29,7 +29,6 @@
  */
 
 // Load Dolibarr environment
-print '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">';
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
@@ -219,13 +218,13 @@ $formother = new FormOther($db);
 
 $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
 
-llxHeader("", $langs->trans("Categories"), $help_url);
-echo load_fiche_titre('Create Rack');
+llxHeader("", $langs->trans("Create Container"), $help_url);
+echo load_fiche_titre('Create Container');
 $output = "";
 $output .= "<div class='row'>
 <div class='col-md-8 d-flex align-items-center justify-content-center'>";
 $output .= "
-		<form class='w-100' id='saveRack'   method='POST'>
+		<form class='w-100' id='saveContainer'   method='POST'>
 		 <input type='hidden' name='token' value='" . newToken() . "'>
 		 <input type='hidden' name='urlfrom' value=''.$urlfrom.''>
 		 <input type='hidden' name='action' value='add'>
@@ -233,8 +232,27 @@ $output .= "
 		 <input type='hidden' name='type' value=''.$type.''>
 		 <input type='hidden' name='backtopage' value=''.$backtopage.''>
 
-		 <label> Enter Rack Name</label>
-		 <input id='name' class='form-control mt-3' name='name'>
+		<div class='my-2'>
+		 <label class=''>Container Id</label>
+		 <input type='number' id='container_id' class='form-control mt-3' name='container_id'>
+		</div>
+		<div class='my-2'>
+		 <label>Container  Type</label>
+		  <select name='container_type' id='container_type' class='form-control'>
+			<option value=''>Select Type</option>
+			<option value='by air'>By Air</option>
+			<option value='by ship'>By Ship</option>
+		</select>
+		
+		</div>
+		<div class='my-2'>
+		 <label>Container Container Name</label>
+		 <input type='text' id='container_name' class='form-control mt-3' name='container_name'>
+		</div>
+		<div class='my-2'>
+		 <label>Container Arrival Date</label>
+		 <input type='date' id='arrival_date' class='form-control mt-3' name='arrival_date'>
+		</div>
 		 <div class='my-3'>
 		<button type='submit' class='button btn'>Create Rack</button>
 		 </div>
@@ -248,25 +266,42 @@ echo $output;
 
 $script_output = "
 <script>
-$(document).on('submit','#saveRack',async function(e){
+$(document).on('submit','#saveContainer',async function(e){
 	e.preventDefault();
-	let name=$('#name').val();
-	if(name.length <= 0){
-		alert('Please fill the name field')
+	let contianer_id=$('#container_id').val();
+	let container_type=$('#container_type').val();
+	let container_name=$('#container_name').val();
+	let arrival_date=$('#arrival_date').val();
+	console.log(container_id,container_type,container_name,arrival_date);
+	if(contianer_id.length <= 0){
+		alert('Please fill the Contianer Id field')
+		return 0;
+	}
+	if(container_type.length <= 0){
+		alert('Please fill the Container Type field')
+		return 0;
+	}
+	if(container_name.length <= 0){
+		alert('Please fill the Container Name field')
+		return 0;
+	}
+	if(arrival_date.length <= 0){
+		alert('Please fill the Arrival Date field')
 		return 0;
 	}
 	let formData=new FormData(this);
-	let url ='" . $dolibarr_main_url_root . "/rack/ajax/create-rack.php'
+	let url ='" . $dolibarr_main_url_root . "/container/ajax/create-container.php'
 	let response=await fetch(url,{
 	    method:'POST',
         body:formData,
 	});
 	let data=await response.json();
 	if(data.success){
-	alert(data.message);
-	$('#saveRack').trigger('reset');
-	}else{
-			alert(data.message);
+		alert(data.message);
+		$('#saveContainer').trigger('reset');
+		window.location.href='/htdocs/container/index.php'
+		}else{
+		alert(data.message);
 	}
 });
 </script>
