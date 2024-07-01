@@ -27,9 +27,10 @@
 
 // Load Dolibarr environment
 require '../main.inc.php';
-require_once DOL_DOCUMENT_ROOT.'/categories/class/categorie.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/class/extrafields.class.php';
-require_once DOL_DOCUMENT_ROOT.'/core/class/html.formother.class.php';
+print '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">';
+require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 
 // Load translation files required by the page
 $langs->load("categories");
@@ -43,6 +44,7 @@ $backtopage = GETPOST('backtopage', 'alpha');
 
 $socid = GETPOSTINT('socid');
 $label = (string) GETPOST('label', 'alphanohtml');
+$field_name = (array) GETPOST('field_name', 'alphanohtml'); 
 $description = (string) GETPOST('description', 'restricthtml');
 $color = preg_replace('/^#/', '', preg_replace('/[^0-9a-f#]/i', '', (string) GETPOST('color', 'alphanohtml')));
 $position = GETPOSTINT('position');
@@ -81,7 +83,7 @@ $error = 0;
 /*
  * Actions
  */
-$parameters = array('id' => $id, 'ref' => $ref, 'cancel'=> $cancel, 'backtopage' => $backtopage, 'socid' => $socid, 'label' => $label, 'description' => $description, 'color' => $color, 'position' => $position, 'visible' => $visible, 'parent' => $parent);
+$parameters = array('id' => $id, 'field_name'=>$field_name,'ref' => $ref, 'cancel' => $cancel, 'backtopage' => $backtopage, 'socid' => $socid, 'label' => $label, 'description' => $description, 'color' => $color, 'position' => $position, 'visible' => $visible, 'parent' => $parent);
 // Note that $action and $object may be modified by some hooks
 $reshook = $hookmanager->executeHooks('doActions', $parameters, $object, $action);
 if ($reshook < 0) {
@@ -91,10 +93,10 @@ if ($reshook < 0) {
 if (empty($reshook)) {
 	if ($cancel) {
 		if ($backtopage) {
-			header("Location: ".$backtopage);
+			header("Location: " . $backtopage);
 			exit;
 		} else {
-			header('Location: '.DOL_URL_ROOT.'/categories/viewcat.php?id='.$object->id.'&type='.$type);
+			header('Location: ' . DOL_URL_ROOT . '/categories/viewcat.php?id=' . $object->id . '&type=' . $type);
 			exit;
 		}
 	}
@@ -109,6 +111,7 @@ if (empty($reshook)) {
 		$object->position       = $position;
 		$object->socid          = ($socid > 0 ? $socid : 0);
 		$object->visible        = $visible;
+		$object->field_name        = $field_name;
 		$object->fk_parent = $parent != -1 ? $parent : 0;
 
 		if (empty($object->label)) {
@@ -124,10 +127,10 @@ if (empty($reshook)) {
 
 			if (!$error && $object->update($user) > 0) {
 				if ($backtopage) {
-					header("Location: ".$backtopage);
+					header("Location: " . $backtopage);
 					exit;
 				} else {
-					header('Location: '.DOL_URL_ROOT.'/categories/viewcat.php?id='.$object->id.'&type='.$type);
+					header('Location: ' . DOL_URL_ROOT . '/categories/viewcat.php?id=' . $object->id . '&type=' . $type);
 					exit;
 				}
 			} else {
@@ -155,12 +158,12 @@ $object->fetch($id);
 
 
 print "\n";
-print '<form method="post" action="'.$_SERVER['PHP_SELF'].'">';
-print '<input type="hidden" name="token" value="'.newToken().'">';
+print '<form method="post" action="' . $_SERVER['PHP_SELF'] . '">';
+print '<input type="hidden" name="token" value="' . newToken() . '">';
 print '<input type="hidden" name="action" value="update">';
-print '<input type="hidden" name="id" value="'.$object->id.'">';
-print '<input type="hidden" name="type" value="'.$type.'">';
-print '<input type="hidden" name="backtopage" value="'.$backtopage.'">';
+print '<input type="hidden" name="id" value="' . $object->id . '">';
+print '<input type="hidden" name="type" value="' . $type . '">';
+print '<input type="hidden" name="backtopage" value="' . $backtopage . '">';
 
 print dol_get_fiche_head('');
 
@@ -169,34 +172,34 @@ print '<table class="border centpercent">';
 
 // Ref
 print '<tr><td class="titlefieldcreate fieldrequired">';
-print $langs->trans("Ref").'</td>';
-print '<td><input type="text" size="25" id="label" name ="label" value="'.$object->label.'" />';
+print $langs->trans("Ref") . '</td>';
+print '<td><input type="text" size="25" id="label" name ="label" value="' . $object->label . '" />';
 print '</tr>';
 
 // Description
 print '<tr>';
-print '<td>'.$langs->trans("Description").'</td>';
+print '<td>' . $langs->trans("Description") . '</td>';
 print '<td>';
-require_once DOL_DOCUMENT_ROOT.'/core/class/doleditor.class.php';
+require_once DOL_DOCUMENT_ROOT . '/core/class/doleditor.class.php';
 $doleditor = new DolEditor('description', $object->description, '', 200, 'dolibarr_notes', '', false, true, isModEnabled('fckeditor'), ROWS_6, '90%');
 $doleditor->Create();
 print '</td></tr>';
 
 // Color
 print '<tr>';
-print '<td>'.$langs->trans("Color").'</td>';
+print '<td>' . $langs->trans("Color") . '</td>';
 print '<td>';
 print $formother->selectColor($object->color, 'color');
 print '</td></tr>';
 
 // Position
 print '<tr><td>';
-print $langs->trans("Position").'</td>';
-print '<td><input type="text" class="width50" id="position" name ="position" value="'.$object->position.'" />';
+print $langs->trans("Position") . '</td>';
+print '<td><input type="text" class="width50" id="position" name ="position" value="' . $object->position . '" />';
 print '</tr>';
 
 // Parent category
-print '<tr><td>'.$langs->trans("In").'</td><td>';
+print '<tr><td>' . $langs->trans("In") . '</td><td>';
 print img_picto('', 'category', 'class="pictofixedwidth"');
 print $form->select_all_categories($type, $object->fk_parent, 'parent', 64, $object->id, 0, 0, 'widthcentpercentminusx maxwidth500');
 print ajax_combobox('parent');
@@ -212,10 +215,86 @@ if (empty($reshook)) {
 print '</table>';
 print '</div>';
 
+
+
+
 print dol_get_fiche_end();
+$category_field_sql = "SELECT * FROM llx_categorie_extrafields WHERE fk_category='{$id}'";
+$result_category_field = $db->query($category_field_sql);
+if ($db->num_rows($result_category_field)) {
+	while ($row = $db->fetch_object($result_category_field)) {
+		print "
+        <div class='row my-3 field_row{$row->rowid}'>
+            <div class='col-md-3'>
+                <label>Field Name</label>
+            </div>
+            <div class='col-md-6'>
+                <input type='text' class='form-control' value='{$row->fieldname}' name='field_name[]' placeholder='Field Name'>
+            </div>
+            <div class='col-md-3'>
+                <button type='button' class='btn btn-danger remove_button_delete' data-id='{$row->rowid}'>Remove</button>
+            </div>
+        </div>";
+	}
+}
+
+print '<div id="fields_container"></div>';
+print '<button type="button" class="btn btn-success" id="add_more_button">Add More</button>';
+
+print "
+<script>
+    $(document).ready(function() {
+        // Add new field on 'Add More' button click
+        $('#add_more_button').click(function(e) {
+            e.preventDefault();
+            var newField = `
+                <div class='row my-3 field_row'>
+                    <div class='col-md-3'>
+                        <label>Field Name</label>
+                    </div>
+                    <div class='col-md-6'>
+                        <input type='text' class='form-control' name='field_name[]' placeholder='Field Name'>
+                    </div>
+                    <div class='col-md-3'>
+                        <button class='btn btn-danger remove_button'>Remove</button>
+                    </div>
+                </div>
+            `;
+            $('#fields_container').append(newField);
+        });
+
+        // Remove field on 'Remove' button click
+        $(document).on('click', '.remove_button', function(e) {
+            e.preventDefault();
+            $(this).closest('.field_row').remove();
+        });
+    });
 
 
-print '<div class="center"><input type="submit" class="button" name"submit" value="'.$langs->trans("Modify").'"> &nbsp; <input type="submit" class="button button-cancel" name="cancel" value="'.$langs->trans("Cancel").'"></div>';
+	$(document).on('click','.remove_button_delete',function(e){
+		e.preventDefault();
+		let id=$(this).data('id');
+		console.log(id);
+		$.ajax({
+			type:'GET',
+			url: '" . DOL_URL_ROOT . "/categories/delete-field.php',
+            data:{id:id},
+            dataType:'json',
+            success:(data)=>{
+			if(data.success){
+				alert(data.message);
+				$('.field_row'+id).hide();
+			}else{
+				alert(data.message);
+			}	
+			}
+		})
+	});
+</script>
+";
+
+
+print '<div class="center"><input type="submit" class="button" name"submit" value="' . $langs->trans("Modify") . '"> &nbsp; <input type="submit" class="button button-cancel" name="cancel" value="' . $langs->trans("Cancel") . '"></div>';
 
 print '</form>';
 

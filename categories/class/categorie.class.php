@@ -604,6 +604,20 @@ class Categorie extends CommonObject
 		if ($this->db->query($sql)) {
 			$action = 'update';
 
+			foreach ($this->field_name as $field) {
+				$sql = "INSERT INTO " . MAIN_DB_PREFIX . "categorie_extrafields (fk_category,";
+				$sql .= " fieldname";
+				$sql .= ") VALUES (";
+				$sql .= $this->id . ",";
+				$sql .= "'{$this->db->escape($field)}'";
+				$sql .= ")";
+				$resql = $this->db->query($sql);
+				if (!$resql) {
+					$this->error = $this->db->lasterror();
+					$error++;
+				}
+			}
+
 			// Actions on extra fields
 			if (!$error) {
 				$result = $this->insertExtraFields();

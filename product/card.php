@@ -1758,6 +1758,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							},
 							dataType:"json",
 							success: function(data){
+							console.log(data);
 							    $("#showInput").html(data.data);
 							}
 						})
