@@ -403,7 +403,7 @@ class Entrepot extends CommonObject
 	 */
 	public function delete($user, $notrigger = 0)
 	{
-		global $conf;
+		global $conf; 
 
 		$error = 0;
 
@@ -486,6 +486,9 @@ class Entrepot extends CommonObject
 		}
 	}
 
+	// public function delete($user, $notrigger=0){
+	// 	print_r('asdfasdfa');
+	// }
 
 	/**
 	 *	Load warehouse data

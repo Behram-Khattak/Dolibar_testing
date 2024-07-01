@@ -105,7 +105,7 @@ require_once DOL_DOCUMENT_ROOT . '/vendor/autoload.php';
 
 
 
-	public function editfieldkey(string $text, string $htmlname, string $preselected, object $object, int $perm, string $typeofdata = 'string', string $moreparam = '', int $fieldrequired = 0, int  $notabletag = 0, string $paramid = 'id', $help = ''): String
+	public function editfieldkey( $text,  $htmlname,  $preselected,  $object, $perm,  $typeofdata = 'string',  $moreparam = '',  $fieldrequired = 0,   $notabletag = 0,  $paramid = 'id', $help = '') 
 	{
 		global $langs;
 
@@ -5547,7 +5547,7 @@ require_once DOL_DOCUMENT_ROOT . '/vendor/autoload.php';
 						if (!empty($input['label'])) {
 							$more .= $input['label'] . '</div><div class="tagtd">';
 						}
-						$more .= $input['value'];
+						// $more .= $input['value'];
 						$more .= '</div></div>' . "\n";
 					} elseif ($input['type'] == 'onecolumn') {
 						$moreonecolumn .= '<div class="margintoponly">';
