@@ -1428,6 +1428,30 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					";
 				}
 				print '	</select></td></tr>';
+
+				// working on this line
+				print '<tr><td><span id="container_input_update"> </span></td></tr>';
+
+				// script
+				print '<script type="text/javascript">
+					$(document).on("change",".container_id", function() {
+
+						let container_id=$(this).val();
+
+						$.ajax({
+							type:"GET",
+							url: "' . DOL_URL_ROOT . '/product/ajax/container-details.php",
+							data: {id:container_id},
+							dataType:"json",
+							success: function(data) {
+								if(data.success){
+									$("#container_input_update").html(data.data);
+								}
+							}
+						});
+						
+					});
+					</script>';
 			}
 			// we add quantity
 			print '<td class="titlefieldcreate fieldrequired">Quantity</td><td><input id="quantity" name="quantity" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('quantity') ? GETPOST('quantity', 'alphanohtml') : $tmpcode) . '">';
@@ -2032,7 +2056,7 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						<option selected='{$selected}' value='{$row->rowid}'>{$row->container_id} > {$row->container_name}</option>
 						";
 					}
-					print '	</select><span id="container_input_update" > </span></td></tr>';
+					print '<tr><td></select><span id="container_input_update" > </span></td></tr>';
 				}
  
 				// print '';
@@ -2526,22 +2550,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 			print '
 			<script>
 				$(document).ready(function(){
-				let container_id=$(".update_container_id").val(); 
+
+				const getContainer=(container_id)=>{
 				$.ajax({
-					type:"GET",
-					url: "' . DOL_URL_ROOT . '/product/ajax/container-details.php",
-                    data: {id:container_id},
-					dataType:"json",
-					success: function(data) {
-					console.log(data);
-					if(data.success){
-						$("#container_input_update").html(data.data);
-						}
-                    }
-				});
-				$(document).on("change",".update_container_id",function(){
-					let container_id=$(this).val(); 
-					$.ajax({
 						type:"GET",
 						url: "' . DOL_URL_ROOT . '/product/ajax/container-details.php",
 						data: {id:container_id},
@@ -2552,8 +2563,30 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 							}
 						}
 					});
+		}
+				let container_id=$(".update_container_id").val(); 
+				getContainer(container_id);
+				// $.ajax({
+				// 	type:"GET",
+				// 	url: "' . DOL_URL_ROOT . '/product/ajax/container-details.php",
+                //     data: {id:container_id},
+				// 	dataType:"json",
+				// 	success: function(data) {
+				// 	console.log(data);
+				// 		if(data.success){
+				// 			$("#container_input_update").html(data.data);
+				// 		}
+                //     }
+				// });
+
+				$(document).on("change",".update_container_id",function(){
+					let container_id=$(this).val(); 
+						getContainer(container_id);
+						
+					}); 
 				}); 
-				}); 
+
+
 			</script>
 			';
 			print '</form>';

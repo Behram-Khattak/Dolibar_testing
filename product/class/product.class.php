@@ -1124,6 +1124,8 @@ class Product extends CommonObject
 			$this->ref = dol_string_nospecial(trim($this->ref));
 		}
 		$this->label = trim($this->label);
+		// $this->container_id = trim($this->container_id);
+		// $this->quantity = trim($this->quantity);
 		$this->description = trim($this->description);
 		$this->note_private = (isset($this->note_private) ? trim($this->note_private) : null);
 		$this->note_public = (isset($this->note_public) ? trim($this->note_public) : null);

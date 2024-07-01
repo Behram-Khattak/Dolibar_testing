@@ -12,12 +12,12 @@ try {
         while($row=$db->fetch_object($result2)){
             $output .="
             <tr>
-                <td><b>Container Type</b></td>
+                <td><b>Container Type: </b></td>
                 <td>{$row->container_type}</td>
             </tr>
-
+            <br>
             <tr>
-                <td><b>Container Date</b></td>
+                <td><b>Container Date: </b></td>
                 <td>{$row->arrival_date}</td>
             </tr>
             
