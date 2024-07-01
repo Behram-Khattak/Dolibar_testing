@@ -1415,25 +1415,27 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			$sql = "SELECT * FROM llx_containers";
 			$resql = $db->query($sql);
-			if ($db->num_rows($resql) > 0) {
-				print '<tr><td class="fieldrequired">' . $langs->trans("Container") . '</td><td>';
+			print '<tr><td class="fieldrequired">' . $langs->trans("Container") . '</td><td>';
 
-				print "
-					<select	name='container_id' id='container_id' class='container_id'>
-					<option  value=''  selected disabled> Select Container</option>
-					";
+			print "
+			<select	name='container_id' id='container_id' class='container_id'>
+			<option  value=''  selected disabled> Select Container</option>
+			";
+			if ($db->num_rows($resql) > 0) {
 				while ($row = $db->fetch_object($resql)) {
 					print "
 					<option value='{$row->rowid}'>{$row->container_id} > {$row->container_name}</option>
 					";
 				}
-				print '	</select></td></tr>';
+			}
 
-				// working on this line
-				print '<tr><td><span id="container_input_update"> </span></td></tr>';
+			print '	</select></td></tr>';
 
-				// script
-				print '<script type="text/javascript">
+			// working on this line
+			print '<tr><td><span id="container_input_update"> </span></td></tr>';
+
+			// script
+			print '<script type="text/javascript">
 					$(document).on("change",".container_id", function() {
 
 						let container_id=$(this).val();
@@ -1452,7 +1454,6 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						
 					});
 					</script>';
-			}
 			// we add quantity
 			print '<td class="titlefieldcreate fieldrequired">Quantity</td><td><input id="quantity" name="quantity" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('quantity') ? GETPOST('quantity', 'alphanohtml') : $tmpcode) . '">';
 			// if ($refalreadyexists) {
@@ -2039,13 +2040,14 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// print '<tr><td class="titlefieldcreate fieldrequired">Container Id</td><td colspan="3"><input name="container_id" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('container_id') ? GETPOST('container_id') : $object->container_id) . '"></td></tr>';
 				$sql = "SELECT * FROM llx_containers";
 				$resql = $db->query($sql);
-				if ($db->num_rows($resql) > 0) {
-					print '<tr><td class="fieldrequired">' . $langs->trans("Container") . '</td><td>';
+				print '<tr><td class="fieldrequired">' . $langs->trans("Container") . '</td><td>';
 
-					print "
+				print "
 						<select	name='container_id' id='update_container_id' class='update_container_id'>
 						<option  value=''  selected disabled> Select Container</option>
 						";
+				if ($db->num_rows($resql) > 0) {
+
 					while ($row = $db->fetch_object($resql)) {
 						if ($row->rowid == $object->container_id) {
 							$selected = true;
@@ -2056,9 +2058,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 						<option selected='{$selected}' value='{$row->rowid}'>{$row->container_id} > {$row->container_name}</option>
 						";
 					}
-					print '<tr><td></select><span id="container_input_update" > </span></td></tr>';
 				}
- 
+
+				print '<tr><td></select><span id="container_input_update" > </span></td></tr>';
+
 				// print '';
 				print '<tr><td class="titlefieldcreate fieldrequired">Quantity</td><td colspan="3"><input name="quantity" class="maxwidth200" maxlength="128" value="' . dol_escape_htmltag(GETPOSTISSET('quantity') ? GETPOST('quantity') : $object->quantity) . '"></td></tr>';
 
