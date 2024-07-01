@@ -64,6 +64,10 @@ if (isModEnabled('productbatch')) {
 }
 
 
+
+
+
+
 // Get parameters
 $action = GETPOST('action', 'aZ09');
 $massaction = GETPOST('massaction', 'alpha');
@@ -222,6 +226,12 @@ if (!getDolGlobalString('PRODUIT_MULTIPRICES')) {
 	}
 }
 
+
+
+
+
+
+
 $isInEEC = isInEEC($mysoc);
 
 $alias_product_perentity = !getDolGlobalString('MAIN_PRODUCT_PERENTITY_SHARED') ? "p" : "ppe";
@@ -295,6 +305,15 @@ $arrayfields = array(
 		);
 	}
 }*/
+
+
+
+
+
+
+
+
+
 
 
 // MultiPrices
@@ -435,6 +454,14 @@ if (empty($reshook)) {
 }
 
 
+
+
+
+
+
+
+
+
 /*
  * View
  */
@@ -445,7 +472,17 @@ if (isModEnabled('workstation')) {
 }
 $product_fourn = new ProductFournisseur($db);
 
-$title = $langs->trans("ProductsAndServices");
+$title = $langs->trans("Products By Container");
+
+
+
+
+
+
+
+
+
+
 
 if ($search_type != '' && $search_type != '-1') {
 	if ($search_type == 1) {
@@ -549,6 +586,8 @@ if (getDolGlobalString('PRODUCT_USE_UNITS')) {
 }
  $sql .= ' WHERE p.container_id = '."$rowid";
 
+
+ 
 
 //Add table from hooks
 $parameters = array();
@@ -767,6 +806,9 @@ if (!$resql) {
 	exit;
 }
 
+
+
+
 $num = $db->num_rows($resql);
 
 
@@ -984,7 +1026,152 @@ if ($type == 1) {
 	$picto = 'service';
 }
 
+// print_barre_liste($titl);
+// $output .= "<div class='row justify-content-center'>
+//     <div class='col-md-12'>
+//         <div class='card'>
+//             <div class='card-body'>
+//                 <div class='table-responsive'> <!-- Added for responsiveness -->
+//                     <table class='table table-bordered'>
+//                         <thead>
+//                             <tr>
+//                                 <th scope='col'>Container ID</th>
+//                                 <th scope='col'>Container Type</th>
+//                                 <th scope='col'>Container Name</th>
+//                                 <th scope='col'>Container Arrival Date</th>
+//                             </tr>
+//                         </thead>
+//                         <tbody id='getContainer'>
+//                             <!-- Your table rows will go here -->
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>
+// </div>";
+
+// echo $output;
+
+
+// $script_output = "
+// <script>
+// $(document).ready(function(){
+//     let get_container_url ='" . $dolibarr_main_url_root . "/container/ajax/get-container.php'
+//     let get_container_delete ='" . $dolibarr_main_url_root . "/container/ajax/delete-container.php'
+//     const getContainer=()=>{
+//         $.ajax({
+//             'type':'GET',
+//             url:get_container_url,
+//             dataType:'json',
+//             success:(data)=>{
+//                 if(data.success){
+//                     $('#getContainer').html(data.data)
+//                 }else{
+//                     alert(data.message);
+//                 }
+//             }
+//         })
+//     }
+//     getContainer();
+// });
+//     </script>
+// ";
+
+
+
+
+
+
+
 print_barre_liste($title, $page, $_SERVER["PHP_SELF"], $param, $sortfield, $sortorder, $massactionbutton, $num, $nbtotalofrecords, $picto, 0, $newcardbutton, '', $limit, 0, 0, 1);
+
+
+
+
+
+
+// Assuming $db is your database connection object
+
+// Sample SQL query
+$sql = "SELECT * FROM llx_containers WHERE rowid = " . $rowid;
+$result = $db->query($sql);
+
+// Initialize output variable
+$output = "<div class='row justify-content-center'>
+    <div class='col-md-12'>
+        <div class='card'>
+            <div class='card-body' style='margin-bottom: 20px;'> <!-- Added margin-bottom -->
+                <div class='table-responsive'> <!-- Added for responsiveness -->
+                    <table class='table table-bordered'>
+                        <tbody id='getContainer'>";
+
+// Check if there are rows in the result set
+if ($result->num_rows > 0) {
+    // Loop through each row in the result set
+    while ($row = $result->fetch_object()) {
+        // Format data as label: value pairs
+        $output .= "<tr>
+                        <td>Container ID:</td>
+                        <td>" . $row->container_id  . "</td>
+                    </tr>
+                    <tr>
+                        <td>Container Name:</td>
+                        <td>" . $row->container_name. "</td>
+                    </tr>
+                    <tr>
+                        <td>Container Type:</td>
+                        <td>" . $row->container_type . "</td>
+                    </tr>
+                    <tr>
+                        <td>Container Arrival Date:</td>
+                        <td>" . $row->arrival_date . "</td>
+                    </tr>";
+    }
+} else {
+    // If no rows are found
+    $output .= "<tr><td colspan='2'>No data found</td></tr>";
+}
+
+// Close table and card body
+$output .= "</tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>";
+
+// Output the entire HTML structure
+echo $output;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $topicmail = "Information";
 $modelmail = "product";
