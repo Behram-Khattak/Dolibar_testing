@@ -229,28 +229,53 @@ $output .="
 ";
 $output .= "<div class='row d-flex align-items-center justify-content-center'>
 <div class='col-md-12'>";
-$output .= " 
-<div class='card'>
-<div class='card-body'>
-<table class='table table-bordered'>
-  <thead>
-    <tr>
-      <th scope='col'>#ID</th>
-      <th scope='col'>Container ID</th>
-      <th scope='col'>Container Type</th>
-      <th scope='col'>Container Name</th>
-      <th scope='col'>Container Arival Date</th>
-      <th scope='col'>View</th>
-      <th scope='col'>Edit</th>
-      <th scope='col'>Delete</th>
-    </tr>
-  </thead>
-  <tbody id='getContainer'>
+
+
+
+// print '<tr class="liste_titre">';
+$output = "
+
+<style>
+    
+    
+    .table {
+        border: 1px solid #000; /* Setting border for the table */
+    }
+    .table-bordered th,
+    .table-bordered td {
+        border: 1px solid #000; /* Setting border for table headers and cells */
+        padding: 10px;
+    }
+    .table thead th {
+        background-color: #ffc107; /* Yellow color for table header */
+        color: #000; /* Black text color */
+    }
    
-  </tbody>
-</table> 
-</div>
-</div>";
+    
+</style>
+
+<div class='container-fluid'> <!-- Use container-fluid for full-width responsiveness -->
+    <div class='row justify-content-center'>
+        <div class='col-md-12'>
+                    <div class='table-responsive'>
+                        <table class='table table-bordered table-striped table-hover' style='width:100%;'>
+                            <thead>
+                                <tr>
+                                    <th scope='col'>#ID</th>
+                                    <th scope='col'>Container ID</th>
+                                    <th scope='col'>Container Type</th>
+                                    <th scope='col'>Container Name</th>
+                                    <th scope='col'>Container Arrival Date</th>
+                                    <th scope='col'>View</th>
+                                    <th scope='col'>Edit</th>
+                                    <th scope='col'>Delete</th>
+                                </tr>
+                            </thead>
+                            <tbody id='getContainer'>";
+
+
+
+
 
 echo $output;
 
