@@ -28,6 +28,8 @@
  *		\brief      Page to create a new category
  */
 
+use function RectorPrefix202406\print_node;
+
 // Load Dolibarr environment
 require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
@@ -38,10 +40,50 @@ require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
 // $langs->load("categories");
 
 // Security check
+
+
+
 $socid = GETPOSTINT('socid');
+// echo "<pre>";
+// print_r($user);
+// die();
 if (!$user->hasRight('categorie', 'lire')) {
 	accessforbidden();
 }
+
+
+
+
+
+
+
+// $socid = GETPOSTINT('socid');
+
+// // Debugging the user object and its rights
+// echo "<pre>";
+// var_dump($user->rights); // Dump the user's rights object for debugging
+// echo "Checking if user has 'categorie' rights...\n";
+// echo "Has right 'categorie'? " . (isset($user->rights->categorie) ? 'Yes' : 'No') . "\n";
+// echo "Has right 'lire'? " . (isset($user->rights->categorie->lire) ? 'Yes' : 'No') . "\n";
+// echo "</pre>";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 $action = GETPOST('action', 'alpha');
 $cancel		= GETPOST('cancel', 'alpha');
@@ -85,6 +127,8 @@ $name = (string) GETPOST('name', 'alphanohtml');
 // if (!GETPOSTISSET('parent') && $catorigin) {
 // 	$parent = $catorigin;
 // }
+
+
 
 $object = new Categorie($db);
 // $extrafields = new ExtraFields($db);
@@ -216,7 +260,12 @@ $error = 0;
 $form = new Form($db);
 $formother = new FormOther($db);
 
+
+
 $help_url = 'EN:Module_Categories|FR:Module_Catégories|DE:Modul_Kategorien';
+
+print_r($help_url );
+die();
 
 llxHeader("", $langs->trans("Create Container"), $help_url);
 echo load_fiche_titre('Create Container');
