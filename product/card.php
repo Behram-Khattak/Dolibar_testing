@@ -1438,9 +1438,9 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 
 			// Label
 			print '<tr><td class="fieldrequired">' . $langs->trans("Label") . '</td><td><input name="label" class="minwidth300 maxwidth400onsmartphone" maxlength="255" value="' . dol_escape_htmltag(GETPOST('label', $label_security_check)) . '"></td></tr>';
-			print '<tr>
-			<table id="container_input"></table>
-			</tr>';
+			// print '<tr>
+			// <table id="container_input"></table>
+			// </tr>';
 			// On sell
 			print '<tr><td class="fieldrequired">' . $langs->trans("Status") . ' (' . $langs->trans("Sell") . ')</td><td>';
 			$statutarray = array('1' => $langs->trans("OnSell"), '0' => $langs->trans("NotOnSell"));
