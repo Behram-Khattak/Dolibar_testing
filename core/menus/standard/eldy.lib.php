@@ -2098,7 +2098,7 @@ function get_left_menu_products($mainmenu, &$newmenu, $usemenuhider = 1, $leftme
 		// add container
 		// if (isModEnabled('shipping')) {
 			$langs->load("Container");
-			$newmenu->add("/container/index.php", 'Container', 0);
+			$newmenu->add("/container/index.php", 'Container', 1);
 			$newmenu->add("/container/card.php?action=create2&amp;leftmenu=sendings",'New Container', 1);
 			$newmenu->add("/container/index.php", $langs->trans("List"), 1);
 			if ($usemenuhider || empty($leftmenu) || $leftmenu == "sendings") {

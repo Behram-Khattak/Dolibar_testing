@@ -240,6 +240,7 @@ $output .= "
       <th scope='col'>Container Type</th>
       <th scope='col'>Container Name</th>
       <th scope='col'>Container Arival Date</th>
+      <th scope='col'>View</th>
       <th scope='col'>Edit</th>
       <th scope='col'>Delete</th>
     </tr>
