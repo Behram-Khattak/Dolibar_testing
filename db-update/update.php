@@ -25,11 +25,11 @@ $sql2 = "CREATE TABLE llx_categorie_extrafields (
 if ($db->query($sql2) === TRUE) {
     echo "Table llx_categorie_extrafields created successfully";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+    echo "Error creating table: " . mysqli_error($db);
 }
 
 // llx_product_categories    
-$sql2 = "CREATE TABLE llx_product_categories (
+$sql3 = "CREATE TABLE llx_product_categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     rowid INT NOT NULL,
     fk_product INT NOT NULL
@@ -39,11 +39,11 @@ $sql2 = "CREATE TABLE llx_product_categories (
     updated_at TIMESTAMP NOT NULL
 )";
 
-if ($db->query($sql2) === TRUE) {
+if ($db->query($sql3) === TRUE) {
     echo "Table llx_product_categories created successfully";
 } else {
-    echo "Error creating table: " . mysqli_error($conn);
+    echo "Error creating table: " . mysqli_error($db);
 }
 
-// Close connection
+// Close dbection
 $db->close();

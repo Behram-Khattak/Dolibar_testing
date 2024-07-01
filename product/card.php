@@ -2819,11 +2819,11 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				print '<tr><td class="tdtop">' . $langs->trans("Description") . '</td><td class="wordbreakimp wrapimp">' . (dol_textishtml($object->description) ? $object->description : dol_nl2br($object->description, 1, true)) . '</td></tr>';
 
 				// Public URL
-				if (!getDolGlobalString('PRODUCT_DISABLE_PUBLIC_URL')) {
-					print '<tr><td>' . $langs->trans("PublicUrl") . '</td><td>';
-					print dol_print_url($object->url, '_blank', 128);
-					print '</td></tr>';
-				}
+				// if (!getDolGlobalString('PRODUCT_DISABLE_PUBLIC_URL')) {
+				// 	print '<tr><td>' . $langs->trans("PublicUrl") . '</td><td>';
+				// 	print dol_print_url($object->url, '_blank', 128);
+				// 	print '</td></tr>';
+				// }
 
 				// Default warehouse
 				if (($object->isProduct() || getDolGlobalInt('STOCK_SUPPORTS_SERVICES')) && isModEnabled('stock')) {
@@ -2905,67 +2905,75 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print '</td></tr>';
 				}
 
-				if (!$object->isService()) {
-					// Brut Weight
-					if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {
-						print '<tr><td class="titlefieldmiddle">' . $langs->trans("Weight") . '</td><td>';
-						if ($object->weight != '') {
-							print $object->weight . " " . measuringUnitString(0, "weight", $object->weight_units);
-						} else {
-							print '&nbsp;';
-						}
-						print "</td></tr>\n";
-					}
+				// if (!$object->isService()) {
+				// 	// Brut Weight
+				// 	if (!getDolGlobalString('PRODUCT_DISABLE_WEIGHT')) {
+				// 		print '<tr><td class="titlefieldmiddle">' . $langs->trans("Weight") . '</td><td>';
+				// 		if ($object->weight != '') {
+				// 			print $object->weight . " " . measuringUnitString(0, "weight", $object->weight_units);
+				// 		} else {
+				// 			print '&nbsp;';
+				// 		}
+				// 		print "</td></tr>\n";
+				// 	}
 
-					if (!getDolGlobalString('PRODUCT_DISABLE_SIZE')) {
-						// Brut Length
-						print '<tr><td>' . $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . '</td><td>';
-						if ($object->length != '' || $object->width != '' || $object->height != '') {
-							print $object->length;
-							if ($object->width) {
-								print " x " . $object->width;
-							}
-							if ($object->height) {
-								print " x " . $object->height;
-							}
-							print ' ' . measuringUnitString(0, "size", $object->length_units);
-						} else {
-							print '&nbsp;';
-						}
-						print "</td></tr>\n";
-					}
-					if (!getDolGlobalString('PRODUCT_DISABLE_SURFACE')) {
-						// Brut Surface
-						print '<tr><td>' . $langs->trans("Surface") . '</td><td>';
-						if ($object->surface != '') {
-							print $object->surface . " " . measuringUnitString(0, "surface", $object->surface_units);
-						} else {
-							print '&nbsp;';
-						}
-						print "</td></tr>\n";
-					}
-					if (!getDolGlobalString('PRODUCT_DISABLE_VOLUME')) {
-						// Brut Volume
-						print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
-						if ($object->volume != '') {
-							print $object->volume . " " . measuringUnitString(0, "volume", $object->volume_units);
-						} else {
-							print '&nbsp;';
-						}
-						print "</td></tr>\n";
-					}
+				// 	if (!getDolGlobalString('PRODUCT_DISABLE_SIZE')) {
+				// 		// Brut Length
+				// 		print '<tr><td>' . $langs->trans("Length") . ' x ' . $langs->trans("Width") . ' x ' . $langs->trans("Height") . '</td><td>';
+				// 		if ($object->length != '' || $object->width != '' || $object->height != '') {
+				// 			print $object->length;
+				// 			if ($object->width) {
+				// 				print " x " . $object->width;
+				// 			}
+				// 			if ($object->height) {
+				// 				print " x " . $object->height;
+				// 			}
+				// 			print ' ' . measuringUnitString(0, "size", $object->length_units);
+				// 		} else {
+				// 			print '&nbsp;';
+				// 		}
+				// 		print "</td></tr>\n";
+				// 	}
+				// 	if (!getDolGlobalString('PRODUCT_DISABLE_SURFACE')) {
+				// 		// Brut Surface
+				// 		print '<tr><td>' . $langs->trans("Surface") . '</td><td>';
+				// 		if ($object->surface != '') {
+				// 			print $object->surface . " " . measuringUnitString(0, "surface", $object->surface_units);
+				// 		} else {
+				// 			print '&nbsp;';
+				// 		}
+				// 		print "</td></tr>\n";
+				// 	}
+				// 	if (!getDolGlobalString('PRODUCT_DISABLE_VOLUME')) {
+				// 		// Brut Volume
+				// 		print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
+				// 		if ($object->volume != '') {
+				// 			print $object->volume . " " . measuringUnitString(0, "volume", $object->volume_units);
+				// 		} else {
+				// 			print '&nbsp;';
+				// 		}
+				// 		print "</td></tr>\n";
+				// 	}
 
-					if (getDolGlobalString('PRODUCT_ADD_NET_MEASURE')) {
-						// Net Measure
-						print '<tr><td class="titlefieldmiddle">' . $langs->trans("NetMeasure") . '</td><td>';
-						if ($object->net_measure != '') {
-							print $object->net_measure . " " . measuringUnitString($object->net_measure_units);
-						} else {
-							print '&nbsp;';
-						}
-						print '</td></tr>';
-					}
+				// 	if (getDolGlobalString('PRODUCT_ADD_NET_MEASURE')) {
+				// 		// Net Measure
+				// 		print '<tr><td class="titlefieldmiddle">' . $langs->trans("NetMeasure") . '</td><td>';
+				// 		if ($object->net_measure != '') {
+				// 			print $object->net_measure . " " . measuringUnitString($object->net_measure_units);
+				// 		} else {
+				// 			print '&nbsp;';
+				// 		}
+				// 		print '</td></tr>';
+				// 	}
+				// }
+				print $object->id;
+				print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
+				if ($object->volume != '') {
+					print $object->volume . " " . measuringUnitString(0, "volume", $object->volume_units);
+				} else {
+					print '&nbsp;';
 				}
+				print "</td></tr>\n";
 
 				// Unit
 				if (getDolGlobalString('PRODUCT_USE_UNITS')) {
