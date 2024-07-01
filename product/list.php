@@ -239,6 +239,9 @@ $arrayfields = array(
 	'thumbnail' => array('label' => 'Photo', 'checked' => 0, 'position' => 10),
 	'p.description' => array('label' => 'Description', 'checked' => 0, 'position' => 10),
 	'p.label' => array('label' => "Label", 'checked' => 1, 'position' => 10),
+
+	'p.view-detail' => array('label' => "View-Detail", 'checked' => 1, 'position' => 10),
+
 	'p.fk_product_type' => array('label' => "Type", 'checked' => 0, 'enabled' => (isModEnabled("product") && isModEnabled("service")), 'position' => 11),
 	'p.barcode' => array('label' => "Gencod", 'checked' => 1, 'enabled' => (isModEnabled('barcode')), 'position' => 12),
 	'p.duration' => array('label' => "Duration", 'checked' => ($contextpage != 'productlist'), 'enabled' => (isModEnabled("service") && (string) $type == '1'), 'position' => 13),
@@ -1402,6 +1405,7 @@ if (!empty($arrayfields['p.weight']['checked'])) {
 	print_liste_field_titre($arrayfields['p.weight']['label'], $_SERVER['PHP_SELF'], 'p.weight', '', $param, '', $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
 }
+
 if (!empty($arrayfields['p.weight_units']['checked'])) {
 	print_liste_field_titre($arrayfields['p.weight_units']['label'], $_SERVER['PHP_SELF'], 'p.weight_units', '', $param, '', $sortfield, $sortorder, 'center ');
 	$totalarray['nbfield']++;
@@ -1458,6 +1462,9 @@ if (!empty($arrayfields['p.sellprice']['checked'])) {
 	print_liste_field_titre($arrayfields['p.sellprice']['label'], $_SERVER["PHP_SELF"], "", "", $param, '', $sortfield, $sortorder, 'right ');
 	$totalarray['nbfield']++;
 }
+
+
+
 
 // Multiprices
 if (getDolGlobalString('PRODUIT_MULTIPRICES')) {
@@ -1541,6 +1548,12 @@ if (!empty($arrayfields[$alias_product_perentity . '.accountancy_code_buy_export
 	print_liste_field_titre($arrayfields[$alias_product_perentity . '.accountancy_code_buy_export']['label'], $_SERVER["PHP_SELF"], $alias_product_perentity . ".accountancy_code_buy_export", "", $param, '', $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
+
+
+
+
+
+
 // Extra fields
 include DOL_DOCUMENT_ROOT.'/core/tpl/extrafields_list_search_title.tpl.php';
 // Hook fields
@@ -1570,6 +1583,13 @@ if (!empty($arrayfields['p.tobuy']['checked'])) {
 // Action column
 if (!getDolGlobalString('MAIN_CHECKBOX_LEFT_COLUMN')) {
 	print_liste_field_titre($selectedfields, $_SERVER["PHP_SELF"], "", '', '', '', $sortfield, $sortorder, 'center maxwidthsearch ');
+	$totalarray['nbfield']++;
+}
+
+
+
+if (!empty($arrayfields['p.view-detail']['checked'])) {
+	print_liste_field_titre($arrayfields['p.view-detail']['label'], $_SERVER["PHP_SELF"], "p.View-Detail", "", $param, "", $sortfield, $sortorder);
 	$totalarray['nbfield']++;
 }
 print '</tr>'."\n";
@@ -2370,6 +2390,14 @@ while ($i < $imaxinloop) {
 				$totalarray['nbfield']++;
 			}
 		}
+
+		
+		if (!empty($arrayfields['p.view-detail']['checked'])) {
+			print '<td class="tdoverflowmax200" title="'.dol_escape_htmltag($product_static->label).'">'.'View-Detail'.'</td>';
+			if (!$i) {
+				$totalarray['nbfield']++;
+			}
+		} 
 
 		print '</tr>'."\n";
 	}
