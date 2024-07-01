@@ -1025,8 +1025,8 @@ if ($search_type != '' && $search_type != '-1') {
 		$selectedfields = ($mode != 'kanban' ? $htmlofselectarray : '');
 		$selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('checkforselect', 1) : '');
 
-		print '<div class="div-table-responsive">';
-		print '<table class="tagtable nobottomiftotal liste' . ($moreforfilter ? " listwithfilterbefore" : "") . '">' . "\n";
+print '<div class="div-table-responsive">';
+print '<table class="tagtable nobottomiftotal liste'.($moreforfilter ? " listwithfilterbefore" : "").'">'."\n";
 
 		// Fields title search
 		// --------------------------------------------------------------------

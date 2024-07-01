@@ -500,16 +500,7 @@ if (empty($reshook)) {
 			$action = "create";
 			$error++;
 		}
-		if (!GETPOST('DefaultWarehouse')) {
-			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('DefaultWarehouse')), null, 'errors');
-			$action = "create";
-			$error++;
-		}
-		if (!GETPOST('Categories')) {
-			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Categories')), null, 'errors');
-			$action = "create";
-			$error++;
-		}
+
 		if (empty($ref)) {
 			if (!getDolGlobalString('PRODUCT_GENERATE_REF_AFTER_FORM')) {
 				setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('ProductRef')), null, 'errors');
@@ -517,8 +508,33 @@ if (empty($reshook)) {
 				$error++;
 			}
 		}
+
 		if (!empty($duration_value) && empty($duration_unit)) {
 			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Unit')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+
+		if (!GETPOST('DefaultWarehouse')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('DefaultWarehouse')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+
+		if (!GETPOST('Categories')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Categories')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+
+		if (!GETPOST('SellingPrice')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('SellingPrice')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+
+		if (!GETPOST('MinPrice')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('MinPrice')), null, 'errors');
 			$action = "create";
 			$error++;
 		}
