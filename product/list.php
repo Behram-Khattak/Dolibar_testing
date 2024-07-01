@@ -1015,6 +1015,10 @@ $selectedfields .= (count($arrayofmassactions) ? $form->showCheckAddButtons('che
 print '<div class="div-table-responsive">';
 print '<table class="tagtable nobottomiftotal liste'.($moreforfilter ? " listwithfilterbefore" : "").'">'."\n";
 
+if () {
+
+}
+
 // Fields title search
 // --------------------------------------------------------------------
 print '<tr class="liste_titre_filter">';
