@@ -2966,14 +2966,17 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 				// 		print '</td></tr>';
 				// 	}
 				// }
-				print $object->id;
-				print '<tr><td>' . $langs->trans("Volume") . '</td><td>';
-				if ($object->volume != '') {
-					print $object->volume . " " . measuringUnitString(0, "volume", $object->volume_units);
-				} else {
-					print '&nbsp;';
+				$product_sql="SELECT * FROM llx_product_categories WHERE fk_product ='{$object->id}'";
+				$product_result=$db->query($product_sql);
+				if($db->num_rows($product_result)){
+					print '<tr><td class="titlefieldmiddle">' . $langs->trans("Categories") . '</td><td>';
+                    while($product_row=$db->fetch_object($product_result)){
+						print '<tr><td>' . $product_row->fieldname . '</td><td>';
+							print $product_row->fieldvalue;
+						print "</td></tr>\n";
+                    }
 				}
-				print "</td></tr>\n";
+				
 
 				// Unit
 				if (getDolGlobalString('PRODUCT_USE_UNITS')) {
