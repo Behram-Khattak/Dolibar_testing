@@ -799,6 +799,7 @@ class Product extends CommonObject
 			return -1;
 		}
 
+
 		if (empty($this->ref) || $this->ref == 'auto') {
 			// Load object modCodeProduct
 			$module = getDolGlobalString('PRODUCT_CODEPRODUCT_ADDON', 'mod_codeproduct_leopard');
@@ -851,6 +852,7 @@ class Product extends CommonObject
 				$obj = $this->db->fetch_object($result);
 				if ($obj->nb == 0) {
 					// Insert new product, no previous one found
+					
 					$sql = "INSERT INTO " . $this->db->prefix() . "product (";
 					$sql .= "datec";
 					$sql .= ", entity";
@@ -6068,6 +6070,10 @@ class Product extends CommonObject
 						dol_print_error($this->db, $this->error);
 					}
 				}
+
+					// if (!isset($this->fk_default_warehouse)) {
+
+					// }
 
 				if ($this->fk_default_warehouse == $warehouseid) {
 					$this->stock_warehouse[$warehouseid]->virtual = $this->stock_warehouse[$warehouseid]->real + $this->stock_warehouse[$warehouseid]->stats_mrptoproduce['qty'] + $this->stats_commande_fournisseur['qty'] - ($this->stats_commande['qty'] + $this->stats_mrptoconsume['qty']);

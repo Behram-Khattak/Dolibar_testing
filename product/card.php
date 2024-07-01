@@ -491,12 +491,22 @@ if (empty($reshook)) {
 		}
 	}
 
-	// Add a product or service
+	// Validation to Add a product or service
 	if ($action == 'add' && $usercancreate) {
 		$error = 0;
 
 		if (!GETPOST('label', $label_security_check)) {
 			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Label')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+		if (!GETPOST('DefaultWarehouse')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('DefaultWarehouse')), null, 'errors');
+			$action = "create";
+			$error++;
+		}
+		if (!GETPOST('Categories')) {
+			setEventMessages($langs->trans('ErrorFieldRequired', $langs->transnoentities('Categories')), null, 'errors');
 			$action = "create";
 			$error++;
 		}
