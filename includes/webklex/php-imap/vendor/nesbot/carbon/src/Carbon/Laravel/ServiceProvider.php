@@ -30,12 +30,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     /** @var callable|null */
     protected $localeGetter = null;
 
-    public function setAppGetter(?callable $appGetter): void
+    public function setAppGetter(?callable $appGetter)
     {
         $this->appGetter = $appGetter;
     }
 
-    public function setLocaleGetter(?callable $localeGetter): void
+    public function setLocaleGetter(?callable $localeGetter)
     {
         $this->localeGetter = $localeGetter;
     }

@@ -62,7 +62,7 @@ class FormSocialContrib
 	 *  @param	int		$noerrorifempty	No print error if list is empty for the country
 	 * 	@return	void
 	 */
-	public function select_type_socialcontrib($selected = '', $htmlname = 'actioncode', $useempty = 0, $maxlen = 40, $help = 1, $morecss = 'minwidth300', $noerrorifempty = 0): void
+	public function select_type_socialcontrib($selected = '', $htmlname = 'actioncode', $useempty = 0, $maxlen = 40, $help = 1, $morecss = 'minwidth300', $noerrorifempty = 0)
 	{
 		// phpcs:enable
 		global $conf, $db, $langs, $user, $mysoc;

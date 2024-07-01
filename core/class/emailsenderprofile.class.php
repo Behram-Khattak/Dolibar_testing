@@ -342,7 +342,7 @@ class EmailSenderProfile extends CommonObject
 	 *  @param  int     $id       Id of order
 	 *  @return	void
 	 */
-	public function info($id): void
+	public function info($id)
 	{
 		$sql = "SELECT rowid, date_creation as datec, tms as datem";
 		$sql .= " FROM ".$this->db->prefix().$this->table_element." as t";

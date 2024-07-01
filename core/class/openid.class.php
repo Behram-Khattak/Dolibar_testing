@@ -51,7 +51,7 @@ class SimpleOpenID
 	 * @param	string	$a		Server
 	 * @return	void
 	 */
-	public function SetOpenIDServer($a): void
+	public function SetOpenIDServer($a)
 	{
 		// phpcs:enable
 		$this->URLs['openid_server'] = $a;
@@ -64,7 +64,7 @@ class SimpleOpenID
 	 * @param	string	$a		Server
 	 * @return	void
 	 */
-	public function SetTrustRoot($a): void
+	public function SetTrustRoot($a)
 	{
 		// phpcs:enable
 		$this->URLs['trust_root'] = $a;
@@ -77,7 +77,7 @@ class SimpleOpenID
 	 * @param	string	$a		Server
 	 * @return	void
 	 */
-	public function SetCancelURL($a): void
+	public function SetCancelURL($a)
 	{
 		// phpcs:enable
 		$this->URLs['cancel'] = $a;
@@ -90,7 +90,7 @@ class SimpleOpenID
 	 * @param	string	$a		Server
 	 * @return	void
 	 */
-	public function SetApprovedURL($a): void
+	public function SetApprovedURL($a)
 	{
 		// phpcs:enable
 		$this->URLs['approved'] = $a;
@@ -103,7 +103,7 @@ class SimpleOpenID
 	 * @param	string|array	$a		Server
 	 * @return	void
 	 */
-	public function SetRequiredFields($a): void
+	public function SetRequiredFields($a)
 	{
 		// phpcs:enable
 		if (is_array($a)) {
@@ -120,7 +120,7 @@ class SimpleOpenID
 	 * @param	string|array	$a		Server
 	 * @return	void
 	 */
-	public function SetOptionalFields($a): void
+	public function SetOptionalFields($a)
 	{
 		// phpcs:enable
 		if (is_array($a)) {
@@ -137,7 +137,7 @@ class SimpleOpenID
 	 * @param	string  $a		Server
 	 * @return	void
 	 */
-	public function SetIdentity($a): void
+	public function SetIdentity($a)
 	{
 		// phpcs:enable
 		// Set Identity URL
@@ -195,7 +195,7 @@ class SimpleOpenID
 	 * @param	string	$desc		Description
 	 * @return	void
 	 */
-	public function ErrorStore($code, $desc = null): void
+	public function ErrorStore($code, $desc = null)
 	{
 		// phpcs:enable
 		$errs = array();
@@ -419,7 +419,7 @@ class SimpleOpenID
 	 *
 	 * @return	void
 	 */
-	public function Redirect(): void
+	public function Redirect()
 	{
 		// phpcs:enable
 		$redirect_to = $this->GetRedirectURL();

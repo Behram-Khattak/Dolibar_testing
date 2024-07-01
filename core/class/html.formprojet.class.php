@@ -781,7 +781,7 @@ class FormProjets extends Form
 	 *  @param	string	$hmlname	Name of HTML select element
 	 *  @return	void
 	 */
-	public function selectProjectsStatus($selected = '', $short = 0, $hmlname = 'order_status'): void
+	public function selectProjectsStatus($selected = '', $short = 0, $hmlname = 'order_status')
 	{
 		$options = array();
 

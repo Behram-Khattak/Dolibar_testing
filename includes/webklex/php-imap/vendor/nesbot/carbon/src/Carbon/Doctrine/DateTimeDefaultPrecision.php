@@ -20,7 +20,7 @@ class DateTimeDefaultPrecision
      *
      * @param int $precision
      */
-    public static function set(int $precision): void
+    public static function set(int $precision)
     {
         self::$precision = $precision;
     }

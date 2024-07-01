@@ -18210,7 +18210,7 @@ var noop = function () {};
 // of the event loop.
 var nextTick =(function () {
     // linked list of tasks (single, with head node)
-    var head = {task: void 0, next: null};
+    var head = {task 0, next: null};
     var tail = head;
     var flushing = false;
     var requestTick = void 0;

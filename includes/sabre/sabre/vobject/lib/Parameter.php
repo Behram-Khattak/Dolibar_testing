@@ -334,7 +334,7 @@ class Parameter extends Node
      *
      * @param Xml\Writer $writer XML writer
      */
-    public function xmlSerialize(Xml\Writer $writer): void
+    public function xmlSerialize(Xml\Writer $writer)
     {
         foreach (explode(',', $this->value) as $value) {
             $writer->writeElement('text', $value);

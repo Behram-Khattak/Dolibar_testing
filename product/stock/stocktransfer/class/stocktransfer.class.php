@@ -889,7 +889,7 @@ class StockTransfer extends CommonObject
 	 *	@param  int		$id       Id of object
 	 *	@return	void
 	 */
-	public function info($id): void
+	public function info($id)
 	{
 		$sql = 'SELECT rowid, date_creation as datec, tms as datem,';
 		$sql .= ' fk_user_creat, fk_user_modif';

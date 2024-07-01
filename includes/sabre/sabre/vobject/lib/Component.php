@@ -368,7 +368,7 @@ class Component extends Node
      *
      * @param Xml\Writer $writer XML writer
      */
-    public function xmlSerialize(Xml\Writer $writer): void
+    public function xmlSerialize(Xml\Writer $writer)
     {
         $components = [];
         $properties = [];

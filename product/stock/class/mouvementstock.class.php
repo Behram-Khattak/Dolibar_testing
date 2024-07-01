@@ -1053,7 +1053,7 @@ class MouvementStock extends CommonObject
 	 *
 	 * @return	void
 	 */
-	public function setOrigin($origin_element, $origin_id, $line_id_object_src = 0, $line_id_object_origin = 0): void
+	public function setOrigin($origin_element, $origin_id, $line_id_object_src = 0, $line_id_object_origin = 0)
 	{
 		$this->origin_type = $origin_element;
 		$this->origin_id = $origin_id;

@@ -618,7 +618,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return	void
 	 */
-	public function exportCegid($objectLines, $exportFile = null): void
+	public function exportCegid($objectLines, $exportFile = null)
 	{
 		$separator = ";";
 		$end_line = "\n";
@@ -654,7 +654,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return	void
 	 */
-	public function exportCogilog($objectLines, $exportFile = null): void
+	public function exportCogilog($objectLines, $exportFile = null)
 	{
 		$separator = "\t";
 		$end_line = "\n";
@@ -718,7 +718,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportCoala($objectLines, $exportFile = null): void
+	public function exportCoala($objectLines, $exportFile = null)
 	{
 		// Coala export
 		$separator = ";";
@@ -755,7 +755,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportBob50($objectLines, $exportFile = null): void
+	public function exportBob50($objectLines, $exportFile = null)
 	{
 		// Bob50
 		$separator = ";";
@@ -810,7 +810,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportCiel($objectLines, $exportFile = null): void
+	public function exportCiel($objectLines, $exportFile = null)
 	{
 		$end_line = "\r\n";
 
@@ -1084,7 +1084,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportWinfic($objectLines, $exportFile = null): void
+	public function exportWinfic($objectLines, $exportFile = null)
 	{
 		global $conf;
 
@@ -1166,7 +1166,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportEbp($objectLines, $exportFile = null): void
+	public function exportEbp($objectLines, $exportFile = null)
 	{
 		$separator = ',';
 		$end_line = "\n";
@@ -1209,7 +1209,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportAgiris($objectLines, $exportFile = null): void
+	public function exportAgiris($objectLines, $exportFile = null)
 	{
 		$separator = ';';
 		$end_line = "\n";
@@ -1256,7 +1256,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportOpenConcerto($objectLines, $exportFile = null): void
+	public function exportOpenConcerto($objectLines, $exportFile = null)
 	{
 		$separator = ';';
 		$end_line = "\n";
@@ -1294,7 +1294,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return	void
 	 */
-	public function exportConfigurable($objectLines, $exportFile = null): void
+	public function exportConfigurable($objectLines, $exportFile = null)
 	{
 		global $conf;
 
@@ -1759,7 +1759,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportSAGE50SWISS($objectLines, $exportFile = null): void
+	public function exportSAGE50SWISS($objectLines, $exportFile = null)
 	{
 		// SAGE50SWISS
 		$separator = ',';
@@ -1913,7 +1913,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportLDCompta($objectLines, $exportFile = null): void
+	public function exportLDCompta($objectLines, $exportFile = null)
 	{
 		$separator = ';';
 		$end_line = "\r\n";
@@ -2053,7 +2053,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportLDCompta10($objectLines, $exportFile = null): void
+	public function exportLDCompta10($objectLines, $exportFile = null)
 	{
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/company.lib.php';
 
@@ -2333,7 +2333,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportCharlemagne($objectLines, $exportFile = null): void
+	public function exportCharlemagne($objectLines, $exportFile = null)
 	{
 		global $langs;
 		$langs->load('compta');
@@ -2411,7 +2411,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return	void
 	 */
-	public function exportGestimumV3($objectLines, $exportFile = null): void
+	public function exportGestimumV3($objectLines, $exportFile = null)
 	{
 		global $langs;
 
@@ -2519,7 +2519,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	 */
-	public function exportGestimumV5($objectLines, $exportFile = null): void
+	public function exportGestimumV5($objectLines, $exportFile = null)
 	{
 		$separator = ',';
 		$end_line = "\r\n";
@@ -2570,7 +2570,7 @@ class AccountancyExport
 	 * @param 	resource	$exportFile				[=null] File resource to export or print if null
 	 * @return 	void
 	*/
-	public function exportiSuiteExpert($objectLines, $exportFile = null): void
+	public function exportiSuiteExpert($objectLines, $exportFile = null)
 	{
 		$separator = ';';
 		$end_line = "\r\n";

@@ -128,7 +128,7 @@ class FormSms
 	 *  @param int $showform Show form tags and submit button (recommended is to use with value 0)
 	 *	@return	void
 	 */
-	public function show_form($morecss = 'titlefield', $showform = 1): void
+	public function show_form($morecss = 'titlefield', $showform = 1)
 	{
 		// phpcs:enable
 		global $conf, $langs, $form;

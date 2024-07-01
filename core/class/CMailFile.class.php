@@ -1408,7 +1408,7 @@ class CMailFile
 	 *
 	 *  @return	void
 	 */
-	public function dump_mail(): void
+	public function dump_mail()
 	{
 		// phpcs:enable
 		global $dolibarr_main_data_root;
@@ -1449,7 +1449,7 @@ class CMailFile
 	 *  @param	string		$message		Add also a message
 	 *  @return	void
 	 */
-	public function save_dump_mail_in_err($message = ''): void
+	public function save_dump_mail_in_err($message = '')
 	{
 		global $dolibarr_main_data_root;
 
@@ -1517,7 +1517,7 @@ class CMailFile
 	 *
 	 * @return void
 	 */
-	public function buildCSS(): void
+	public function buildCSS()
 	{
 		if (!empty($this->css)) {
 			// Style CSS

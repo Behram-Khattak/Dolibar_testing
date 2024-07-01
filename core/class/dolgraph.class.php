@@ -232,7 +232,7 @@ class DolGraph
 	 * @param 	string			$label		Y label
 	 * @return	void
 	 */
-	public function SetYLabel($label): void
+	public function SetYLabel($label)
 	{
 		// phpcs:enable
 		$this->YLabel = $label;
@@ -245,7 +245,7 @@ class DolGraph
 	 * @param 	int|string		$w			Width (Example: 320 or '100%' or '10px')
 	 * @return	void
 	 */
-	public function SetWidth($w): void
+	public function SetWidth($w)
 	{
 		// phpcs:enable
 		$this->width = $w;
@@ -258,7 +258,7 @@ class DolGraph
 	 * @param 	string	$title		Title
 	 * @return	void
 	 */
-	public function SetTitle($title): void
+	public function SetTitle($title)
 	{
 		// phpcs:enable
 		$this->title = $title;
@@ -272,7 +272,7 @@ class DolGraph
 	 * @return	void
 	 * @see draw_jflot() for syntax of data array
 	 */
-	public function SetData($data): void
+	public function SetData($data)
 	{
 		// phpcs:enable
 		$this->data = $data;
@@ -285,7 +285,7 @@ class DolGraph
 	 * @param 	array	$datacolor		Data color array(array(R,G,B),array(R,G,B)...) or array('#......','#......'...)
 	 * @return	void
 	 */
-	public function SetDataColor($datacolor): void
+	public function SetDataColor($datacolor)
 	{
 		// phpcs:enable
 		$this->datacolor = $datacolor;
@@ -297,7 +297,7 @@ class DolGraph
 	 * @param 	array	$bordercolor		Border Color array(array(R,G,B),array(R,G,B)...) or array('#FFFFFF','#......'...)
 	 * @return	void
 	 */
-	public function setBorderColor($bordercolor): void
+	public function setBorderColor($bordercolor)
 	{
 		$this->bordercolor = $bordercolor;
 	}
@@ -308,7 +308,7 @@ class DolGraph
 	 * @param 	int     $borderwidth 	Border Width
 	 * @return	void
 	 */
-	public function setBorderWidth($borderwidth): void
+	public function setBorderWidth($borderwidth)
 	{
 		$this->borderwidth = $borderwidth;
 	}
@@ -320,7 +320,7 @@ class DolGraph
 	 * 									'false' to not skip any border, 'true' to skip all border
 	 * @return	void
 	 */
-	public function setBorderSkip($borderskip): void
+	public function setBorderSkip($borderskip)
 	{
 		$this->borderskip = $borderskip;
 	}
@@ -331,7 +331,7 @@ class DolGraph
 	 * @param 	array	$tooltipsLabels		Tooltips Labels array('...','...'...)
 	 * @return	void
 	 */
-	public function setTooltipsLabels($tooltipsLabels): void
+	public function setTooltipsLabels($tooltipsLabels)
 	{
 		$this->tooltipsLabels = $tooltipsLabels;
 	}
@@ -342,7 +342,7 @@ class DolGraph
 	 * @param 	array	$tooltipsTitles		Tooltips Titles array('...','...'...)
 	 * @return	void
 	 */
-	public function setTooltipsTitles($tooltipsTitles): void
+	public function setTooltipsTitles($tooltipsTitles)
 	{
 		$this->tooltipsTitles = $tooltipsTitles;
 	}
@@ -355,7 +355,7 @@ class DolGraph
 	 * 								'pie', 'piesemicircle', 'polar', 'lines', 'linesnopoint', 'bars', 'horizontalbars'...
 	 * @return	void
 	 */
-	public function SetType($type): void
+	public function SetType($type)
 	{
 		// phpcs:enable
 		$this->type = $type;
@@ -368,7 +368,7 @@ class DolGraph
 	 * @param 	array	$legend		Legend. Example: array('seriename1','seriname2',...)
 	 * @return	void
 	 */
-	public function SetLegend($legend): void
+	public function SetLegend($legend)
 	{
 		// phpcs:enable
 		$this->Legend = $legend;
@@ -381,7 +381,7 @@ class DolGraph
 	 * @param 	int		$legendwidthmin		Min width
 	 * @return	void
 	 */
-	public function SetLegendWidthMin($legendwidthmin): void
+	public function SetLegendWidthMin($legendwidthmin)
 	{
 		// phpcs:enable
 		$this->LegendWidthMin = $legendwidthmin;
@@ -394,7 +394,7 @@ class DolGraph
 	 * @param 	int		$max			Max value
 	 * @return	void
 	 */
-	public function SetMaxValue($max): void
+	public function SetMaxValue($max)
 	{
 		// phpcs:enable
 		$this->MaxValue = $max;
@@ -419,7 +419,7 @@ class DolGraph
 	 * @param 	int		$min			Min value
 	 * @return	void
 	 */
-	public function SetMinValue($min): void
+	public function SetMinValue($min)
 	{
 		// phpcs:enable
 		$this->MinValue = $min;
@@ -444,7 +444,7 @@ class DolGraph
 	 * @param 	int|string		$h		Height int or '90%' or '10px'
 	 * @return	void
 	 */
-	public function SetHeight($h): void
+	public function SetHeight($h)
 	{
 		// phpcs:enable
 		$this->height = $h;
@@ -457,7 +457,7 @@ class DolGraph
 	 * @param 	string	$s				Shading
 	 * @return	void
 	 */
-	public function SetShading($s): void
+	public function SetShading($s)
 	{
 		// phpcs:enable
 		$this->SetShading = $s;
@@ -470,7 +470,7 @@ class DolGraph
 	 * @param 	string	$s				Shading
 	 * @return	void
 	 */
-	public function SetCssPrefix($s): void
+	public function SetCssPrefix($s)
 	{
 		// phpcs:enable
 		$this->cssprefix = $s;
@@ -482,7 +482,7 @@ class DolGraph
 	 *
 	 * @return	void
 	 */
-	public function ResetBgColor(): void
+	public function ResetBgColor()
 	{
 		// phpcs:enable
 		unset($this->bgcolor);
@@ -494,7 +494,7 @@ class DolGraph
 	 *
 	 * @return	void
 	 */
-	public function ResetBgColorGrid(): void
+	public function ResetBgColorGrid()
 	{
 		// phpcs:enable
 		unset($this->bgcolorgrid);
@@ -506,7 +506,7 @@ class DolGraph
 	 * @param	boolean 	$mirrorGraphValues	Mirror Values if true and doesn't if false
 	 * @return	void
 	 */
-	public function setMirrorGraphValues($mirrorGraphValues): void
+	public function setMirrorGraphValues($mirrorGraphValues)
 	{
 		$this->mirrorGraphValues = $mirrorGraphValues;
 	}
@@ -527,7 +527,7 @@ class DolGraph
 	 * @param	int		$showlegend		1=Show legend (default), 0=Hide legend, 2=Show legend on right
 	 * @return	void
 	 */
-	public function setShowLegend($showlegend): void
+	public function setShowLegend($showlegend)
 	{
 		$this->showlegend = $showlegend;
 	}
@@ -538,7 +538,7 @@ class DolGraph
 	 * @param	int		$showpointvalue		1=Show value for each point, as tooltip or inline (default), 0=Hide value, 2=Show values for each series on same point
 	 * @return	void
 	 */
-	public function setShowPointValue($showpointvalue): void
+	public function setShowPointValue($showpointvalue)
 	{
 		$this->showpointvalue = $showpointvalue;
 	}
@@ -549,7 +549,7 @@ class DolGraph
 	 * @param	int		$showpercent		1=Show percent for each point, as tooltip or inline, 0=Hide percent (default)
 	 * @return	void
 	 */
-	public function setShowPercent($showpercent): void
+	public function setShowPercent($showpercent)
 	{
 		$this->showpercent = $showpercent;
 	}
@@ -563,7 +563,7 @@ class DolGraph
 	 * @param	array	$bg_color		array(R,G,B) ou 'onglet' ou 'default'
 	 * @return	void
 	 */
-	public function SetBgColor($bg_color = array(255, 255, 255)): void
+	public function SetBgColor($bg_color = array(255, 255, 255))
 	{
 		// phpcs:enable
 		global $theme_bgcolor, $theme_bgcoloronglet;
@@ -587,7 +587,7 @@ class DolGraph
 	 * @param	array	$bg_colorgrid		array(R,G,B) ou 'onglet' ou 'default'
 	 * @return	void
 	 */
-	public function SetBgColorGrid($bg_colorgrid = array(255, 255, 255)): void
+	public function SetBgColorGrid($bg_colorgrid = array(255, 255, 255))
 	{
 		// phpcs:enable
 		global $theme_bgcolor, $theme_bgcoloronglet;
@@ -610,7 +610,7 @@ class DolGraph
 	 *
 	 * @return	void
 	 */
-	public function ResetDataColor(): void
+	public function ResetDataColor()
 	{
 		// phpcs:enable
 		unset($this->datacolor);
@@ -777,7 +777,7 @@ class DolGraph
 	 * @param	string	$fileurl	Url path to show image if saved onto disk. Never used here.
 	 * @return	void
 	 */
-	private function draw_jflot($file, $fileurl): void // @phpstan-ignore-line
+	private function draw_jflot($file, $fileurl) // @phpstan-ignore-line
 	{
 		// phpcs:enable
 		global $langs;
@@ -1064,7 +1064,7 @@ class DolGraph
 	 * @param	string	$fileurl	Url path to show image if saved onto disk. Never used here.
 	 * @return	void
 	 */
-	private function draw_chart($file, $fileurl): void // @phpstan-ignore-line
+	private function draw_chart($file, $fileurl) // @phpstan-ignore-line
 	{
 		// phpcs:enable
 		global $langs;

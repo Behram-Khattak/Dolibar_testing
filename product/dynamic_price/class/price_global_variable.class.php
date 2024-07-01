@@ -298,7 +298,7 @@ class PriceGlobalVariable
 	 *
 	 *	@return	void
 	 */
-	public function checkParameters(): void
+	public function checkParameters()
 	{
 		// Clean parameters
 		if (isset($this->code)) {

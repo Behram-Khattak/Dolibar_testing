@@ -201,7 +201,7 @@ trait Serialization
         $this->cleanupDumpProperties();
     }
 
-    public function __unserialize(array $data): void
+    public function __unserialize(array $data)
     {
         // @codeCoverageIgnoreStart
         try {

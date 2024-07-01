@@ -209,7 +209,7 @@ class FormMargin
 	 * 	@param 	boolean			$force_price	Force price
 	 * 	@return	void
 	 */
-	public function displayMarginInfos($object, $force_price = false): void
+	public function displayMarginInfos($object, $force_price = false)
 	{
 		global $langs, $conf, $user, $hookmanager;
 		global $action;

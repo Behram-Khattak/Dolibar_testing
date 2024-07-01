@@ -110,7 +110,7 @@ class vCard
 	 *  @param	string	$type		Type ('cell')
 	 *  @return	void
 	 */
-	public function setPhoneNumber($number, $type = ""): void
+	public function setPhoneNumber($number, $type = "")
 	{
 		// type may be PREF | WORK | HOME | VOICE | FAX | MSG | CELL | PAGER | BBS | CAR | MODEM | ISDN | VIDEO or any senseful combination, e.g. "PREF;WORK;VOICE"
 		$key = "TEL";
@@ -130,7 +130,7 @@ class vCard
 	 *  @param  string  $photo			Photo
 	 *  @return	void
 	 */
-	public function setPhoto($type, $photo): void
+	public function setPhoto($type, $photo)
 	{
 		// $type = "GIF" | "JPEG"
 		//$this->properties["PHOTO;MEDIATYPE=$type;ENCODING=BASE64"] = base64_encode($photo);
@@ -144,7 +144,7 @@ class vCard
 	 *	@param	string	$name			Name
 	 *	@return	void
 	 */
-	public function setFormattedName($name): void
+	public function setFormattedName($name)
 	{
 		$this->properties["FN;".$this->encoding] = encode($name);
 	}
@@ -159,7 +159,7 @@ class vCard
 	 *	@param	string	$suffix			Suffix (e.g. "sen." for senior, "jun." for junior)
 	 *	@return	void
 	 */
-	public function setName($family = "", $first = "", $additional = "", $prefix = "", $suffix = ""): void
+	public function setName($family = "", $first = "", $additional = "", $prefix = "", $suffix = "")
 	{
 		//$this->properties["N;".$this->encoding] = encode($family).";".encode($first).";".encode($additional).";".encode($prefix).";".encode($suffix);
 		$this->properties["N"] = encode($family).";".encode($first).";".encode($additional).";".encode($prefix).";".encode($suffix);
@@ -175,7 +175,7 @@ class vCard
 	 *	@param	integer	  $date		Date
 	 *	@return	void
 	 */
-	public function setBirthday($date): void
+	public function setBirthday($date)
 	{
 		// $date format is YYYY-MM-DD - RFC 2425 and RFC 2426 for vcard v3
 		// $date format is YYYYMMDD or ISO8601 for vcard v4
@@ -196,7 +196,7 @@ class vCard
 	 *  @param	string	$label			Label
 	 *	@return	void
 	 */
-	public function setAddress($postoffice = "", $extended = "", $street = "", $city = "", $region = "", $zip = "", $country = "", $type = "", $label = ""): void
+	public function setAddress($postoffice = "", $extended = "", $street = "", $city = "", $region = "", $zip = "", $country = "", $type = "", $label = "")
 	{
 		// $type may be DOM | INTL | POSTAL | PARCEL | HOME | WORK or any combination of these: e.g. "WORK;PARCEL;POSTAL"
 		$key = "ADR";
@@ -228,7 +228,7 @@ class vCard
 	 *  @return	void
 	 *  @deprecated
 	 */
-	public function setLabel($postoffice = "", $extended = "", $street = "", $city = "", $region = "", $zip = "", $country = "", $type = "HOME"): void
+	public function setLabel($postoffice = "", $extended = "", $street = "", $city = "", $region = "", $zip = "", $country = "", $type = "HOME")
 	{
 		$label = "";
 		if ($postoffice != "") {
@@ -263,7 +263,7 @@ class vCard
 	 *	@param	string	$type			(optional) The type of the e-mail (typical "PREF" or "INTERNET")
 	 *	@return	void
 	 */
-	public function setEmail($address, $type = ""): void
+	public function setEmail($address, $type = "")
 	{
 		$key = "EMAIL";
 		if ($type == "PREF") {
@@ -280,7 +280,7 @@ class vCard
 	 *	@param	string	$note		Note
 	 *	@return	void
 	 */
-	public function setNote($note): void
+	public function setNote($note)
 	{
 		$this->properties["NOTE;".$this->encoding] = encode($note);
 	}
@@ -291,7 +291,7 @@ class vCard
 	 *	@param	string	$title		Title
 	 *	@return	void
 	 */
-	public function setTitle($title): void
+	public function setTitle($title)
 	{
 		$this->properties["TITLE;".$this->encoding] = encode($title);
 	}
@@ -303,7 +303,7 @@ class vCard
 	 *  @param	string	$org		Org
 	 *  @return	void
 	 */
-	public function setOrg($org): void
+	public function setOrg($org)
 	{
 		$this->properties["ORG;".$this->encoding] = encode($org);
 	}
@@ -315,7 +315,7 @@ class vCard
 	 *  @param	string	$prodid		Prodid
 	 *	@return	void
 	 */
-	public function setProdId($prodid): void
+	public function setProdId($prodid)
 	{
 		$this->properties["PRODID"] = encode($prodid);
 	}
@@ -327,7 +327,7 @@ class vCard
 	 *  @param	string	$uid	Uid
 	 *	@return	void
 	 */
-	public function setUID($uid): void
+	public function setUID($uid)
 	{
 		$this->properties["UID"] = encode($uid);
 	}
@@ -340,7 +340,7 @@ class vCard
 	 *  @param	string	$type		Type
 	 *	@return	void
 	 */
-	public function setURL($url, $type = ""): void
+	public function setURL($url, $type = "")
 	{
 		// $type may be WORK | HOME
 		$key = "URL";

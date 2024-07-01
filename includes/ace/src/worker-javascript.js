@@ -2520,7 +2520,7 @@ module.exports = slice;
       if (obj == null) return void 0;
       obj = obj[path[i]];
     }
-    return length ? obj : void 0;
+    return length ? obj  0;
   }
   var MAX_ARRAY_INDEX = Math.pow(2, 53) - 1;
   var getLength = shallowProperty('length');

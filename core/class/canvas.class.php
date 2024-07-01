@@ -97,7 +97,7 @@ class Canvas
 	 * 	@param	string	$canvas		Name of canvas (ex: mycanvas, default, or mycanvas@myexternalmodule)
 	 * 	@return	void
 	 */
-	public function getCanvas($module, $card, $canvas): void
+	public function getCanvas($module, $card, $canvas)
 	{
 		global $conf, $langs;
 
@@ -147,7 +147,7 @@ class Canvas
 	 * 	@param		string		$ref		Object ref (if id not provided)
 	 * 	@return		void
 	 */
-	public function assign_values(&$action = 'view', $id = 0, $ref = ''): void
+	public function assign_values(&$action = 'view', $id = 0, $ref = '')
 	{
 		// phpcs:enable
 		if (is_object($this->control) && method_exists($this->control, 'assign_values')) {
@@ -183,7 +183,7 @@ class Canvas
 	 *	@param	string	$action		Action code
 	 *	@return	void
 	 */
-	public function display_canvas($action): void
+	public function display_canvas($action)
 	{
 		// phpcs:enable
 		global $db, $conf, $langs, $user, $canvas;

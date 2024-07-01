@@ -119,7 +119,7 @@ class Translate
 	 *  @param	string	$srclang     	Language to use. If '' or 'auto', we use browser lang.
 	 *  @return	void
 	 */
-	public function setDefaultLang($srclang = 'en_US'): void
+	public function setDefaultLang($srclang = 'en_US')
 	{
 		global $conf;
 

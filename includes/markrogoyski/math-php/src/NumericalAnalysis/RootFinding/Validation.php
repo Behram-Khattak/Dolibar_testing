@@ -16,7 +16,7 @@ class Validation
      *
      * @throws Exception\OutOfBoundsException if $tol (the tolerance) is negative
      */
-    public static function tolerance($tol): void
+    public static function tolerance($tol)
     {
         if ($tol < 0) {
             throw new Exception\OutOfBoundsException('Tolerance must be greater than zero.');
@@ -31,7 +31,7 @@ class Validation
      *
      * @throws Exception\BadDataException if $a = $b
      */
-    public static function interval($a, $b): void
+    public static function interval($a, $b)
     {
         if ($a === $b) {
             throw new Exception\BadDataException('Start point and end point of interval cannot be the same.');

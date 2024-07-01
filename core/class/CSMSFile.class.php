@@ -231,7 +231,7 @@ class CSMSFile
 	 *
 	 *  @return	void
 	 */
-	public function dump_sms(): void
+	public function dump_sms()
 	{
 		// phpcs:enable
 		global $conf, $dolibarr_main_data_root;
@@ -262,7 +262,7 @@ class CSMSFile
 	 *  @param	int		$result		Result of sms sending
 	 *  @return	void
 	 */
-	public function dump_sms_result($result): void
+	public function dump_sms_result($result)
 	{
 		// phpcs:enable
 		global $dolibarr_main_data_root;

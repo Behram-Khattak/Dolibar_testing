@@ -40,7 +40,7 @@ class FormOrder extends Form
 	 *  @param	string	$morecss	More CSS
 	 *  @return	void
 	 */
-	public function selectSupplierOrderStatus($selected = '', $short = 0, $hmlname = 'order_status', $morecss = ''): void
+	public function selectSupplierOrderStatus($selected = '', $short = 0, $hmlname = 'order_status', $morecss = '')
 	{
 		$options = array();
 
@@ -80,7 +80,7 @@ class FormOrder extends Form
 	 *  @param	string	$hmlname	Name of HTML select element
 	 *  @return	void
 	 */
-	public function selectOrderStatus($selected = '', $short = 0, $hmlname = 'order_status'): void
+	public function selectOrderStatus($selected = '', $short = 0, $hmlname = 'order_status')
 	{
 		$options = array();
 

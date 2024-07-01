@@ -44,7 +44,7 @@ trait IntervalStep
      *
      * @param Closure|null $step
      */
-    public function setStep(?Closure $step): void
+    public function setStep(?Closure $step)
     {
         $this->step = $step;
     }

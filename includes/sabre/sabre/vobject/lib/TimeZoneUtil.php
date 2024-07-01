@@ -51,12 +51,12 @@ class TimeZoneUtil
         return self::$instance;
     }
 
-    private function addGuesser(string $key, TimezoneGuesser $guesser): void
+    private function addGuesser(string $key, TimezoneGuesser $guesser)
     {
         $this->timezoneGuessers[$key] = $guesser;
     }
 
-    private function addFinder(string $key, TimezoneFinder $finder): void
+    private function addFinder(string $key, TimezoneFinder $finder)
     {
         $this->timezoneFinders[$key] = $finder;
     }
@@ -110,12 +110,12 @@ class TimeZoneUtil
         return new DateTimeZone(date_default_timezone_get());
     }
 
-    public static function addTimezoneGuesser(string $key, TimezoneGuesser $guesser): void
+    public static function addTimezoneGuesser(string $key, TimezoneGuesser $guesser)
     {
         self::getInstance()->addGuesser($key, $guesser);
     }
 
-    public static function addTimezoneFinder(string $key, TimezoneFinder $finder): void
+    public static function addTimezoneFinder(string $key, TimezoneFinder $finder)
     {
         self::getInstance()->addFinder($key, $finder);
     }
@@ -131,7 +131,7 @@ class TimeZoneUtil
         return self::getInstance()->findTimeZone($tzid, $vcalendar, $failIfUncertain);
     }
 
-    public static function clean(): void
+    public static function clean()
     {
         self::$instance = null;
     }

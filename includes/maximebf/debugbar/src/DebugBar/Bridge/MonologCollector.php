@@ -59,7 +59,7 @@ class MonologCollector extends AbstractProcessingHandler implements DataCollecto
     /**
      * @param array|\Monolog\LogRecord $record
      */
-    protected function write($record): void
+    protected function write($record)
     {
         $this->records[] = array(
             'message' => $record['formatted'],

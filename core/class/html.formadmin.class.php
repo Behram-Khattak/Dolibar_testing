@@ -304,7 +304,7 @@ class FormAdmin
 	 *  @param	string[]	$dirmenuarray    Directories to scan
 	 *  @return	void
 	 */
-	public function select_menu_families($selected, $htmlname, $dirmenuarray): void
+	public function select_menu_families($selected, $htmlname, $dirmenuarray)
 	{
 		// phpcs:enable
 		global $langs, $conf;
@@ -381,7 +381,7 @@ class FormAdmin
 	 *  @param  string		$htmlname        Nom de la zone select
 	 *  @return	void
 	 */
-	public function select_timezone($selected, $htmlname): void
+	public function select_timezone($selected, $htmlname)
 	{
 		// phpcs:enable
 		print '<select class="flat" id="'.$htmlname.'" name="'.$htmlname.'">';

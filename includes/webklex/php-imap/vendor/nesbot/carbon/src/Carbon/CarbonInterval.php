@@ -906,7 +906,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         return $instance;
     }
 
-    private static function copyNegativeUnits(DateInterval $from, DateInterval $to): void
+    private static function copyNegativeUnits(DateInterval $from, DateInterval $to)
     {
         $to->invert = $from->invert;
 
@@ -917,7 +917,7 @@ class CarbonInterval extends DateInterval implements CarbonConverterInterface
         }
     }
 
-    private static function copyStep(self $from, self $to): void
+    private static function copyStep(self $from, self $to)
     {
         $to->setStep($from->getStep());
     }

@@ -68,11 +68,11 @@ define("ace/mode/livescript",["require","exports","module","ace/tokenizer","ace/
     prototype.blockComment = {start: "###", end: "###"};
     prototype.checkOutdent = function(state, line, input){
       var ref$;
-      return (ref$ = this.$outdent) != null ? ref$.checkOutdent(line, input) : void 8;
+      return (ref$ = this.$outdent) != null ? ref$.checkOutdent(line, input)  8;
     };
     prototype.autoOutdent = function(state, doc, row){
       var ref$;
-      return (ref$ = this.$outdent) != null ? ref$.autoOutdent(doc, row) : void 8;
+      return (ref$ = this.$outdent) != null ? ref$.autoOutdent(doc, row)  8;
     };
     return LiveScriptMode;
   }(require('../mode/text').Mode));

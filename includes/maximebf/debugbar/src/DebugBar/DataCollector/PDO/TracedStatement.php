@@ -45,7 +45,7 @@ class TracedStatement
      * @param null $startTime
      * @param null $startMemory
      */
-    public function start($startTime = null, $startMemory = null) : void
+    public function start($startTime = null, $startMemory = null) 
     {
         $this->startTime = $startTime ?: microtime(true);
         $this->startMemory = $startMemory ?: memory_get_usage(false);
@@ -57,7 +57,7 @@ class TracedStatement
      * @param float $endTime
      * @param int $endMemory
      */
-    public function end(\Exception $exception = null, int $rowCount = 0, float $endTime = null, int $endMemory = null) : void
+    public function end(\Exception $exception = null, int $rowCount = 0, float $endTime = null, int $endMemory = null) 
     {
         $this->endTime = $endTime ?: microtime(true);
         $this->duration = $this->endTime - $this->startTime;

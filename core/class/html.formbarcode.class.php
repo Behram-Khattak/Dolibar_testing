@@ -118,7 +118,7 @@ class FormBarCode
 	 *  @return void
 	 *  @deprecated
 	 */
-	public function select_barcode_type($selected = 0, $htmlname = 'barcodetype_id', $useempty = 0): void
+	public function select_barcode_type($selected = 0, $htmlname = 'barcodetype_id', $useempty = 0)
 	{
 		// phpcs:enable
 		print $this->selectBarcodeType($selected, $htmlname, $useempty);
@@ -187,7 +187,7 @@ class FormBarCode
 	 *  @return	void
 	 *  @deprecated
 	 */
-	public function form_barcode_type($page, $selected = 0, $htmlname = 'barcodetype_id'): void
+	public function form_barcode_type($page, $selected = 0, $htmlname = 'barcodetype_id')
 	{
 		// phpcs:enable
 		print $this->formBarcodeType($page, $selected, $htmlname);

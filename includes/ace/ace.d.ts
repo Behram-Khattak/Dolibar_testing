@@ -5,17 +5,17 @@ export namespace Ace {
   export interface Anchor extends EventEmitter {
     getPosition(): Point;
     getDocument(): Document;
-    setPosition(row: number, column: number, noClip?: boolean): void;
-    detach(): void;
-    attach(doc: Document): void;
+    setPosition(row: number, column: number, noClip?: boolean);
+    detach();
+    attach(doc: Document);
   }
 
   export interface Document extends EventEmitter {
-    setValue(text: string): void;
+    setValue(text: string);
     getValue(): string;
     createAnchor(row: number, column: number): Anchor;
     getNewLineCharacter(): string;
-    setNewLineMode(newLineMode: NewLineMode): void;
+    setNewLineMode(newLineMode: NewLineMode);
     getNewLineMode(): NewLineMode;
     isNewLine(text: string): boolean;
     getLine(row: number): string;
@@ -30,17 +30,17 @@ export namespace Ace {
     clippedPos(row: number, column: number): Point;
     clonePos(pos: Point): Point;
     pos(row: number, column: number): Point;
-    insertFullLines(row: number, lines: string[]): void;
+    insertFullLines(row: number, lines: string[]);
     insertMergedLines(position: Point, lines: string[]): Point;
     remove(range: Range): Point;
     removeInLine(row: number, startColumn: number, endColumn: number): Point;
     removeFullLines(firstRow: number, lastRow: number): string[];
-    removeNewLine(row: number): void;
+    removeNewLine(row: number);
     replace(range: Range, text: string): Point;
-    applyDeltas(deltas: Delta[]): void;
-    revertDeltas(deltas: Delta[]): void;
-    applyDelta(delta: Delta, doNotValidate?: boolean): void;
-    revertDelta(delta: Delta): void;
+    applyDeltas(deltas: Delta[]);
+    revertDeltas(deltas: Delta[]);
+    applyDelta(delta: Delta, doNotValidate?: boolean);
+    revertDelta(delta: Delta);
     indexToPosition(index: number, startRow: number): Point;
     positionToIndex(pos: Point, startRow?: number): number;
   }
@@ -51,14 +51,14 @@ export namespace Ace {
     start: Point;
     end: Point;
 
-    shiftRow(shift: number): void;
-    addFold(fold: Fold): void;
+    shiftRow(shift: number);
+    addFold(fold: Fold);
     containsRow(row: number): boolean;
-    walk(callback: Function, endRow?: number, endColumn?: number): void;
+    walk(callback: Function, endRow?: number, endColumn?: number);
     getNextFoldTo(row: number, column: number): null | { fold: Fold, kind: string };
-    addRemoveChars(row: number, column: number, len: number): void;
+    addRemoveChars(row: number, column: number, len: number);
     split(row: number, column: number): FoldLine;
-    merge(foldLineNext: FoldLine): void;
+    merge(foldLineNext: FoldLine);
     idxToPosition(idx: number): Point;
   }
 
@@ -70,10 +70,10 @@ export namespace Ace {
     sameRow: boolean;
     subFolds: Fold[];
 
-    setFoldLine(foldLine: FoldLine): void;
+    setFoldLine(foldLine: FoldLine);
     clone(): Fold;
     addSubFold(fold: Fold): Fold;
-    restoreRange(range: Range): void;
+    restoreRange(range: Range);
   }
 
   interface Folding {
@@ -89,11 +89,11 @@ export namespace Ace {
     getNextFoldLine(docRow: number, startFoldLine?: FoldLine): FoldLine | null;
     getFoldedRowCount(first: number, last: number): number;
     addFold(placeholder: string | Fold, range?: Range): Fold;
-    addFolds(folds: Fold[]): void;
-    removeFold(fold: Fold): void;
-    removeFolds(folds: Fold[]): void;
-    expandFold(fold: Fold): void;
-    expandFolds(folds: Fold[]): void;
+    addFolds(folds: Fold[]);
+    removeFold(fold: Fold);
+    removeFolds(folds: Fold[]);
+    expandFold(fold: Fold);
+    expandFolds(folds: Fold[]);
     unfold(location: null | number | Point | Range,
       expandInner?: boolean): Fold[] | undefined;
     isRowFolded(docRow: number, startFoldRow?: FoldLine): boolean;
@@ -108,18 +108,18 @@ export namespace Ace {
       endColumn: number | null,
       startRow: number | null,
       startColumn: number | null): string;
-    toggleFold(tryToUnfold?: boolean): void;
+    toggleFold(tryToUnfold?: boolean);
     getCommentFoldRange(row: number,
       column: number,
       dir: number): Range | undefined;
-    foldAll(startRow?: number, endRow?: number, depth?: number): void;
-    setFoldStyle(style: string): void;
+    foldAll(startRow?: number, endRow?: number, depth?: number);
+    setFoldStyle(style: string);
     getParentFoldRangeData(row: number, ignoreCurrent?: boolean): {
       range?: Range,
       firstRange: Range
     };
-    toggleFoldWidget(toggleParent?: boolean): void;
-    updateFoldWidgets(delta: Delta): void;
+    toggleFoldWidget(toggleParent?: boolean);
+    updateFoldWidgets(delta: Delta);
   }
 
   export interface Range {
@@ -135,8 +135,8 @@ export namespace Ace {
     intersects(range: Range): boolean;
     isEnd(row: number, column: number): boolean;
     isStart(row: number, column: number): boolean;
-    setStart(row: number, column: number): void;
-    setEnd(row: number, column: number): void;
+    setStart(row: number, column: number);
+    setEnd(row: number, column: number);
     inside(row: number, column: number): boolean;
     insideStart(row: number, column: number): boolean;
     insideEnd(row: number, column: number): boolean;
@@ -151,7 +151,7 @@ export namespace Ace {
     clone(): Range;
     collapseRows(): Range;
     toScreenRange(session: EditSession): Range;
-    moveBy(row: number, column: number): void;
+    moveBy(row: number, column: number);
   }
 
   export interface EditSessionOptions {
@@ -237,14 +237,14 @@ export namespace Ace {
   }
 
   export interface EventEmitter {
-    once(name: string, callback: Function): void;
-    setDefaultHandler(name: string, callback: Function): void;
-    removeDefaultHandler(name: string, callback: Function): void;
-    on(name: string, callback: Function, capturing?: boolean): void;
-    addEventListener(name: string, callback: Function, capturing?: boolean): void;
-    off(name: string, callback: Function): void;
-    removeListener(name: string, callback: Function): void;
-    removeEventListener(name: string, callback: Function): void;
+    once(name: string, callback: Function);
+    setDefaultHandler(name: string, callback: Function);
+    removeDefaultHandler(name: string, callback: Function);
+    on(name: string, callback: Function, capturing?: boolean);
+    addEventListener(name: string, callback: Function, capturing?: boolean);
+    off(name: string, callback: Function);
+    removeListener(name: string, callback: Function);
+    removeEventListener(name: string, callback: Function);
   }
 
   export interface Point {
@@ -335,17 +335,17 @@ export namespace Ace {
     toggleCommentLines(state: any,
       session: EditSession,
       startRow: number,
-      endRow: number): void;
+      endRow: number);
     toggleBlockComment(state: any,
       session: EditSession,
       range: Range,
-      cursor: Point): void;
+      cursor: Point);
     getNextLineIndent(state: any, line: string, tab: string): string;
     checkOutdent(state: any, line: string, input: string): boolean;
-    autoOutdent(state: any, doc: Document, row: number): void;
+    autoOutdent(state: any, doc: Document, row: number);
     // TODO implement WorkerClient types
     createWorker(session: EditSession): any;
-    createModeDelegates(mapping: { [key: string]: string }): void;
+    createModeDelegates(mapping: { [key: string]: string });
     transformAction(state: string,
       action: string,
       editor: Editor,
@@ -360,41 +360,41 @@ export namespace Ace {
 
   export interface Config {
     get(key: string): any;
-    set(key: string, value: any): void;
+    set(key: string, value: any);
     all(): { [key: string]: any };
     moduleUrl(name: string, component?: string): string;
     setModuleUrl(name: string, subst: string): string;
     loadModule(moduleName: string | [string, string],
-      onLoad?: (module: any) => void): void;
+      onLoad?: (module: any) => void);
     init(packaged: any): any;
     defineOptions(obj: any, path: string, options: { [key: string]: any }): Config;
-    resetOptions(obj: any): void;
-    setDefaultValue(path: string, name: string, value: any): void;
-    setDefaultValues(path: string, optionHash: { [key: string]: any }): void;
+    resetOptions(obj: any);
+    setDefaultValue(path: string, name: string, value: any);
+    setDefaultValues(path: string, optionHash: { [key: string]: any });
   }
 
   export interface OptionsProvider {
-    setOptions(optList: { [key: string]: any }): void;
+    setOptions(optList: { [key: string]: any });
     getOptions(optionNames?: string[] | { [key: string]: any }): { [key: string]: any };
-    setOption(name: string, value: any): void;
+    setOption(name: string, value: any);
     getOption(name: string): any;
   }
 
   export interface UndoManager {
-    addSession(session: EditSession): void;
-    add(delta: Delta, allowMerge: boolean, session: EditSession): void;
-    addSelection(selection: string, rev?: number): void;
-    startNewGroup(): void;
-    markIgnored(from: number, to?: number): void;
+    addSession(session: EditSession);
+    add(delta: Delta, allowMerge: boolean, session: EditSession);
+    addSelection(selection: string, rev?: number);
+    startNewGroup();
+    markIgnored(from: number, to?: number);
     getSelection(rev: number, after?: boolean): { value: string, rev: number };
     getRevision(): number;
     getDeltas(from: number, to?: number): Delta[];
-    undo(session: EditSession, dontSelect?: boolean): void;
-    redo(session: EditSession, dontSelect?: boolean): void;
-    reset(): void;
+    undo(session: EditSession, dontSelect?: boolean);
+    redo(session: EditSession, dontSelect?: boolean);
+    reset();
     canUndo(): boolean;
     canRedo(): boolean;
-    bookmark(rev?: number): void;
+    bookmark(rev?: number);
     isAtBookmark(): boolean;
   }
 
@@ -411,65 +411,65 @@ export namespace Ace {
       callback: (obj: { data: { first: number, last: number } }) => void): Function;
 
 
-    setOption<T extends keyof EditSessionOptions>(name: T, value: EditSessionOptions[T]): void;
+    setOption<T extends keyof EditSessionOptions>(name: T, value: EditSessionOptions[T]);
     getOption<T extends keyof EditSessionOptions>(name: T): EditSessionOptions[T];
 
-    setDocument(doc: Document): void;
+    setDocument(doc: Document);
     getDocument(): Document;
-    resetCaches(): void;
-    setValue(text: string): void;
+    resetCaches();
+    setValue(text: string);
     getValue(): string;
     getSelection(): Selection;
     getState(row: number): string;
     getTokens(row: number): Token[];
     getTokenAt(row: number, column: number): Token | null;
-    setUndoManager(undoManager: UndoManager): void;
-    markUndoGroup(): void;
+    setUndoManager(undoManager: UndoManager);
+    markUndoGroup();
     getUndoManager(): UndoManager;
     getTabString(): string;
-    setUseSoftTabs(val: boolean): void;
+    setUseSoftTabs(val: boolean);
     getUseSoftTabs(): boolean;
-    setTabSize(tabSize: number): void;
+    setTabSize(tabSize: number);
     getTabSize(): number;
     isTabStop(position: Point): boolean;
-    setNavigateWithinSoftTabs(navigateWithinSoftTabs: boolean): void;
+    setNavigateWithinSoftTabs(navigateWithinSoftTabs: boolean);
     getNavigateWithinSoftTabs(): boolean;
-    setOverwrite(overwrite: boolean): void;
+    setOverwrite(overwrite: boolean);
     getOverwrite(): boolean;
-    toggleOverwrite(): void;
-    addGutterDecoration(row: number, className: string): void;
-    removeGutterDecoration(row: number, className: string): void;
+    toggleOverwrite();
+    addGutterDecoration(row: number, className: string);
+    removeGutterDecoration(row: number, className: string);
     getBreakpoints(): string[];
-    setBreakpoints(rows: number[]): void;
-    clearBreakpoints(): void;
-    setBreakpoint(row: number, className: string): void;
-    clearBreakpoint(row: number): void;
+    setBreakpoints(rows: number[]);
+    clearBreakpoints();
+    setBreakpoint(row: number, className: string);
+    clearBreakpoint(row: number);
     addMarker(range: Range,
       className: string,
       type: "fullLine" | "screenLine" | "text" | MarkerRenderer,
       inFront?: boolean): number;
     addDynamicMarker(marker: MarkerLike, inFront: boolean): MarkerLike;
-    removeMarker(markerId: number): void;
+    removeMarker(markerId: number);
     getMarkers(inFront?: boolean): MarkerLike[];
-    highlight(re: RegExp): void;
+    highlight(re: RegExp);
     highlightLines(startRow: number,
       endRow: number,
       className: string,
       inFront?: boolean): Range;
-    setAnnotations(annotations: Annotation[]): void;
+    setAnnotations(annotations: Annotation[]);
     getAnnotations(): Annotation[];
-    clearAnnotations(): void;
+    clearAnnotations();
     getWordRange(row: number, column: number): Range;
     getAWordRange(row: number, column: number): Range;
-    setNewLineMode(newLineMode: NewLineMode): void;
+    setNewLineMode(newLineMode: NewLineMode);
     getNewLineMode(): NewLineMode;
-    setUseWorker(useWorker: boolean): void;
+    setUseWorker(useWorker: boolean);
     getUseWorker(): boolean;
-    setMode(mode: string | SyntaxMode, callback?: () => void): void;
+    setMode(mode: string | SyntaxMode, callback?: () => void);
     getMode(): SyntaxMode;
-    setScrollTop(scrollTop: number): void;
+    setScrollTop(scrollTop: number);
     getScrollTop(): number;
-    setScrollLeft(scrollLeft: number): void;
+    setScrollLeft(scrollLeft: number);
     getScrollLeft(): number;
     getScreenWidth(): number;
     getLineWidgetMaxWidth(): number;
@@ -477,25 +477,25 @@ export namespace Ace {
     getLines(firstRow: number, lastRow: number): string[];
     getLength(): number;
     getTextRange(range: Range): string;
-    insert(position: Point, text: string): void;
-    remove(range: Range): void;
-    removeFullLines(firstRow: number, lastRow: number): void;
-    undoChanges(deltas: Delta[], dontSelect?: boolean): void;
-    redoChanges(deltas: Delta[], dontSelect?: boolean): void;
-    setUndoSelect(enable: boolean): void;
-    replace(range: Range, text: string): void;
-    moveText(fromRange: Range, toPosition: Point, copy?: boolean): void;
-    indentRows(startRow: number, endRow: number, indentString: string): void;
-    outdentRows(range: Range): void;
-    moveLinesUp(firstRow: number, lastRow: number): void;
-    moveLinesDown(firstRow: number, lastRow: number): void;
-    duplicateLines(firstRow: number, lastRow: number): void;
-    setUseWrapMode(useWrapMode: boolean): void;
+    insert(position: Point, text: string);
+    remove(range: Range);
+    removeFullLines(firstRow: number, lastRow: number);
+    undoChanges(deltas: Delta[], dontSelect?: boolean);
+    redoChanges(deltas: Delta[], dontSelect?: boolean);
+    setUndoSelect(enable: boolean);
+    replace(range: Range, text: string);
+    moveText(fromRange: Range, toPosition: Point, copy?: boolean);
+    indentRows(startRow: number, endRow: number, indentString: string);
+    outdentRows(range: Range);
+    moveLinesUp(firstRow: number, lastRow: number);
+    moveLinesDown(firstRow: number, lastRow: number);
+    duplicateLines(firstRow: number, lastRow: number);
+    setUseWrapMode(useWrapMode: boolean);
     getUseWrapMode(): boolean;
-    setWrapLimitRange(min: number, max: number): void;
+    setWrapLimitRange(min: number, max: number);
     adjustWrapLimit(desiredLimit: number): boolean;
     getWrapLimit(): number;
-    setWrapLimit(limit: number): void;
+    setWrapLimit(limit: number);
     getWrapLimitRange(): { min: number, max: number };
     getRowLineCount(row: number): number;
     getRowWrapIndent(screenRow: number): number;
@@ -514,13 +514,13 @@ export namespace Ace {
     documentToScreenColumn(row: number, docColumn: number): number;
     documentToScreenRow(docRow: number, docColumn: number): number;
     getScreenLength(): number;
-    destroy(): void;
+    destroy();
   }
 
   export interface KeyBinding {
-    setDefaultHandler(handler: KeyboardHandler): void;
-    setKeyboardHandler(handler: KeyboardHandler): void;
-    addKeyboardHandler(handler: KeyboardHandler, pos: number): void;
+    setDefaultHandler(handler: KeyboardHandler);
+    setKeyboardHandler(handler: KeyboardHandler);
+    addKeyboardHandler(handler: KeyboardHandler, pos: number);
     removeKeyboardHandler(handler: KeyboardHandler): boolean;
     getKeyboardHandler(): KeyboardHandler;
     getStatusText(): string;
@@ -543,59 +543,59 @@ export namespace Ace {
     commands: CommandMap,
     on(name: 'exec', callback: execEventHandler): Function;
     on(name: 'afterExec', callback: execEventHandler): Function;
-    once(name: string, callback: Function): void;
-    setDefaultHandler(name: string, callback: Function): void;
-    removeDefaultHandler(name: string, callback: Function): void;
+    once(name: string, callback: Function);
+    setDefaultHandler(name: string, callback: Function);
+    removeDefaultHandler(name: string, callback: Function);
     on(name: string, callback: Function, capturing?: boolean): Function;
-    addEventListener(name: string, callback: Function, capturing?: boolean): void;
-    off(name: string, callback: Function): void;
-    removeListener(name: string, callback: Function): void;
-    removeEventListener(name: string, callback: Function): void;
+    addEventListener(name: string, callback: Function, capturing?: boolean);
+    off(name: string, callback: Function);
+    removeListener(name: string, callback: Function);
+    removeEventListener(name: string, callback: Function);
 
     exec(command: string, editor: Editor, args: any): boolean;
-    toggleRecording(editor: Editor): void;
-    replay(editor: Editor): void;
-    addCommand(command: Command): void;
-    addCommands(command: Command[]): void;
-    removeCommand(command: Command | string, keepCommand?: boolean): void;
-    removeCommands(command: Command[]): void;
+    toggleRecording(editor: Editor);
+    replay(editor: Editor);
+    addCommand(command: Command);
+    addCommands(command: Command[]);
+    removeCommand(command: Command | string, keepCommand?: boolean);
+    removeCommands(command: Command[]);
     bindKey(key: string | { mac?: string, win?: string },
       command: CommandLike,
-      position?: number): void;
-    bindKeys(keys: {[s: string]: Function}): void;
+      position?: number);
+    bindKeys(keys: {[s: string]: Function});
     parseKeys(keyPart: string): {key: string, hashId: number};
     findKeyCommand(hashId: number, keyString: string): string | undefined;
-    handleKeyboard(data: {}, hashId: number, keyString: string, keyCode: string | number): void | {command: string};
+    handleKeyboard(data: {}, hashId: number, keyString: string, keyCode: string | number) | {command: string};
     getStatusText(editor: Editor, data: {}): string;
   }
 
   export interface VirtualRenderer extends OptionsProvider, EventEmitter {
     container: HTMLElement;
 
-    setOption<T extends keyof VirtualRendererOptions>(name: T, value: VirtualRendererOptions[T]): void;
+    setOption<T extends keyof VirtualRendererOptions>(name: T, value: VirtualRendererOptions[T]);
     getOption<T extends keyof VirtualRendererOptions>(name: T): VirtualRendererOptions[T];
 
-    setSession(session: EditSession): void;
-    updateLines(firstRow: number, lastRow: number, force?: boolean): void;
-    updateText(): void;
-    updateFull(force?: boolean): void;
-    updateFontSize(): void;
+    setSession(session: EditSession);
+    updateLines(firstRow: number, lastRow: number, force?: boolean);
+    updateText();
+    updateFull(force?: boolean);
+    updateFontSize();
     adjustWrapLimit(): boolean;
-    setAnimatedScroll(shouldAnimate: boolean): void;
+    setAnimatedScroll(shouldAnimate: boolean);
     getAnimatedScroll(): boolean;
-    setShowInvisibles(showInvisibles: boolean): void;
+    setShowInvisibles(showInvisibles: boolean);
     getShowInvisibles(): boolean;
-    setDisplayIndentGuides(display: boolean): void;
+    setDisplayIndentGuides(display: boolean);
     getDisplayIndentGuides(): boolean;
-    setShowPrintMargin(showPrintMargin: boolean): void;
+    setShowPrintMargin(showPrintMargin: boolean);
     getShowPrintMargin(): boolean;
-    setPrintMarginColumn(showPrintMargin: boolean): void;
+    setPrintMarginColumn(showPrintMargin: boolean);
     getPrintMarginColumn(): boolean;
-    setShowGutter(show: boolean): void;
+    setShowGutter(show: boolean);
     getShowGutter(): boolean;
-    setFadeFoldWidgets(show: boolean): void;
+    setFadeFoldWidgets(show: boolean);
     getFadeFoldWidgets(): boolean;
-    setHighlightGutterLine(shouldHighlight: boolean): void;
+    setHighlightGutterLine(shouldHighlight: boolean);
     getHighlightGutterLine(): boolean;
     getContainerElement(): HTMLElement;
     getMouseEventTarget(): HTMLElement;
@@ -604,112 +604,112 @@ export namespace Ace {
     getFirstFullyVisibleRow(): number;
     getLastFullyVisibleRow(): number;
     getLastVisibleRow(): number;
-    setPadding(padding: number): void;
+    setPadding(padding: number);
     setScrollMargin(top: number,
       bottom: number,
       left: number,
-      right: number): void;
-    setHScrollBarAlwaysVisible(alwaysVisible: boolean): void;
+      right: number);
+    setHScrollBarAlwaysVisible(alwaysVisible: boolean);
     getHScrollBarAlwaysVisible(): boolean;
-    setVScrollBarAlwaysVisible(alwaysVisible: boolean): void;
+    setVScrollBarAlwaysVisible(alwaysVisible: boolean);
     getVScrollBarAlwaysVisible(): boolean;
-    freeze(): void;
-    unfreeze(): void;
-    updateFrontMarkers(): void;
-    updateBackMarkers(): void;
-    updateBreakpoints(): void;
-    setAnnotations(annotations: Annotation[]): void;
-    updateCursor(): void;
-    hideCursor(): void;
-    showCursor(): void;
+    freeze();
+    unfreeze();
+    updateFrontMarkers();
+    updateBackMarkers();
+    updateBreakpoints();
+    setAnnotations(annotations: Annotation[]);
+    updateCursor();
+    hideCursor();
+    showCursor();
     scrollSelectionIntoView(anchor: Point,
       lead: Point,
-      offset?: number): void;
-    scrollCursorIntoView(cursor: Point, offset?: number): void;
+      offset?: number);
+    scrollCursorIntoView(cursor: Point, offset?: number);
     getScrollTop(): number;
     getScrollLeft(): number;
     getScrollTopRow(): number;
     getScrollBottomRow(): number;
-    scrollToRow(row: number): void;
+    scrollToRow(row: number);
     alignCursor(cursor: Point | number, alignment: number): number;
     scrollToLine(line: number,
       center: boolean,
       animate: boolean,
-      callback: () => void): void;
-    animateScrolling(fromValue: number, callback: () => void): void;
-    scrollToY(scrollTop: number): void;
-    scrollToX(scrollLeft: number): void;
-    scrollTo(x: number, y: number): void;
-    scrollBy(deltaX: number, deltaY: number): void;
+      callback: () => void);
+    animateScrolling(fromValue: number, callback: () => void);
+    scrollToY(scrollTop: number);
+    scrollToX(scrollLeft: number);
+    scrollTo(x: number, y: number);
+    scrollBy(deltaX: number, deltaY: number);
     isScrollableBy(deltaX: number, deltaY: number): boolean;
     textToScreenCoordinates(row: number, column: number): { pageX: number, pageY: number };
-    visualizeFocus(): void;
-    visualizeBlur(): void;
-    showComposition(position: number): void;
-    setCompositionText(text: string): void;
-    hideComposition(): void;
-    setTheme(theme: string, callback?: () => void): void;
+    visualizeFocus();
+    visualizeBlur();
+    showComposition(position: number);
+    setCompositionText(text: string);
+    hideComposition();
+    setTheme(theme: string, callback?: () => void);
     getTheme(): string;
-    setStyle(style: string, include?: boolean): void;
-    unsetStyle(style: string): void;
-    setCursorStyle(style: string): void;
-    setMouseCursor(cursorStyle: string): void;
-    attachToShadowRoot(): void;
-    destroy(): void;
+    setStyle(style: string, include?: boolean);
+    unsetStyle(style: string);
+    setCursorStyle(style: string);
+    setMouseCursor(cursorStyle: string);
+    attachToShadowRoot();
+    destroy();
   }
 
 
   export interface Selection extends EventEmitter {
-    moveCursorWordLeft(): void;
-    moveCursorWordRight(): void;
-    fromOrientedRange(range: Range): void;
-    setSelectionRange(match: any): void;
+    moveCursorWordLeft();
+    moveCursorWordRight();
+    fromOrientedRange(range: Range);
+    setSelectionRange(match: any);
     getAllRanges(): Range[];
-    addRange(range: Range): void;
+    addRange(range: Range);
     isEmpty(): boolean;
     isMultiLine(): boolean;
-    setCursor(row: number, column: number): void;
-    setAnchor(row: number, column: number): void;
+    setCursor(row: number, column: number);
+    setAnchor(row: number, column: number);
     getAnchor(): Point;
     getCursor(): Point;
     isBackwards(): boolean;
     getRange(): Range;
-    clearSelection(): void;
-    selectAll(): void;
-    setRange(range: Range, reverse?: boolean): void;
-    selectTo(row: number, column: number): void;
-    selectToPosition(pos: any): void;
-    selectUp(): void;
-    selectDown(): void;
-    selectRight(): void;
-    selectLeft(): void;
-    selectLineStart(): void;
-    selectLineEnd(): void;
-    selectFileEnd(): void;
-    selectFileStart(): void;
-    selectWordRight(): void;
-    selectWordLeft(): void;
-    getWordRange(): void;
-    selectWord(): void;
-    selectAWord(): void;
-    selectLine(): void;
-    moveCursorUp(): void;
-    moveCursorDown(): void;
-    moveCursorLeft(): void;
-    moveCursorRight(): void;
-    moveCursorLineStart(): void;
-    moveCursorLineEnd(): void;
-    moveCursorFileEnd(): void;
-    moveCursorFileStart(): void;
-    moveCursorLongWordRight(): void;
-    moveCursorLongWordLeft(): void;
-    moveCursorBy(rows: number, chars: number): void;
-    moveCursorToPosition(position: any): void;
-    moveCursorTo(row: number, column: number, keepDesiredColumn?: boolean): void;
-    moveCursorToScreen(row: number, column: number, keepDesiredColumn: boolean): void;
+    clearSelection();
+    selectAll();
+    setRange(range: Range, reverse?: boolean);
+    selectTo(row: number, column: number);
+    selectToPosition(pos: any);
+    selectUp();
+    selectDown();
+    selectRight();
+    selectLeft();
+    selectLineStart();
+    selectLineEnd();
+    selectFileEnd();
+    selectFileStart();
+    selectWordRight();
+    selectWordLeft();
+    getWordRange();
+    selectWord();
+    selectAWord();
+    selectLine();
+    moveCursorUp();
+    moveCursorDown();
+    moveCursorLeft();
+    moveCursorRight();
+    moveCursorLineStart();
+    moveCursorLineEnd();
+    moveCursorFileEnd();
+    moveCursorFileStart();
+    moveCursorLongWordRight();
+    moveCursorLongWordLeft();
+    moveCursorBy(rows: number, chars: number);
+    moveCursorToPosition(position: any);
+    moveCursorTo(row: number, column: number, keepDesiredColumn?: boolean);
+    moveCursorToScreen(row: number, column: number, keepDesiredColumn: boolean);
 
     toJSON(): SavedSelection | SavedSelection[];
-    fromJSON(selection: SavedSelection | SavedSelection[]): void;
+    fromJSON(selection: SavedSelection | SavedSelection[]);
   }
   interface SavedSelection {
     start: Point;
@@ -741,131 +741,131 @@ export namespace Ace {
     on(name: 'focus', callback: (e: Event) => void): Function;
     on(name: 'paste', callback: (obj: { text: string }) => void): Function;
 
-    setOption<T extends keyof EditorOptions>(name: T, value: EditorOptions[T]): void;
+    setOption<T extends keyof EditorOptions>(name: T, value: EditorOptions[T]);
     getOption<T extends keyof EditorOptions>(name: T): EditorOptions[T];
 
-    setKeyboardHandler(keyboardHandler: string, callback?: () => void): void;
+    setKeyboardHandler(keyboardHandler: string, callback?: () => void);
     getKeyboardHandler(): string;
-    setSession(session: EditSession): void;
+    setSession(session: EditSession);
     getSession(): EditSession;
     setValue(val: string, cursorPos?: number): string;
     getValue(): string;
     getSelection(): Selection;
-    resize(force?: boolean): void;
-    setTheme(theme: string, callback?: () => void): void;
+    resize(force?: boolean);
+    setTheme(theme: string, callback?: () => void);
     getTheme(): string;
-    setStyle(style: string): void;
-    unsetStyle(style: string): void;
+    setStyle(style: string);
+    unsetStyle(style: string);
     getFontSize(): string;
-    setFontSize(size: string): void;
-    focus(): void;
+    setFontSize(size: string);
+    focus();
     isFocused(): boolean;
-    blur(): void;
+    blur();
     getSelectedText(): string;
     getCopyText(): string;
     execCommand(command: string | string[], args?: any): boolean;
-    insert(text: string, pasted?: boolean): void;
-    setOverwrite(overwrite: boolean): void;
+    insert(text: string, pasted?: boolean);
+    setOverwrite(overwrite: boolean);
     getOverwrite(): boolean;
-    toggleOverwrite(): void;
-    setScrollSpeed(speed: number): void;
+    toggleOverwrite();
+    setScrollSpeed(speed: number);
     getScrollSpeed(): number;
-    setDragDelay(dragDelay: number): void;
+    setDragDelay(dragDelay: number);
     getDragDelay(): number;
-    setSelectionStyle(val: string): void;
+    setSelectionStyle(val: string);
     getSelectionStyle(): string;
-    setHighlightActiveLine(shouldHighlight: boolean): void;
+    setHighlightActiveLine(shouldHighlight: boolean);
     getHighlightActiveLine(): boolean;
-    setHighlightGutterLine(shouldHighlight: boolean): void;
+    setHighlightGutterLine(shouldHighlight: boolean);
     getHighlightGutterLine(): boolean;
-    setHighlightSelectedWord(shouldHighlight: boolean): void;
+    setHighlightSelectedWord(shouldHighlight: boolean);
     getHighlightSelectedWord(): boolean;
-    setAnimatedScroll(shouldAnimate: boolean): void;
+    setAnimatedScroll(shouldAnimate: boolean);
     getAnimatedScroll(): boolean;
-    setShowInvisibles(showInvisibles: boolean): void;
+    setShowInvisibles(showInvisibles: boolean);
     getShowInvisibles(): boolean;
-    setDisplayIndentGuides(display: boolean): void;
+    setDisplayIndentGuides(display: boolean);
     getDisplayIndentGuides(): boolean;
-    setShowPrintMargin(showPrintMargin: boolean): void;
+    setShowPrintMargin(showPrintMargin: boolean);
     getShowPrintMargin(): boolean;
-    setPrintMarginColumn(showPrintMargin: number): void;
+    setPrintMarginColumn(showPrintMargin: number);
     getPrintMarginColumn(): number;
-    setReadOnly(readOnly: boolean): void;
+    setReadOnly(readOnly: boolean);
     getReadOnly(): boolean;
-    setBehavioursEnabled(enabled: boolean): void;
+    setBehavioursEnabled(enabled: boolean);
     getBehavioursEnabled(): boolean;
-    setWrapBehavioursEnabled(enabled: boolean): void;
+    setWrapBehavioursEnabled(enabled: boolean);
     getWrapBehavioursEnabled(): boolean;
-    setShowFoldWidgets(show: boolean): void;
+    setShowFoldWidgets(show: boolean);
     getShowFoldWidgets(): boolean;
-    setFadeFoldWidgets(fade: boolean): void;
+    setFadeFoldWidgets(fade: boolean);
     getFadeFoldWidgets(): boolean;
-    remove(dir?: 'left' | 'right'): void;
-    removeWordRight(): void;
-    removeWordLeft(): void;
-    removeLineToEnd(): void;
-    splitLine(): void;
-    transposeLetters(): void;
-    toLowerCase(): void;
-    toUpperCase(): void;
-    indent(): void;
-    blockIndent(): void;
-    blockOutdent(): void;
-    sortLines(): void;
-    toggleCommentLines(): void;
-    toggleBlockComment(): void;
-    modifyNumber(amount: number): void;
-    removeLines(): void;
-    duplicateSelection(): void;
-    moveLinesDown(): void;
-    moveLinesUp(): void;
+    remove(dir?: 'left' | 'right');
+    removeWordRight();
+    removeWordLeft();
+    removeLineToEnd();
+    splitLine();
+    transposeLetters();
+    toLowerCase();
+    toUpperCase();
+    indent();
+    blockIndent();
+    blockOutdent();
+    sortLines();
+    toggleCommentLines();
+    toggleBlockComment();
+    modifyNumber(amount: number);
+    removeLines();
+    duplicateSelection();
+    moveLinesDown();
+    moveLinesUp();
     moveText(range: Range, toPosition: Point, copy?: boolean): Range;
-    copyLinesUp(): void;
-    copyLinesDown(): void;
+    copyLinesUp();
+    copyLinesDown();
     getFirstVisibleRow(): number;
     getLastVisibleRow(): number;
     isRowVisible(row: number): boolean;
     isRowFullyVisible(row: number): boolean;
-    selectPageDown(): void;
-    selectPageUp(): void;
-    gotoPageDown(): void;
-    gotoPageUp(): void;
-    scrollPageDown(): void;
-    scrollPageUp(): void;
-    scrollToRow(row: number): void;
-    scrollToLine(line: number, center: boolean, animate: boolean, callback: () => void): void;
-    centerSelection(): void;
+    selectPageDown();
+    selectPageUp();
+    gotoPageDown();
+    gotoPageUp();
+    scrollPageDown();
+    scrollPageUp();
+    scrollToRow(row: number);
+    scrollToLine(line: number, center: boolean, animate: boolean, callback: () => void);
+    centerSelection();
     getCursorPosition(): Point;
     getCursorPositionScreen(): Point;
     getSelectionRange(): Range;
-    selectAll(): void;
-    clearSelection(): void;
-    moveCursorTo(row: number, column: number): void;
-    moveCursorToPosition(pos: Point): void;
-    jumpToMatching(select: boolean, expand: boolean): void;
-    gotoLine(lineNumber: number, column: number, animate: boolean): void;
-    navigateTo(row: number, column: number): void;
-    navigateUp(): void;
-    navigateDown(): void;
-    navigateLeft(): void;
-    navigateRight(): void;
-    navigateLineStart(): void;
-    navigateLineEnd(): void;
-    navigateFileEnd(): void;
-    navigateFileStart(): void;
-    navigateWordRight(): void;
-    navigateWordLeft(): void;
+    selectAll();
+    clearSelection();
+    moveCursorTo(row: number, column: number);
+    moveCursorToPosition(pos: Point);
+    jumpToMatching(select: boolean, expand: boolean);
+    gotoLine(lineNumber: number, column: number, animate: boolean);
+    navigateTo(row: number, column: number);
+    navigateUp();
+    navigateDown();
+    navigateLeft();
+    navigateRight();
+    navigateLineStart();
+    navigateLineEnd();
+    navigateFileEnd();
+    navigateFileStart();
+    navigateWordRight();
+    navigateWordLeft();
     replace(replacement: string, options?: Partial<SearchOptions>): number;
     replaceAll(replacement: string, options?: Partial<SearchOptions>): number;
     getLastSearchOptions(): Partial<SearchOptions>;
     find(needle: string | RegExp, options?: Partial<SearchOptions>, animate?: boolean): Ace.Range | undefined;
-    findNext(options?: Partial<SearchOptions>, animate?: boolean): void;
-    findPrevious(options?: Partial<SearchOptions>, animate?: boolean): void;
+    findNext(options?: Partial<SearchOptions>, animate?: boolean);
+    findPrevious(options?: Partial<SearchOptions>, animate?: boolean);
     findAll(needle: string | RegExp, options?: Partial<SearchOptions>, additive?: boolean): number;
-    undo(): void;
-    redo(): void;
-    destroy(): void;
-    setAutoScrollEditorIntoView(enable: boolean): void;
+    undo();
+    redo();
+    destroy();
+    setAutoScrollEditorIntoView(enable: boolean);
     completers: Completer[];
   }
 
@@ -877,7 +877,7 @@ export namespace Ace {
       session: EditSession,
       position: Point,
       prefix: string,
-      callback: CompleterCallback): void;
+      callback: CompleterCallback);
   }
 }
 

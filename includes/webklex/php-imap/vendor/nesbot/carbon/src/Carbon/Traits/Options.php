@@ -452,7 +452,7 @@ trait Options
         return $infos;
     }
 
-    protected function addExtraDebugInfos(&$infos): void
+    protected function addExtraDebugInfos(&$infos)
     {
         if ($this instanceof DateTimeInterface) {
             try {

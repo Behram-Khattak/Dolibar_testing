@@ -236,7 +236,7 @@ class TraceablePDO extends PDO
      *
      * @param TracedStatement $stmt
      */
-    public function addExecutedStatement(TracedStatement $stmt) : void
+    public function addExecutedStatement(TracedStatement $stmt) 
     {
         $this->executedStatements[] = $stmt;
     }

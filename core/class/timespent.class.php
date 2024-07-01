@@ -875,7 +875,7 @@ class TimeSpent extends CommonObject
 	 *	@param  int		$id       Id of object
 	 *	@return	void
 	 */
-	public function info($id): void
+	public function info($id)
 	{
 		$sql = "SELECT rowid,";
 		$sql .= " date_creation as datec, tms as datem,";

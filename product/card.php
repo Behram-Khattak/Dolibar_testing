@@ -3007,6 +3007,10 @@ if (is_object($objcanvas) && $objcanvas->displayCanvasExists($canvasdisplayactio
 					print '<tr><td>' . $langs->trans("QCFrequency") . '</td><td>' . $object->qc_frequency . '</td></tr>';
 				}
 
+				// if (getDolGlobalString('PRODUCT_LOT_ENABLE_QUALITY_CONTROL')) {
+					print '<tr><td>Quantity</td><td>' . $object->quantity . '</td></tr>'; 
+				// }
+
 				// Other attributes
 				$parameters = array();
 				include DOL_DOCUMENT_ROOT . '/core/tpl/extrafields_view.tpl.php';

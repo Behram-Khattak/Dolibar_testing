@@ -5047,7 +5047,7 @@ class Product extends CommonObject
 	 * @param  int    $ignore_stock_load 	Ignore stock load
 	 * @return void
 	 */
-	public function fetch_prod_arbo($prod, $compl_path = '', $multiply = 1, $level = 1, $id_parent = 0, $ignore_stock_load = 0): void
+	public function fetch_prod_arbo($prod, $compl_path = '', $multiply = 1, $level = 1, $id_parent = 0, $ignore_stock_load = 0)
 	{
 		// phpcs:enable
 		global $conf, $langs;
@@ -5331,7 +5331,7 @@ class Product extends CommonObject
 	 *
 	 * @return void
 	 */
-	public function get_sousproduits_arbo(): void
+	public function get_sousproduits_arbo()
 	{
 		// phpcs:enable
 		$parent = array();
@@ -6269,7 +6269,7 @@ class Product extends CommonObject
 	 * @param  string $file 	Path to image file
 	 * @return void
 	 */
-	public function delete_photo($file): void
+	public function delete_photo($file)
 	{
 		// phpcs:enable
 		include_once DOL_DOCUMENT_ROOT . '/core/lib/files.lib.php';
@@ -6303,7 +6303,7 @@ class Product extends CommonObject
 	 * @param  string $file Path to file
 	 * @return void
 	 */
-	public function get_image_size($file): void
+	public function get_image_size($file)
 	{
 		// phpcs:enable
 		$file_osencoded = dol_osencode($file);
@@ -6673,7 +6673,7 @@ class Product extends CommonObject
 	 * @param  int $id Id of thirdparty to load
 	 * @return void
 	 */
-	public function info($id): void
+	public function info($id)
 	{
 		$sql = "SELECT p.rowid, p.ref, p.datec as date_creation, p.tms as date_modification,";
 		$sql .= " p.fk_user_author, p.fk_user_modif";

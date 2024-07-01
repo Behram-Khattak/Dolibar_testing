@@ -2363,7 +2363,7 @@ class Lessc
 		return $parser;
 	}
 
-	public function setFormatter($name): void
+	public function setFormatter($name)
 	{
 		$this->formatterName = $name;
 	}
@@ -2381,37 +2381,37 @@ class Lessc
 		return new $className();
 	}
 
-	public function setPreserveComments($preserve): void
+	public function setPreserveComments($preserve)
 	{
 		$this->preserveComments = $preserve;
 	}
 
-	public function registerFunction($name, $func): void
+	public function registerFunction($name, $func)
 	{
 		$this->libFunctions[$name] = $func;
 	}
 
-	public function unregisterFunction($name): void
+	public function unregisterFunction($name)
 	{
 		unset($this->libFunctions[$name]);
 	}
 
-	public function setVariables($variables): void
+	public function setVariables($variables)
 	{
 		$this->registeredVars = array_merge($this->registeredVars, $variables);
 	}
 
-	public function unsetVariable($name): void
+	public function unsetVariable($name)
 	{
 		unset($this->registeredVars[$name]);
 	}
 
-	public function setImportDir($dirs): void
+	public function setImportDir($dirs)
 	{
 		$this->importDir = (array) $dirs;
 	}
 
-	public function addImportDir($dir): void
+	public function addImportDir($dir)
 	{
 		$this->importDir = (array) $this->importDir;
 		$this->importDir[] = $dir;
@@ -2422,7 +2422,7 @@ class Lessc
 		return $this->allParsedFiles;
 	}
 
-	public function addParsedFile($file): void
+	public function addParsedFile($file)
 	{
 		$this->allParsedFiles[realpath($file)] = filemtime($file);
 	}
@@ -2430,7 +2430,7 @@ class Lessc
 	/**
 	 * Uses the current value of $this->count to show line and line number
 	 */
-	public function throwError($msg = null): void
+	public function throwError($msg = null)
 	{
 		if ($this->sourceLoc >= 0) {
 			$this->sourceParser->throwError($msg, $this->sourceLoc);
@@ -4124,7 +4124,7 @@ class lessc_parser
 
 	/* misc functions */
 
-	public function throwError($msg = "parse error", $count = null): void
+	public function throwError($msg = "parse error", $count = null)
 	{
 		$count = is_null($count) ? $this->count : $count;
 
@@ -4308,7 +4308,7 @@ class lessc_formatter_classic
 		return false;
 	}
 
-	public function block($block): void
+	public function block($block)
 	{
 		if ($this->isEmpty($block)) {
 			return;
