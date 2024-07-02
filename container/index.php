@@ -246,15 +246,16 @@ $output = "
         border: 1px solid #000; /* Setting border for table headers and cells */
         padding: 10px;
     }
-    .table thead th {
+    .table > thead > th {
         background-color: #ffc107; /* Yellow color for table header */
         color: #000; /* Black text color */
+        border :1px solid black;
     }
    
     
 </style>
 
-<div class='container-fluid'> <!-- Use container-fluid for full-width responsiveness -->
+<div class='container-fluid mt-5'> <!-- Use container-fluid for full-width responsiveness -->
     <div class='row justify-content-center'>
         <div class='col-md-12'>
                     <div class='table-responsive'>
