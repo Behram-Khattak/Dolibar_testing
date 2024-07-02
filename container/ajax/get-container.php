@@ -27,19 +27,23 @@ try {
 
 
 
+  
+
         $viewURL = DOL_URL_ROOT . '/container/ajax/view-container.php';
 
         $output = "";
         if ($db->num_rows($result) > 0) {
             while ($row = $db->fetch_object($result)) {
-                $output .= "<tr class='oddeven'>
-                    <th scope='row'>{$row->rowid}</th>
+                $output .= "
+                
+                <tr class='oddeven'>
+                    <td scope='row' class='tdoverflowmax250'>{$row->rowid}</td>
                     <td class='tdoverflowmax250'>{$row->container_id}</td>
                     <td  class='tdoverflowmax250'>{$row->container_name}</td>
                     <td  class='tdoverflowmax250'>{$row->container_type}</td>
                     <td  class='tdoverflowmax250'>{$row->arrival_date}</td>
-                    <td  class='tdoverflowmax250'><a href='{$viewURL}?rowid={$row->rowid}'><span class='fas fa-eye infobox-action pictofixedwidth'></span></a>
-                    <button><span class='fas fa-pen infobox-action pictofixedwidth'></span></button><button id='deleteContainer' data-id='{$row->rowid}'><span class='fas fa-trash infobox-action pictofixedwidth'></span></button></td>
+                    <td  class='tdoverflowmax250'><a href='{$viewURL}?rowid={$row->rowid}'><span class='fas fa-eye infobox-action pictofixedwidth pr-3'></span></a>
+                    <a href='' ><span class='fas fa-pen infobox-action pictofixedwidth mx-3 ' style='color:blue'></span></a><a href='' id='deleteContainer' data-id='{$row->rowid}'><span class='fas fa-trash infobox-action pictofixedwidth '  style='color:red'></span></a></td>
                     </tr>";
             }
         
