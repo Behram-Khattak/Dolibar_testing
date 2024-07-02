@@ -32,15 +32,14 @@ try {
         $output = "";
         if ($db->num_rows($result) > 0) {
             while ($row = $db->fetch_object($result)) {
-                $output .= "<tr>
+                $output .= "<tr class='oddeven'>
                     <th scope='row'>{$row->rowid}</th>
-                    <td>{$row->container_id}</td>
-                    <td>{$row->container_name}</td>
-                    <td>{$row->container_type}</td>
-                    <td>{$row->arrival_date}</td>
-                    <td><a href='{$viewURL}?rowid={$row->rowid}' class='btn btn-success'>View</a></td>
-                    <td><button class='btn btn-success'>Edit</button></td>
-                    <td><button id='deleteContainer' class='btn btn-danger' data-id='{$row->rowid}'>Delete</button></td>
+                    <td class='tdoverflowmax250'>{$row->container_id}</td>
+                    <td  class='tdoverflowmax250'>{$row->container_name}</td>
+                    <td  class='tdoverflowmax250'>{$row->container_type}</td>
+                    <td  class='tdoverflowmax250'>{$row->arrival_date}</td>
+                    <td  class='tdoverflowmax250'><a href='{$viewURL}?rowid={$row->rowid}'><span class='fas fa-eye infobox-action pictofixedwidth'></span></a>
+                    <button><span class='fas fa-pen infobox-action pictofixedwidth'></span></button><button id='deleteContainer' data-id='{$row->rowid}'><span class='fas fa-trash infobox-action pictofixedwidth'></span></button></td>
                     </tr>";
             }
         

@@ -34,7 +34,7 @@ require '../main.inc.php';
 require_once DOL_DOCUMENT_ROOT . '/categories/class/categorie.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/extrafields.class.php';
 require_once DOL_DOCUMENT_ROOT . '/core/class/html.formother.class.php';
-
+echo "<link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css' rel='stylesheet' integrity='sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC' crossorigin='anonymous'>";
 // Load translation files required by the page
 // $langs->load("categories");
 
@@ -258,17 +258,15 @@ $output = "
     <div class='row justify-content-center'>
         <div class='col-md-12'>
                     <div class='table-responsive'>
-                        <table class='table table-bordered table-striped table-hover' style='width:100%;'>
+                        <table class='tagtable nobottomiftotal liste listwithfilterbefore'>
                             <thead>
-                                <tr>
-                                    <th scope='col'>#ID</th>
-                                    <th scope='col'>Container ID</th>
-                                    <th scope='col'>Container Type</th>
-                                    <th scope='col'>Container Name</th>
-                                    <th scope='col'>Container Arrival Date</th>
-                                    <th scope='col'>View</th>
-                                    <th scope='col'>Edit</th>
-                                    <th scope='col'>Delete</th>
+                                <tr class='liste_titre'>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>#ID</th>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>Container ID</th>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>Container Type</th>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>Container Name</th>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>Container Arrival Date</th>
+                                    <th class='wrapcolumntitle liste_titre_sel' scope='col'>Action</th>
                                 </tr>
                             </thead>
                             <tbody id='getContainer'>";

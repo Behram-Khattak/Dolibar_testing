@@ -1108,7 +1108,7 @@ $output = "<div class='row justify-content-center w-100'>
         <div class='card'>
             <div class='card-body' style='margin-bottom: 20px;'> <!-- Added margin-bottom -->
                 <div class='table-responsive'> <!-- Added for responsiveness -->
-                    <table class='table table-bordered'>
+                    <table class='table table-bordered table-stripped table-hover'>
                         <tbody id='getContainer'>";
 
 // Check if there are rows in the result set
