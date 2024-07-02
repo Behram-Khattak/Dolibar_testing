@@ -30,6 +30,9 @@ try {
   
 
         $viewURL = DOL_URL_ROOT . '/container/ajax/view-container.php';
+        $createURL = DOL_URL_ROOT . '/container/ajax/edit-container.php';
+        $deleteURL = DOL_URL_ROOT . '/container/ajax/delete-container.php';
+        
 
         $output = "";
         if ($db->num_rows($result) > 0) {
@@ -43,7 +46,7 @@ try {
                     <td  class='tdoverflowmax250'>{$row->container_type}</td>
                     <td  class='tdoverflowmax250'>{$row->arrival_date}</td>
                     <td  class='tdoverflowmax250'><a href='{$viewURL}?rowid={$row->rowid}'><span class='fas fa-eye infobox-action pictofixedwidth pr-3'></span></a>
-                    <a href='' ><span class='fas fa-pen infobox-action pictofixedwidth mx-3 ' style='color:blue'></span></a><a href='' id='deleteContainer' data-id='{$row->rowid}'><span class='fas fa-trash infobox-action pictofixedwidth '  style='color:red'></span></a></td>
+                    <a href='{$createURL}?rowid={$row->rowid}'><span class='fas fa-pen infobox-action pictofixedwidth mx-3 ' style='color:blue'></span></a><a href='{$deleteURL}?rowid={$row->rowid}' id='deleteContainer' data-id='{$row->rowid}'><span class='fas fa-trash infobox-action pictofixedwidth '  style='color:red'></span></a></td>
                     </tr>";
             }
         
